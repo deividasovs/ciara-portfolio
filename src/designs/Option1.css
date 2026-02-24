@@ -139,9 +139,26 @@
 }
 
 .opt1-project-card {
+    display: block;
+}
+
+.opt1-project-card-link {
     display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+    flex-direction: row;
+    align-items: center;
+    gap: 4rem;
+}
+
+.opt1-project-card.reverse .opt1-project-card-link {
+    flex-direction: row-reverse;
+}
+
+.opt1-project-image-container {
+    flex: 1;
+}
+
+.opt1-project-info {
+    flex: 1;
 }
 
 .opt1-project-image {
@@ -249,5 +266,11 @@
     .opt1-about-grid,
     .opt1-project-grid {
         grid-template-columns: 1fr;
+    }
+
+    .opt1-project-card-link,
+    .opt1-project-card.reverse .opt1-project-card-link {
+        flex-direction: column;
+        gap: 2rem;
     }
 }

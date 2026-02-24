@@ -27,7 +27,6 @@ export const Home: React.FC = () => {
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
                     mixBlendMode: 'multiply',
-                    opacity: 0.08,
                     pointerEvents: 'none',
                     zIndex: 0
                 }} />
