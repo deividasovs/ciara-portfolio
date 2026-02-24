@@ -17,7 +17,7 @@ export const Home: React.FC = () => {
                 </h1>
             </header>
 
-            <section className="opt1-section opt1-projects">
+            <section className="opt1-section opt1-projects" style={{ backgroundImage: "url('/assets/images/bgs/textured-paper-bg1.png')" }}>
                 <h2>Featured Works</h2>
                 <div className="opt1-project-grid">
                     {featuredProjects.map((p) => (
