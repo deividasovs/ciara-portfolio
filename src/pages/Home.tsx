@@ -17,28 +17,30 @@ export const Home: React.FC = () => {
                 </h1>
             </header>
 
-            <section className="opt1-section opt1-projects" style={{ backgroundImage: "url('/assets/images/bgs/textured-paper-bg1.png')" }}>
-                <h2>Featured Works</h2>
-                <div className="opt1-project-grid">
-                    {featuredProjects.map((p) => (
-                        <div key={p.id} className="opt1-project-card">
-                            <Link to={`/projects/${p.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                                <div className="opt1-project-image img-placeholder">
-                                    [Project Image]
-                                </div>
-                                <div className="opt1-project-info" style={{ marginTop: '1.5rem' }}>
-                                    <h3>{p.title}</h3>
-                                    <span className="opt1-role">{p.role} — {p.date}</span>
-                                    <p>{p.desc}</p>
-                                </div>
-                            </Link>
-                        </div>
-                    ))}
-                </div>
-                <div style={{ textAlign: 'center', marginTop: '4rem' }}>
-                    <Link to="/projects" className="opt1-view-link" style={{ fontSize: '1.2rem' }}>
-                        View All Projects
-                    </Link>
+            <section className="opt1-section opt1-projects" style={{ backgroundImage: "url('/assets/images/bgs/textured-paper-bg1.png')", backgroundColor: '#FDFDFC', backgroundBlendMode: 'multiply' }}>
+                <div className="opt1-projects-content">
+                    <h2>Featured Works</h2>
+                    <div className="opt1-project-grid">
+                        {featuredProjects.map((p) => (
+                            <div key={p.id} className="opt1-project-card">
+                                <Link to={`/projects/${p.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                    <div className="opt1-project-image img-placeholder">
+                                        [Project Image]
+                                    </div>
+                                    <div className="opt1-project-info" style={{ marginTop: '1.5rem' }}>
+                                        <h3>{p.title}</h3>
+                                        <span className="opt1-role">{p.role} — {p.date}</span>
+                                        <p>{p.desc}</p>
+                                    </div>
+                                </Link>
+                            </div>
+                        ))}
+                    </div>
+                    <div style={{ textAlign: 'center', margin: '4rem 0' }}>
+                        <Link to="/projects" className="opt1-view-link" style={{ fontSize: '1.2rem' }}>
+                            View All Projects
+                        </Link>
+                    </div>
                 </div>
             </section>
 
