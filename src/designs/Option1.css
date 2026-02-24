@@ -119,8 +119,8 @@
 
 .opt1-project-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 3rem 4rem;
+    grid-template-columns: 1fr;
+    gap: 3rem;
 }
 
 .opt1-project-card {
