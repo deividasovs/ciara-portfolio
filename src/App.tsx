@@ -1,12 +1,21 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Home } from './pages/Home';
+import { Projects } from './pages/Projects';
+import { ProjectDetail } from './pages/ProjectDetail';
 import './App.css';
-import { Option1 } from './designs/Option1';
 
 function App() {
   return (
-    <div className="App">
-      <Option1 />
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/:id" element={<ProjectDetail />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
