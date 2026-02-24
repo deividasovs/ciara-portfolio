@@ -15,9 +15,6 @@ export const Home: React.FC = () => {
                 <h1 className="opt1-title">
                     <i>Designing</i> narrative<br />through texture & form.
                 </h1>
-                <p className="opt1-subtitle">
-                    Costume Design Graduate from the University of Edinburgh.
-                </p>
             </header>
 
             <section className="opt1-section opt1-projects">

@@ -22,7 +22,6 @@ export const Footer: React.FC = () => {
     return (
         <footer className="opt1-footer">
             <h2>Let's Collaborate</h2>
-            <p>Available for freelance opportunities and full-time roles.</p>
             <a href="mailto:hello@example.com" className="opt1-email">hello@example.com</a>
             <div className="opt1-socials">
                 <a href="#instagram">Instagram</a>
