@@ -3,11 +3,13 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { Projects } from './pages/Projects';
 import { ProjectDetail } from './pages/ProjectDetail';
+import { ScrollToHash } from './components/ScrollToHash';
 import './App.css';
 
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToHash />
       <div className="App">
         <Routes>
           <Route path="/" element={<Home />} />
