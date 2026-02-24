@@ -23,7 +23,7 @@ export const Projects: React.FC = () => {
                                 </div>
                                 <div className="opt1-project-info" style={{ marginTop: '1.5rem' }}>
                                     <h3 style={{ fontSize: '1.8rem', marginBottom: '0.5rem' }}>{p.title}</h3>
-                                    <span className="opt1-role">{p.role} — {p.date}</span>
+                                    <span className="opt1-role">{p.date}</span>
                                 </div>
                             </Link>
                         </div>

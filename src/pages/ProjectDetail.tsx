@@ -36,10 +36,6 @@ export const ProjectDetail: React.FC = () => {
 
                 <div style={{ display: 'flex', gap: '2rem', borderBottom: '1px solid #EBEBEB', paddingBottom: '2rem', marginBottom: '4rem' }}>
                     <div>
-                        <span style={{ display: 'block', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#8C8881' }}>Role</span>
-                        <span style={{ fontSize: '1.1rem' }}>{project.role}</span>
-                    </div>
-                    <div>
                         <span style={{ display: 'block', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#8C8881' }}>Year</span>
                         <span style={{ fontSize: '1.1rem' }}>{project.date}</span>
                     </div>

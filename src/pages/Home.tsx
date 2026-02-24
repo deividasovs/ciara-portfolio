@@ -44,7 +44,7 @@ export const Home: React.FC = () => {
                                     </div>
                                     <div className="opt1-project-info">
                                         <h3>{p.title}</h3>
-                                        <span className="opt1-role">{p.role} — {p.date}</span>
+                                        <span className="opt1-role">{p.date}</span>
                                         <p>{p.desc}</p>
                                     </div>
                                 </Link>
