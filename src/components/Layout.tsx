@@ -10,7 +10,7 @@ export const Navbar: React.FC = () => {
             </Link>
             <div className="opt1-links">
                 <Link to="/">Overview</Link>
-                <Link to="/projects">Archive</Link>
+                <Link to="/projects">Projects</Link>
                 <a href="#about">About</a>
                 <a href="#contact">Contact</a>
             </div>
