@@ -24,7 +24,7 @@ export const Home: React.FC = () => {
                     top: 0, left: 0, right: 0, bottom: 0,
                     backgroundImage: "url('/assets/images/bgs/textured-paper-bg1.png')",
                     backgroundSize: 'cover',
-                    backgroundPosition: 'center',
+                    backgroundPosition: 'top',
                     backgroundRepeat: 'no-repeat',
                     mixBlendMode: 'multiply',
                     pointerEvents: 'none',
