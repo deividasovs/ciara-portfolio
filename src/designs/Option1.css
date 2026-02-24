@@ -100,6 +100,13 @@
     margin-bottom: 3rem;
 }
 
+.opt1-projects {
+    background-image: url('/assets/images/bgs/textured-paper-bg1.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 .opt1-about-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
