@@ -11,8 +11,8 @@ export const Navbar: React.FC = () => {
             <div className="opt1-links">
                 <Link to="/">Overview</Link>
                 <Link to="/projects">Projects</Link>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
+                <Link to="/#about">About</Link>
+                <Link to="/#contact">Contact</Link>
             </div>
         </nav>
     );
