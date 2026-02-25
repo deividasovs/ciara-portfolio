@@ -11,16 +11,16 @@ export interface Project {
 
 export const projectsData: Project[] = [
     {
-        id: 'midsummer-nights-dream',
-        title: "A Midsummer Night's Dream",
-        desc: 'Ethereal organic textures and structured fairy courts.',
-        longDesc: "For this production of A Midsummer Night's Dream, I explored the dichotomy between the rigid Athenian court and the wild, untamed nature of the fairy realm. I focused on heavily textured organic materials—raw silks, dyed wools, and structured leather—to create a world that felt both ancient and dreamlike.",
+        id: 'the-paperbag-princess',
+        title: "The Paperbag Princess",
+        desc: 'A high fashion paper world exploring a gender flipped fairytale.',
+        longDesc: "For this production of The Paperbag Princess, I explored the dichotomy between the rigid Athenian court and the wild, untamed nature of the fairy realm. I focused on heavily textured organic materials—raw silks, dyed wools, and structured leather—to create a world that felt both ancient and dreamlike.",
         date: '2025',
         featured: true,
-        thumbnailUrl: '/assets/images/projects/midsummer-thumb.jpg',
+        thumbnailUrl: '/assets/images/projects/paperbag-princess/princess-back.PNG',
         images: [
-            '/assets/images/projects/midsummer-1.jpg',
-            '/assets/images/projects/midsummer-2.jpg'
+            '/assets/images/projects/paperbag-princess/princess-back.PNG',
+            '/assets/images/projects/paperbag-princess/princess-front.PNG'
         ]
     },
 
@@ -44,7 +44,7 @@ export const projectsData: Project[] = [
         desc: 'Berlin underground glamour meeting decaying elegance.',
         longDesc: 'This vision for Cabaret leaned heavily into the concept of beautiful decay. The costumes of the Kit Kat Klub performers were designed to look stunning from afar but revealed frayed edges, tarnished sequins, and repaired tears up close—mirroring the societal collapse occurring outside the club walls.',
         date: '2023',
-        featured: false,
+        featured: true,
         thumbnailUrl: '/assets/images/projects/cabaret-thumb.jpg',
         images: [
             '/assets/images/projects/cabaret-1.jpg',
