@@ -130,10 +130,7 @@
 .opt1-about-image {
     aspect-ratio: 1/1;
     background-color: #F0EEEB;
-    border-radius: 50%;
     overflow: hidden;
-    max-width: 400px;
-    margin: 0 auto;
 }
 
 .opt1-project-grid {
