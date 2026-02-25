@@ -31,11 +31,10 @@ export const projectsData: Project[] = [
         longDesc: 'Working as a wardrobe assistant on The Crucible involved rigorous historical research into 17th-century Puritan dress. We utilized a highly restricted color palette of blacks, greys, and muddy browns to emphasize the psychological oppression of the narrative. My role involved sourcing period-accurate fabrics and assisting with the distressing process to give the garments a lived-in, arduous feel.',
         date: '2024',
         featured: true,
-        thumbnailUrl: '/assets/images/projects/crucible-thumb.jpg',
+        thumbnailUrl: '/assets/images/projects/Coco/pepita-white.png',
         images: [
-            '/assets/images/projects/crucible-1.jpg',
-            '/assets/images/projects/crucible-2.jpg',
-            '/assets/images/projects/crucible-3.jpg'
+            '/assets/images/projects/Coco/pepita-white.png',
+            '/assets/images/projects/Coco/pepita-illustration.png'
         ]
     },
     {
