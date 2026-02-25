@@ -13,7 +13,7 @@ export const Home: React.FC = () => {
 
             <header className="opt1-hero">
                 <h1 className="opt1-title">
-                    <i>Designing</i> narrative<br />through texture & form.
+                    <i><u>Ciara</u></i> is<br />class.
                 </h1>
             </header>
 
@@ -64,14 +64,23 @@ export const Home: React.FC = () => {
                     <div className="opt1-about-text">
                         <h2>About me.</h2>
                         <p style={{ marginBottom: '1.5rem' }}>
-                            I am a performance costume designer with a passion for historical accuracy intertwined with surreal, avant-garde elements.
+                            My name is Ciara, and I’m a Performance Costume graduate from the University of Edinburgh. with an interest in spectacle arts — I love building immersive concepts and using costume to create memorable and fun experiences.
+                            I’m always looking to expand my skills, collaborate with other creatives, and keep pushing my ideas further.
+                            <br /><br />
+
+                            Throughout this portfolio you’ll see a range of concept-led projects that reflect my interest in immersive storytelling, alongside the technical skills and experimentation I developed during my degree.
+                            Thank you for taking the time to look through my work — I hope you enjoy it.
                         </p>
                         <p>
-                            My process starts with the page—understanding the character's psychology before translating it into raw materials, silhouettes, and color palettes. A graduate of the University of Edinburgh performance Costume Design course, I bring stories to life one stitch at a time.
+
                         </p>
                     </div>
-                    <div className="opt1-about-image img-placeholder">
-                        [Portrait Thumbnail]
+                    <div className="opt1-about-image">
+                        <img
+                            src="/assets/images/projects/about-me/profile-picture.jpg"
+                            alt="Ciara's Portrait"
+                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        />
                     </div>
                 </div>
             </section>
