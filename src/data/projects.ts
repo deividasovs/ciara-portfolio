@@ -14,7 +14,7 @@ export const projectsData: Project[] = [
         id: 'the-paperbag-princess',
         title: "The Paperbag Princess",
         desc: 'A high fashion paper world exploring a gender flipped fairytale.',
-        longDesc: "For this production of The Paperbag Princess, I explored the dichotomy between the rigid Athenian court and the wild, untamed nature of the fairy realm. I focused on heavily textured organic materials—raw silks, dyed wools, and structured leather—to create a world that felt both ancient and dreamlike.",
+        longDesc: "Princess Elizabeth had all the dresses a storybook royal could dream of. But when a dragon scorches her castle, steals her prince, and leaves her with nothing but ashes and a paper bag, she doesn't crumble — she rises. In her shredded dignity and a makeshift outfit, she faces fire, tricks a monster, and saves the prince. But when he mocks her for how she looks, Elizabeth sees the truth: the fairytale isn’t real — but she is. She tears off the paper bag and becomes something new — a princess of her own making.Bold, raw, and reassembled, her final look is a declaration: no prince, no crown, no rules.Just power, paper, and pride.",
         date: '2026',
         featured: true,
         thumbnailUrl: '/assets/images/projects/paperbag-princess/princess-back.PNG',
