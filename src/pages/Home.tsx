@@ -38,8 +38,8 @@ export const Home: React.FC = () => {
                             <div key={p.id} className={`opt1-project-card ${index % 2 === 0 ? 'reverse' : ''}`}>
                                 <Link to={`/projects/${p.id}`} className="opt1-project-card-link" style={{ textDecoration: 'none', color: 'inherit' }}>
                                     <div className="opt1-project-image-container">
-                                        <div className="opt1-project-image img-placeholder">
-                                            [Project Image]
+                                        <div className="opt1-project-image" style={{ overflow: 'hidden' }}>
+                                            <img src={p.thumbnailUrl} alt={p.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                         </div>
                                     </div>
                                     <div className="opt1-project-info">

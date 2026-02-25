@@ -41,19 +41,23 @@ export const ProjectDetail: React.FC = () => {
                     </div>
                 </div>
 
-                <div className="img-placeholder" style={{ width: '100%', aspectRatio: '16/9', marginBottom: '4rem' }}>
-                    [Hero Image]
+                <div style={{ width: '100%', aspectRatio: '16/9', marginBottom: '4rem', overflow: 'hidden', backgroundColor: '#F0EEEB' }}>
+                    <img src={project.thumbnailUrl} alt={`${project.title} hero`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
 
                 <div style={{ fontSize: '1.25rem', lineHeight: 1.8, color: '#444', maxWidth: '800px', margin: '0 auto 6rem auto' }}>
                     <p>{project.longDesc}</p>
                 </div>
 
-                {/* Mock detailed image gallery */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginBottom: '6rem' }}>
-                    <div className="img-placeholder" style={{ aspectRatio: '3/4' }}>[Detail 1]</div>
-                    <div className="img-placeholder" style={{ aspectRatio: '3/4', marginTop: '4rem' }}>[Detail 2]</div>
-                </div>
+                {project.images && project.images.length > 0 && (
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginBottom: '6rem' }}>
+                        {project.images.map((img, index) => (
+                            <div key={index} style={{ aspectRatio: '3/4', marginTop: index % 2 !== 0 ? '4rem' : '0', overflow: 'hidden', backgroundColor: '#F0EEEB' }}>
+                                <img src={img} alt={`${project.title} detail ${index + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            </div>
+                        ))}
+                    </div>
+                )}
 
             </main>
 

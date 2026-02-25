@@ -18,8 +18,8 @@ export const Projects: React.FC = () => {
                     {projectsData.map((p) => (
                         <div key={p.id} className="opt1-project-card" style={{ marginBottom: '4rem' }}>
                             <Link to={`/projects/${p.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                                <div className="opt1-project-image img-placeholder" style={{ aspectRatio: '4/3' }}>
-                                    [Thumbnail {p.title}]
+                                <div className="opt1-project-image" style={{ aspectRatio: '4/3', overflow: 'hidden' }}>
+                                    <img src={p.thumbnailUrl} alt={p.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                 </div>
                                 <div className="opt1-project-info" style={{ marginTop: '1.5rem' }}>
                                     <h3 style={{ fontSize: '1.8rem', marginBottom: '0.5rem' }}>{p.title}</h3>
