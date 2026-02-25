@@ -14,12 +14,12 @@ export const Projects: React.FC = () => {
                     All Works
                 </h1>
 
-                <div className="opt1-project-grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(400px, 1fr))' }}>
+                <div className="opt1-project-grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(450px, 1fr))' }}>
                     {projectsData.map((p) => (
                         <div key={p.id} className="opt1-project-card" style={{ marginBottom: '4rem' }}>
                             <Link to={`/projects/${p.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                                <div className="opt1-project-image" style={{ aspectRatio: '4/3', overflow: 'hidden' }}>
-                                    <img src={p.thumbnailUrl} alt={p.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                <div className="opt1-project-image" style={{ aspectRatio: '3/4', overflow: 'hidden' }}>
+                                    <img src={p.thumbnailUrl} alt={p.title} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                                 </div>
                                 <div className="opt1-project-info" style={{ marginTop: '1.5rem' }}>
                                     <h3 style={{ fontSize: '1.8rem', marginBottom: '0.5rem' }}>{p.title}</h3>

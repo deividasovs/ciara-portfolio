@@ -154,7 +154,7 @@
 }
 
 .opt1-project-image-container {
-    flex: 1;
+    flex: 1.3;
 }
 
 .opt1-project-info {
@@ -162,8 +162,7 @@
 }
 
 .opt1-project-image {
-    aspect-ratio: 4/3;
-    background-color: #F0EEEB;
+    aspect-ratio: 3/4;
     transition: transform 0.4s ease;
 }
 
