@@ -15,7 +15,7 @@ export const projectsData: Project[] = [
         title: "The Paperbag Princess",
         desc: 'A high fashion paper world exploring a gender flipped fairytale.',
         longDesc: "For this production of The Paperbag Princess, I explored the dichotomy between the rigid Athenian court and the wild, untamed nature of the fairy realm. I focused on heavily textured organic materials—raw silks, dyed wools, and structured leather—to create a world that felt both ancient and dreamlike.",
-        date: '2025',
+        date: '2026',
         featured: true,
         thumbnailUrl: '/assets/images/projects/paperbag-princess/princess-back.PNG',
         images: [
