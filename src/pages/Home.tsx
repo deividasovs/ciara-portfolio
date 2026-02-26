@@ -11,11 +11,13 @@ export const Home: React.FC = () => {
         <div className="option1-container fade-in">
             <Navbar />
 
-            <header className="opt1-hero">
-                <h1 className="opt1-title">
-                    <i><u>Ciara Burns Costume</u></i>
-                </h1>
-            </header>
+            <div className="opt1-hero-background" style={{ backgroundImage: "url('/assets/images/projects/Lenfanet-les-sortileges/Photoshoot1.JPG')" }}>
+                <header className="opt1-hero">
+                    <h1 className="opt1-title">
+                        <i><u>Ciara Burns Costume</u></i>
+                    </h1>
+                </header>
+            </div>
 
             <section className="opt1-section opt1-projects" style={{ position: 'relative' }}>
                 {/* Background overlay that makes black pixels transparent */}

@@ -32,6 +32,9 @@
     align-items: center;
     padding: 2rem 4rem;
     border-bottom: 1px solid #EBEBEB;
+    background-color: #FFFFFF;
+    position: relative;
+    z-index: 100;
 }
 
 .opt1-logo {
@@ -59,8 +62,30 @@
     opacity: 0.6;
 }
 
+.opt1-hero-background {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+}
+
+.opt1-hero-background::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.65);
+    /* light opacity overlay */
+    z-index: 1;
+}
+
 .opt1-hero {
-    padding: 10rem 4rem;
+    position: relative;
+    z-index: 2;
+    padding: 10rem 4rem 18rem 4rem;
+    /* Removed bottom padding so no whitespace to the next section */
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -75,8 +100,8 @@
 }
 
 .opt1-title i {
-    color: #8C8881;
-    /* subtle warm gray */
+    color: #000;
+    /* pure black for stronger contrast */
 }
 
 .opt1-subtitle {
@@ -97,7 +122,8 @@
     font-size: 2.5rem;
     font-weight: 400;
     margin-top: 0;
-    margin-bottom: 3rem;
+    margin-bottom: 0;
+    /* Removed margin-bottom to avoid whitespace */
 }
 
 .opt1-projects {
@@ -105,8 +131,10 @@
     background-position: center;
     background-repeat: no-repeat;
     max-width: 100%;
+    margin-top: -140px;
     padding-left: 0;
     padding-right: 0;
+    z-index: 1;
 }
 
 .opt1-projects-content {
