@@ -32,26 +32,26 @@ export const Home: React.FC = () => {
                 }} />
 
                 <div className="opt1-projects-content" style={{ position: 'relative', zIndex: 1 }}>
-                    <h2>Featured Works</h2>
+                    <h2>Featured Projects</h2>
                     <div className="opt1-project-grid">
                         {featuredProjects.map((p, index) => (
                             <div key={p.id} className={`opt1-project-card ${index % 2 === 0 ? 'reverse' : ''}`}>
-                                <Link to={`/projects/${p.id}`} className="opt1-project-card-link" style={{ textDecoration: 'none', color: 'inherit' }}>
-                                    <div className="opt1-project-image-container">
+                                <div className="opt1-project-card-link">
+                                    <Link to={`/projects/${p.id}`} className="opt1-project-image-container" style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}>
                                         <div className="opt1-project-image" style={{ overflow: 'hidden' }}>
                                             <img src={p.thumbnailUrl} alt={p.title} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                                         </div>
-                                    </div>
+                                    </Link>
                                     <div className="opt1-project-info">
                                         <h3>{p.title}</h3>
                                         <span className="opt1-role">{p.date}</span>
                                         <p>{p.desc}</p>
                                     </div>
-                                </Link>
+                                </div>
                             </div>
                         ))}
                     </div>
-                    <div style={{ textAlign: 'center', margin: '4rem 0' }}>
+                    <div style={{ textAlign: 'center', margin: '1rem 0' }}>
                         <Link to="/projects" className="opt1-view-link" style={{ fontSize: '1.2rem' }}>
                             View All Projects
                         </Link>
@@ -62,7 +62,7 @@ export const Home: React.FC = () => {
             <section id="about" className="opt1-section opt1-about" style={{ borderTop: 'none', paddingTop: 0 }}>
                 <div className="opt1-about-grid">
                     <div className="opt1-about-text">
-                        <h2>About me.</h2>
+                        <h2>About me</h2>
                         <p style={{ marginBottom: '1.5rem' }}>
                             My name is Ciara, and I’m a Performance Costume graduate from the University of Edinburgh. with an interest in spectacle arts — I love building immersive concepts and using costume to create memorable and fun experiences.
                             I’m always looking to expand my skills, collaborate with other creatives, and keep pushing my ideas further.

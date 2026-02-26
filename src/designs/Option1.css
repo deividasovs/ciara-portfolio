@@ -139,7 +139,7 @@
 .opt1-project-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 0;
 }
 
 .opt1-project-card {
@@ -170,7 +170,7 @@
     transition: transform 0.4s ease;
 }
 
-.opt1-project-card:hover .opt1-project-image {
+.opt1-project-image-container:hover .opt1-project-image {
     transform: scale(1.02);
 }
 
@@ -207,7 +207,7 @@
 
 .opt1-footer {
     text-align: center;
-    padding: 8rem 4rem;
+    padding: 8rem 2rem;
     background-color: #F7F6F4;
 }
 
