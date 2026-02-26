@@ -13,7 +13,7 @@ export const Home: React.FC = () => {
 
             <header className="opt1-hero">
                 <h1 className="opt1-title">
-                    <i><u>Ciara</u></i> is<br />class.
+                    <i><u>Ciara Burns Costume</u></i>
                 </h1>
             </header>
 

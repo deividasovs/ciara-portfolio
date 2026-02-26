@@ -21,10 +21,12 @@ export const Footer: React.FC = () => {
     return (
         <footer className="opt1-footer">
             <h2>Let's Collaborate</h2>
-            <a href="mailto:hello@example.com" className="opt1-email">hello@example.com</a>
+            <a href="mailto:ciara@ciaraburnscostume.com" className="opt1-email">ciara@ciaraburnscostume.com</a>
             <div className="opt1-socials">
-                <a href="#instagram">Instagram</a>
-                <a href="#linkedin">LinkedIn</a>
+                <a href="https://www.instagram.com/ciaraburns_design">Instagram</a>
+            </div>
+            <div className="opt1-copyright">
+                CiaraBurnsCostume &copy; {new Date().getFullYear()}
             </div>
         </footer>
     );

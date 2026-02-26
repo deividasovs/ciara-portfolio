@@ -11,7 +11,7 @@ export const Projects: React.FC = () => {
 
             <main style={{ flex: 1, padding: '6rem 4rem', maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
                 <h1 style={{ fontFamily: 'Playfair Display, serif', fontSize: '4rem', fontWeight: 400, marginBottom: '2rem' }}>
-                    All Works
+                    Project showcase
                 </h1>
 
                 <div className="opt1-project-grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(450px, 1fr))' }}>

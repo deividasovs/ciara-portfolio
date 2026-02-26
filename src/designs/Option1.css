@@ -252,6 +252,12 @@
     color: #000;
 }
 
+.opt1-copyright {
+    margin-top: 4rem;
+    font-size: 0.85rem;
+    color: #8C8881;
+}
+
 @media (max-width: 768px) {
 
     .opt1-nav,

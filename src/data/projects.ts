@@ -6,6 +6,7 @@ export interface Project {
     date: string;
     featured: boolean;
     thumbnailUrl: string;
+    topHorizontalImage?: string;
     images: string[];
 }
 
@@ -18,6 +19,7 @@ export const projectsData: Project[] = [
         date: '2026',
         featured: true,
         thumbnailUrl: '/assets/images/projects/paperbag-princess/princess-back.PNG',
+        topHorizontalImage: '/assets/images/projects/paperbag-princess/prince.PNG', // Make sure to include this line in each different section if you want to have a different top image to the featured one. 
         images: [
             '/assets/images/projects/paperbag-princess/princess-back.PNG',
             '/assets/images/projects/paperbag-princess/princess-front.PNG'
@@ -29,7 +31,7 @@ export const projectsData: Project[] = [
         title: 'Coco',
         desc: 'A redesign of Pixar\'s Coco, celebrating mexican heritage and parade culture.',
         longDesc: 'Working as a wardrobe assistant on The Crucible involved rigorous historical research into 17th-century Puritan dress. We utilized a highly restricted color palette of blacks, greys, and muddy browns to emphasize the psychological oppression of the narrative. My role involved sourcing period-accurate fabrics and assisting with the distressing process to give the garments a lived-in, arduous feel.',
-        date: '2024',
+        date: '2026',
         featured: true,
         thumbnailUrl: '/assets/images/projects/Coco/pepita-white.png',
         images: [
@@ -56,7 +58,7 @@ export const projectsData: Project[] = [
         title: 'Macbeth',
         desc: 'Avant-garde, brutalist armor and stark silhouettes.',
         longDesc: "As a concept artist for this avant-garde interpretation of Macbeth, I focused on geometric, brutalist silhouettes. The armor designs were inspired by modern architectural forms rather than traditional historical armor, symbolizing the cold, rigid mechanical nature of Macbeth's ambition.",
-        date: '2023',
+        date: '2025',
         featured: false,
         thumbnailUrl: '/assets/images/projects/macbeth-thumb.jpg',
         images: [
