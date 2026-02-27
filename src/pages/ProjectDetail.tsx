@@ -28,7 +28,7 @@ export const ProjectDetail: React.FC = () => {
         <div className="option1-container fade-in" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
             <Navbar />
 
-            <main style={{ flex: 1, padding: '4rem', maxWidth: '1000px', margin: '0 auto', width: '100%' }}>
+            <main style={{ flex: 1, padding: '4rem', maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
                 <Link to="/projects" className="opt1-role" style={{ display: 'inline-block', marginBottom: '2rem', textDecoration: 'none' }}>
                     ← Back to Works
                 </Link>
@@ -44,8 +44,8 @@ export const ProjectDetail: React.FC = () => {
                     </div>
                 </div>
 
-                <div style={{ width: '100%', aspectRatio: '16/9', marginBottom: '4rem', overflow: 'hidden' }}>
-                    <img src={topImage} alt={`${project.title} hero`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <div style={{ width: '100%', marginBottom: '4rem' }}>
+                    <img src={topImage} alt={`${project.title} hero`} style={{ width: '100%', height: 'auto', display: 'block' }} />
                 </div>
 
                 <div style={{ fontSize: '1.25rem', lineHeight: 1.8, color: '#444', maxWidth: '800px', margin: '0 auto 6rem auto' }}>
@@ -55,8 +55,8 @@ export const ProjectDetail: React.FC = () => {
                 {detailImages.length > 0 && (
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginBottom: '6rem' }}>
                         {detailImages.map((img, index) => (
-                            <div key={index} style={{ aspectRatio: '3/4', overflow: 'hidden' }}>
-                                <img src={img} alt={`${project.title} detail ${index + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            <div key={index} style={{ width: '100%' }}>
+                                <img src={img} alt={`${project.title} detail ${index + 1}`} style={{ width: '100%', height: 'auto', display: 'block' }} />
                             </div>
                         ))}
                     </div>

@@ -1,3 +1,5 @@
+import { start } from "repl";
+
 export interface Project {
     id: string;
     title: string;
@@ -42,15 +44,14 @@ export const projectsData: Project[] = [
     {
         id: 'spaceship-earth',
         title: 'Spaceship Earth',
-        desc: 'A festival set 100 years from now.',
-        longDesc: 'This vision for Cabaret leaned heavily into the concept of beautiful decay. The costumes of the Kit Kat Klub performers were designed to look stunning from afar but revealed frayed edges, tarnished sequins, and repaired tears up close—mirroring the societal collapse occurring outside the club walls.',
+        desc: 'A bioluminescent festival',
+        longDesc: 'This project envisions a sustainable music festival set 100 years from now. Inspired by bioluminescent organisms, I imagined a world where genetically modified plants provide natural lighting and clean air. From this idea, I designed characters that coexist with humans, with costumes reflecting bioluminescence and sustainable values. My final design was inspired by coral and made using discarded tent fabric, highlighting reuse and eco-conscious design in future performance.',
         date: '2025',
         featured: true,
-        thumbnailUrl: '/assets/images/projects/spaceship-earth/coral-illustration.PNG',
+        thumbnailUrl: '/assets/images/projects/spaceship-earth/coralposterized1.png',
         images: [
-            '/assets/images/projects/spaceship-earth/coral-illustration.PNG',
-            '/assets/images/projects/cabaret-1.jpg',
-            '/assets/images/projects/cabaret-2.jpg'
+            '/assets/images/projects/spaceship-earth/coralposterized1.png',
+            '/assets/images/projects/spaceship-earth/coralcollage.jpg'
         ]
     },
     {
