@@ -32,13 +32,13 @@ export const projectsData: Project[] = [
         id: 'Coco',
         title: 'Coco',
         desc: 'A redesign of Pixar\'s Coco, celebrating mexican heritage and parade culture.',
-        longDesc: 'Working as a wardrobe assistant on The Crucible involved rigorous historical research into 17th-century Puritan dress. We utilized a highly restricted color palette of blacks, greys, and muddy browns to emphasize the psychological oppression of the narrative. My role involved sourcing period-accurate fabrics and assisting with the distressing process to give the garments a lived-in, arduous feel.',
+        longDesc: 'Exploring the vibrant culture of Mexico and Dia de los Muertos through the lens of Pixar\'s Coco. This project is a celebration of life, death, and the importance of family and rememberance. Looking into both traditional Mexican dress and parade culture, bringing in elemnets of lantern puppetry to bring the alebrijes inspired spirit guides to life on stage.',
         date: '2026',
         featured: true,
-        thumbnailUrl: '/assets/images/projects/Coco/pepita-white.png',
+        thumbnailUrl: '/assets/images/projects/coco/pepita-white.png',
         images: [
-            '/assets/images/projects/Coco/pepita-white.png',
-            '/assets/images/projects/Coco/pepita-illustration.png'
+            '/assets/images/projects/coco/pepita-white.png',
+            '/assets/images/projects/coco/pepita-illustration.png'
         ]
     },
     {
@@ -48,22 +48,24 @@ export const projectsData: Project[] = [
         longDesc: 'This project envisions a sustainable music festival set 100 years from now. Inspired by bioluminescent organisms, I imagined a world where genetically modified plants provide natural lighting and clean air. From this idea, I designed characters that coexist with humans, with costumes reflecting bioluminescence and sustainable values. My final design was inspired by coral and made using discarded tent fabric, highlighting reuse and eco-conscious design in future performance.',
         date: '2025',
         featured: true,
-        thumbnailUrl: '/assets/images/projects/spaceship-earth/coralposterized1.png',
+        thumbnailUrl: '/assets/images/projects/spaceship-earth/coral-illustration.PNG',
+        topHorizontalImage: '/assets/images/projects/spaceship-earth/coralposterized1.png',
         images: [
             '/assets/images/projects/spaceship-earth/coralposterized1.png',
-            '/assets/images/projects/spaceship-earth/coralcollage.jpg'
+            '/assets/images/projects/spaceship-earth/coral-collage.png'
         ]
     },
     {
         id: 'macbeth',
         title: 'Macbeth',
-        desc: 'Avant-garde, brutalist armor and stark silhouettes.',
-        longDesc: "As a concept artist for this avant-garde interpretation of Macbeth, I focused on geometric, brutalist silhouettes. The armor designs were inspired by modern architectural forms rather than traditional historical armor, symbolizing the cold, rigid mechanical nature of Macbeth's ambition.",
+        desc: '.',
+        longDesc: "A redesign project of Macbeth by William Shakespeare, this brief challenged me to reinterpret the play in a randomly assigned historical period, using orange waxed cotton paired with donated Harris Tweed. I reimagined Macbeth as a Macaroni man — a flamboyant, extravagantly dressed gentleman of the 1770s. The exaggerated silhouette, bold colour, and rich textures reflect his ambition, insecurity, and descent into excess, using 18th-century dandyism to mirror his psychological unraveling. I drafted and adapted the garment from an original historical pattern, refining it to modern proportions while maintaining period authenticity.",
         date: '2025',
         featured: false,
-        thumbnailUrl: '/assets/images/projects/macbeth-thumb.jpg',
+        thumbnailUrl: '/assets/images/projects/Macbeth/macbethillustration-back.png',
+        topHorizontalImage: '/assets/images/projects/Macbeth/macbethillustration-back.png',
         images: [
-            '/assets/images/projects/macbeth-1.jpg'
+            '/assets/images/projects/Macbeth/macbethillustration-back.png'
         ]
     }
 ];

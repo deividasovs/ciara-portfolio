@@ -18,8 +18,8 @@ export const Projects: React.FC = () => {
                     {projectsData.map((p) => (
                         <div key={p.id} className="opt1-project-card" style={{ marginBottom: '4rem' }}>
                             <Link to={`/projects/${p.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                                <div className="opt1-project-image" style={{ aspectRatio: '3/4', overflow: 'hidden' }}>
-                                    <img src={p.thumbnailUrl} alt={p.title} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                                <div className="opt1-project-image" style={{ display: 'flex', justifyContent: 'center', backgroundColor: 'transparent' }}>
+                                    <img src={p.thumbnailUrl} alt={p.title} style={{ maxWidth: '100%', height: 'auto', maxHeight: '500px', objectFit: 'contain', display: 'block' }} />
                                 </div>
                                 <div className="opt1-project-info" style={{ marginTop: '1.5rem' }}>
                                     <h3 style={{ fontSize: '1.8rem', marginBottom: '0.5rem' }}>{p.title}</h3>

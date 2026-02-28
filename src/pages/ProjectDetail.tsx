@@ -44,8 +44,19 @@ export const ProjectDetail: React.FC = () => {
                     </div>
                 </div>
 
-                <div style={{ width: '100%', marginBottom: '4rem' }}>
-                    <img src={topImage} alt={`${project.title} hero`} style={{ width: '100%', height: 'auto', display: 'block' }} />
+                <div style={{ width: '100%', marginBottom: '4rem', display: 'flex', justifyContent: 'center' }}>
+                    <img
+                        src={topImage}
+                        alt={`${project.title} hero`}
+                        style={{
+                            maxWidth: '100%',
+                            maxHeight: '70vh',
+                            width: 'auto',
+                            height: 'auto',
+                            display: 'block',
+                            objectFit: 'contain'
+                        }}
+                    />
                 </div>
 
                 <div style={{ fontSize: '1.25rem', lineHeight: 1.8, color: '#444', maxWidth: '800px', margin: '0 auto 6rem auto' }}>
