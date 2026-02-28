@@ -21,15 +21,16 @@ export const ProjectDetail: React.FC = () => {
         );
     }
 
+    const isDark = project.theme === 'dark';
     const topImage = project.topHorizontalImage || project.thumbnailUrl;
     const detailImages = project.images ? project.images.filter(img => img !== topImage) : [];
 
     return (
-        <div className="option1-container fade-in" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+        <div className={`option1-container fade-in ${isDark ? 'opt1-dark-theme' : ''}`} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
             <Navbar />
 
             <main style={{ flex: 1, padding: '4rem', maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
-                <Link to="/projects" className="opt1-role" style={{ display: 'inline-block', marginBottom: '2rem', textDecoration: 'none' }}>
+                <Link to="/projects" className="opt1-role" style={{ display: 'inline-block', marginBottom: '2rem', textDecoration: 'none', color: isDark ? '#FDFDFC' : 'inherit' }}>
                     ← Back to Works
                 </Link>
 
@@ -37,9 +38,9 @@ export const ProjectDetail: React.FC = () => {
                     {project.title}
                 </h1>
 
-                <div style={{ display: 'flex', gap: '2rem', borderBottom: '1px solid #EBEBEB', paddingBottom: '2rem', marginBottom: '4rem' }}>
+                <div style={{ display: 'flex', gap: '2rem', borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : '#EBEBEB'}`, paddingBottom: '2rem', marginBottom: '4rem' }}>
                     <div>
-                        <span style={{ display: 'block', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#8C8881' }}>Year</span>
+                        <span style={{ display: 'block', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: isDark ? '#8C8881' : '#8C8881' }}>Year</span>
                         <span style={{ fontSize: '1.1rem' }}>{project.date}</span>
                     </div>
                 </div>
@@ -59,7 +60,7 @@ export const ProjectDetail: React.FC = () => {
                     />
                 </div>
 
-                <div style={{ fontSize: '1.25rem', lineHeight: 1.8, color: '#444', maxWidth: '800px', margin: '0 auto 6rem auto' }}>
+                <div style={{ fontSize: '1.25rem', lineHeight: 1.8, color: isDark ? '#EBEBEB' : '#444', maxWidth: '800px', margin: '0 auto 6rem auto' }}>
                     <p>{project.longDesc}</p>
                 </div>
 

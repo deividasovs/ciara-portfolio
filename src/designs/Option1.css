@@ -8,6 +8,43 @@
     position: relative;
 }
 
+.option1-container.opt1-dark-theme {
+    background-color: #0A0A0A;
+    color: #FDFDFC;
+}
+
+.option1-container.opt1-dark-theme .opt1-nav,
+.option1-container.opt1-dark-theme .opt1-footer {
+    background-color: transparent;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.option1-container.opt1-dark-theme .opt1-footer h2 {
+    color: #FDFDFC;
+}
+
+
+.option1-container.opt1-dark-theme .opt1-logo {
+    color: #FDFDFC;
+}
+
+.option1-container.opt1-dark-theme .opt1-links a {
+    color: #FDFDFC;
+}
+
+.option1-container.opt1-dark-theme .opt1-email {
+    color: #FDFDFC;
+}
+
+.option1-container.opt1-dark-theme .opt1-socials a {
+    color: #8C8881;
+}
+
+.option1-container.opt1-dark-theme .opt1-socials a:hover {
+    color: #FDFDFC;
+}
+
+
 /* Subtle paper texture overlay */
 .option1-container::before {
     content: "";

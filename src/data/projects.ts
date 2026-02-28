@@ -1,5 +1,3 @@
-import { start } from "repl";
-
 export interface Project {
     id: string;
     title: string;
@@ -10,6 +8,7 @@ export interface Project {
     thumbnailUrl: string;
     topHorizontalImage?: string;
     images: string[];
+    theme?: 'light' | 'dark';
 }
 
 export const projectsData: Project[] = [
@@ -53,7 +52,8 @@ export const projectsData: Project[] = [
         images: [
             '/assets/images/projects/spaceship-earth/coralposterized1.png',
             '/assets/images/projects/spaceship-earth/coral-collage.png'
-        ]
+        ],
+        theme: 'dark'
     },
     {
         id: 'macbeth',
