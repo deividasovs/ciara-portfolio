@@ -22,11 +22,12 @@ export const ProjectDetail: React.FC = () => {
     }
 
     const isDark = project.theme === 'dark';
+    const isCoral = project.id === 'spaceship-earth';
     const topImage = project.topHorizontalImage || project.thumbnailUrl;
     const detailImages = project.images ? project.images.filter(img => img !== topImage) : [];
 
     return (
-        <div className={`option1-container fade-in ${isDark ? 'opt1-dark-theme' : ''}`} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+        <div className={`option1-container fade-in ${isDark ? 'opt1-dark-theme' : ''} ${isCoral ? 'opt1-coral-theme' : ''}`} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
             <Navbar />
 
             <main style={{ flex: 1, padding: '4rem', maxWidth: '1200px', margin: '0 auto', width: '100%' }}>

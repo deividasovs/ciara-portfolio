@@ -13,6 +13,14 @@
     color: #FDFDFC;
 }
 
+.option1-container.opt1-coral-theme {
+    background-image: url('/assets/images/bgs/coral-wiggle-bg.png');
+    background-size: 600px;
+    background-repeat: repeat;
+    background-attachment: fixed;
+}
+
+
 .option1-container.opt1-dark-theme .opt1-nav,
 .option1-container.opt1-dark-theme .opt1-footer {
     background-color: transparent;
