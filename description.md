@@ -17,3 +17,6 @@ This is a portfolio website for Ciara Burns, a costume design graduate from the 
 ### Reference websites I like
 - https://hollyfirkins.com/#
 - https://www.limelight.hk - I like the paper feel of this one
+
+blog about her
+- https://threadfashionandcostume.blogspot.com/2025/07/ciara-burns.html
