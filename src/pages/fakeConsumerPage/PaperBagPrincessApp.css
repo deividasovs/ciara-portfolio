@@ -1,24 +1,57 @@
 /* Zara-Inspired Minimalist Design - Paper Bag Princess Contemporary Collection */
 
-/* Scoped resets for Paper Bag Princess */
-.pbp-app-wrapper * {
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-.pbp-app-wrapper {
+body {
   overflow-x: hidden;
 }
 
-.pbp-app-wrapper {
+.App {
   min-height: 100vh;
   background: #f7f5f2;
   position: relative;
   overflow-x: hidden;
 }
 
-/* Decorative ripped paper elements removed as per user request */
+/* Decorative ripped paper elements scattered throughout */
+.App::before,
+.App::after {
+  content: '';
+  position: fixed;
+  background: #e8dcc4;
+  z-index: 0;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.App::before {
+  width: 300px;
+  height: 400px;
+  top: 15%;
+  left: -80px;
+  transform: rotate(-15deg);
+  clip-path: polygon(0% 5%, 15% 0%, 35% 3%, 50% 0%, 70% 2%, 85% 0%, 100% 8%,
+      98% 25%, 100% 45%, 95% 65%, 100% 85%, 98% 100%,
+      80% 95%, 60% 98%, 40% 95%, 20% 97%, 5% 100%,
+      2% 80%, 0% 60%, 3% 40%, 0% 20%);
+}
+
+.App::after {
+  width: 250px;
+  height: 350px;
+  bottom: 10%;
+  right: -60px;
+  transform: rotate(20deg);
+  background: #d4c4a8;
+  clip-path: polygon(5% 0%, 25% 3%, 45% 0%, 65% 2%, 85% 1%, 100% 5%,
+      95% 20%, 98% 40%, 100% 60%, 97% 80%, 100% 95%,
+      85% 100%, 65% 97%, 45% 100%, 25% 98%, 5% 100%,
+      0% 85%, 3% 65%, 0% 45%, 2% 25%, 0% 10%);
+}
 
 /* Floating Banner - Elegant and Understated */
 .floating-banner {
