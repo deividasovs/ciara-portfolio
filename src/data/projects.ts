@@ -48,10 +48,10 @@ export const projectsData: Project[] = [
         date: '2025',
         featured: true,
         thumbnailUrl: '/assets/images/projects/spaceship-earth/coral-illustration.PNG',
-        topHorizontalImage: '/assets/images/projects/spaceship-earth/coralposterized1.png',
+        topHorizontalImage: '/assets/images/projects/spaceship-earth/coral-collage.png',
         images: [
             '/assets/images/projects/spaceship-earth/coralposterized1.png',
-            '/assets/images/projects/spaceship-earth/coral-collage.png'
+            '/assets/images/projects/spaceship-earth/coral-illustration.PNG'
         ],
         theme: 'dark'
     },
