@@ -83,19 +83,21 @@ export const Home: React.FC = () => {
             </section>
 
             {/* Mirror App Instagram Feed */}
-            <div
-                style={{ width: '100%' }}
-                dangerouslySetInnerHTML={{
-                    __html: `
-                    <iframe 
-                        onload="if(window.iFrameSetup) window.iFrameSetup(this)" 
-                        src="https://app.mirror-app.com/feed-instagram/ff1d82bb-913e-4b47-a2b4-8217c2b59c97/preview" 
-                        style="width:100%;border:none;overflow:hidden;" 
-                        scrolling="no"
-                        title="Instagram Feed"
-                    ></iframe>
-                ` }}
-            />
+            <div className="opt1-section" style={{ paddingBottom: '2rem' }}>
+                <div
+                    style={{ width: '100%', maxWidth: '1200px', margin: '0 auto' }}
+                    dangerouslySetInnerHTML={{
+                        __html: `
+                        <iframe 
+                            onload="if(window.iFrameSetup) window.iFrameSetup(this)" 
+                            src="https://app.mirror-app.com/feed-instagram/ff1d82bb-913e-4b47-a2b4-8217c2b59c97/preview" 
+                            style="width:100%;border:none;overflow:hidden;" 
+                            scrolling="no"
+                            title="Instagram Feed"
+                        ></iframe>
+                    ` }}
+                />
+            </div>
 
             <section id="about" className="opt1-section opt1-about" style={{ borderTop: 'none', paddingTop: 0 }}>
                 <div className="opt1-about-grid">
