@@ -9,7 +9,6 @@ export const Navbar: React.FC = () => {
                 Ciara Burns.
             </Link>
             <div className="opt1-links">
-                <Link to="/">Overview</Link>
                 <Link to="/projects">Projects</Link>
                 <Link to="/#contact">Contact</Link>
             </div>
