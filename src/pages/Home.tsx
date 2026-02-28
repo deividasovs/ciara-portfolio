@@ -6,17 +6,11 @@ import '../designs/Option1.css';
 
 export const Home: React.FC = () => {
     const featuredProjects = projectsData.filter(p => p.featured);
-    const iframeRef = React.useRef<HTMLIFrameElement>(null);
 
     React.useEffect(() => {
         const script = document.createElement('script');
         script.src = "https://cdn.jsdelivr.net/npm/@mirrorapp/iframe-bridge@latest/dist/index.umd.js";
         script.async = true;
-        script.onload = () => {
-            if (iframeRef.current && (window as any).iFrameSetup) {
-                (window as any).iFrameSetup(iframeRef.current);
-            }
-        };
         document.body.appendChild(script);
 
         return () => {
@@ -88,14 +82,20 @@ export const Home: React.FC = () => {
                 </div>
             </section>
 
-            <iframe
-                ref={iframeRef}
-                onLoad={(e) => (window as any).iFrameSetup?.(e.currentTarget)}
-                src="https://app.mirror-app.com/feed-instagram/ff1d82bb-913e-4b47-a2b4-8217c2b59c97/preview"
-                style={{ width: '100%', border: 'none', overflow: 'hidden' }}
-                scrolling="no"
-                title="Instagram Feed"
-            ></iframe>
+            {/* Mirror App Instagram Feed */}
+            <div
+                style={{ width: '100%' }}
+                dangerouslySetInnerHTML={{
+                    __html: `
+                    <iframe 
+                        onload="if(window.iFrameSetup) window.iFrameSetup(this)" 
+                        src="https://app.mirror-app.com/feed-instagram/ff1d82bb-913e-4b47-a2b4-8217c2b59c97/preview" 
+                        style="width:100%;border:none;overflow:hidden;" 
+                        scrolling="no"
+                        title="Instagram Feed"
+                    ></iframe>
+                ` }}
+            />
 
             <section id="about" className="opt1-section opt1-about" style={{ borderTop: 'none', paddingTop: 0 }}>
                 <div className="opt1-about-grid">
