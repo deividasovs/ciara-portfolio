@@ -116,7 +116,7 @@ function PaperBagPrincess() {
   };
 
   return (
-    <div className="App">
+    <div className="PaperBagApp">
       {/* Floating Banner */}
       {bannerMessage && (
         <div className="floating-banner">

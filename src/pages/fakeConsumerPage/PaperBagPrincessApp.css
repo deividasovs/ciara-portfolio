@@ -10,7 +10,7 @@ body {
   overflow-x: hidden;
 }
 
-.App {
+.PaperBagApp {
   min-height: 100vh;
   background: #f7f5f2;
   position: relative;
@@ -18,8 +18,8 @@ body {
 }
 
 /* Decorative ripped paper elements scattered throughout */
-.App::before,
-.App::after {
+.PaperBagApp::before,
+.PaperBagApp::after {
   content: '';
   position: fixed;
   background: #e8dcc4;
@@ -28,7 +28,7 @@ body {
   pointer-events: none;
 }
 
-.App::before {
+.PaperBagApp::before {
   width: 300px;
   height: 400px;
   top: 15%;
@@ -40,7 +40,7 @@ body {
       2% 80%, 0% 60%, 3% 40%, 0% 20%);
 }
 
-.App::after {
+.PaperBagApp::after {
   width: 250px;
   height: 350px;
   bottom: 10%;
