@@ -1,0 +1,111 @@
+.cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #FDFDFC;
+    color: #2B2B2B;
+    padding: 1.5rem 3rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.25rem;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
+    z-index: 9999;
+    font-family: 'Inter', sans-serif;
+    border-top: 1px solid #EBEBEB;
+    flex-wrap: wrap;
+}
+
+.cookie-banner-text {
+    font-size: 0.85rem;
+    margin: 0;
+    line-height: 1.6;
+    color: #555;
+    flex: 1;
+}
+
+.cookie-banner-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+}
+
+.cookie-banner-btn {
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    border-radius: 4px;
+}
+
+.cookie-banner-accept {
+    background-color: #2B2B2B;
+    color: #FDFDFC;
+}
+
+.cookie-banner-accept:hover {
+    background-color: #0A0A0A;
+    transform: translateY(-1px);
+}
+
+.cookie-banner-decline {
+    background-color: transparent;
+    color: #8C8881;
+    border: 1px solid #EBEBEB;
+}
+
+.cookie-banner-decline:hover {
+    color: #2B2B2B;
+    border-color: #2B2B2B;
+}
+
+/* Dark mode overrides (if your site has a class to toggle dark mode) */
+.option1-container.opt1-dark-theme .cookie-banner {
+    background-color: #0A0A0A;
+    color: #FDFDFC;
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.option1-container.opt1-dark-theme .cookie-banner-text {
+    color: #CCC;
+}
+
+.option1-container.opt1-dark-theme .cookie-banner-accept {
+    background-color: #FDFDFC;
+    color: #0A0A0A;
+}
+
+.option1-container.opt1-dark-theme .cookie-banner-accept:hover {
+    background-color: #EBEBEB;
+}
+
+.option1-container.opt1-dark-theme .cookie-banner-decline {
+    color: #8C8881;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.option1-container.opt1-dark-theme .cookie-banner-decline:hover {
+    color: #FDFDFC;
+    border-color: #FDFDFC;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .cookie-banner {
+        flex-direction: column;
+        padding: 1.5rem;
+        align-items: stretch;
+        text-align: center;
+    }
+
+    .cookie-banner-actions {
+        justify-content: center;
+    }
+}

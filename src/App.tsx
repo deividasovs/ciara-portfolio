@@ -5,6 +5,7 @@ import { Projects } from './pages/Projects';
 import { ProjectDetail } from './pages/ProjectDetail';
 import { PaperBagPrincess } from './pages/fakeConsumerPage/PaperBagPrincess';
 import { ScrollToHash } from './components/ScrollToHash';
+import { CookieBanner } from './components/CookieBanner';
 import './App.css';
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
     <BrowserRouter>
       <ScrollToHash />
       <div className="App">
+        <CookieBanner />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<Projects />} />

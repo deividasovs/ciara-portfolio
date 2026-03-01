@@ -6,6 +6,21 @@ import '../designs/Option1.css';
 
 export const Home: React.FC = () => {
     const featuredProjects = projectsData.filter(p => p.featured);
+    const [cookieConsent, setCookieConsent] = React.useState<string | null>(localStorage.getItem('cookieConsent'));
+
+    React.useEffect(() => {
+        const handleConsentChange = () => {
+            setCookieConsent(localStorage.getItem('cookieConsent'));
+        };
+
+        window.addEventListener('cookieConsentChange', handleConsentChange);
+        window.addEventListener('storage', handleConsentChange);
+
+        return () => {
+            window.removeEventListener('cookieConsentChange', handleConsentChange);
+            window.removeEventListener('storage', handleConsentChange);
+        };
+    }, []);
 
     React.useEffect(() => {
         const script = document.createElement('script');
@@ -84,19 +99,59 @@ export const Home: React.FC = () => {
 
             {/* Mirror App Instagram Feed */}
             <div className="opt1-section" style={{ paddingBottom: '2rem' }}>
-                <div
-                    style={{ width: '100%', maxWidth: '1200px', margin: '0 auto' }}
-                    dangerouslySetInnerHTML={{
-                        __html: `
-                        <iframe 
-                            onload="if(window.iFrameSetup) window.iFrameSetup(this)" 
-                            src="https://app.mirror-app.com/feed-instagram/ff1d82bb-913e-4b47-a2b4-8217c2b59c97/preview" 
-                            style="width:100%;border:none;overflow:hidden;" 
-                            scrolling="no"
-                            title="Instagram Feed"
-                        ></iframe>
-                    ` }}
-                />
+                <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto' }}>
+                    {cookieConsent === 'accepted' ? (
+                        <div
+                            dangerouslySetInnerHTML={{
+                                __html: `
+                                <iframe 
+                                    onload="if(window.iFrameSetup) window.iFrameSetup(this)" 
+                                    src="https://app.mirror-app.com/feed-instagram/ff1d82bb-913e-4b47-a2b4-8217c2b59c97/preview" 
+                                    style="width:100%;border:none;overflow:hidden;" 
+                                    scrolling="no"
+                                    title="Instagram Feed"
+                                ></iframe>
+                            ` }}
+                        />
+                    ) : (
+                        <div style={{
+                            padding: '3rem 1rem',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            minHeight: '200px',
+                            border: '1px solid #ccc',
+                            backgroundColor: 'rgba(0, 0, 0, 0.02)',
+                            textAlign: 'center'
+                        }}>
+                            <p style={{ marginBottom: '1.5rem', fontSize: '1.1rem', color: 'inherit' }}>
+                                Please accept cookies to view this content.
+                            </p>
+                            <button
+                                onClick={() => {
+                                    localStorage.setItem('cookieConsent', 'accepted');
+                                    window.dispatchEvent(new Event('cookieConsentChange'));
+                                }}
+                                style={{
+                                    padding: '0.8rem 1.5rem',
+                                    backgroundColor: '#000',
+                                    color: '#fff',
+                                    border: 'none',
+                                    cursor: 'pointer',
+                                    fontSize: '1rem',
+                                    transition: 'background-color 0.2s',
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.05em'
+                                }}
+                                onMouseOver={(e) => { e.currentTarget.style.backgroundColor = '#333'; }}
+                                onMouseOut={(e) => { e.currentTarget.style.backgroundColor = '#000'; }}
+                            >
+                                Accept Cookies
+                            </button>
+                        </div>
+                    )}
+                </div>
             </div>
 
             <section id="about" className="opt1-section opt1-about" style={{ borderTop: 'none', paddingTop: 0 }}>
