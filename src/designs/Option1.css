@@ -297,6 +297,12 @@
     gap: 0;
 }
 
+.opt1-project-showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+    gap: 2rem;
+}
+
 .opt1-project-card {
     display: block;
 }
@@ -434,8 +440,18 @@
     }
 
     .opt1-about-grid,
-    .opt1-project-grid {
+    .opt1-project-grid,
+    .opt1-project-showcase-grid {
         grid-template-columns: 1fr;
+    }
+
+    .opt1-project-showcase-grid .opt1-project-card {
+        text-align: center;
+        margin-bottom: 2rem !important;
+    }
+
+    .opt1-project-showcase-grid .opt1-project-card img {
+        margin: 0 auto;
     }
 
     .opt1-projects-content {

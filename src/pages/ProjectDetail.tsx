@@ -30,12 +30,12 @@ export const ProjectDetail: React.FC = () => {
         <div className={`option1-container fade-in ${isDark ? 'opt1-dark-theme' : ''} ${isCoral ? 'opt1-coral-theme' : ''}`} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
             <Navbar />
 
-            <main style={{ flex: 1, padding: '4rem', maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
+            <main className="opt1-section" style={{ flex: 1, width: '100%' }}>
                 <Link to="/projects" className="opt1-role" style={{ display: 'inline-block', marginBottom: '2rem', textDecoration: 'none', color: isDark ? '#FDFDFC' : 'inherit' }}>
-                    ← Back to Works
+                    ← Back to Projects
                 </Link>
 
-                <h1 style={{ fontFamily: 'Playfair Display, serif', fontSize: '4.5rem', fontWeight: 400, marginTop: 0, marginBottom: '1rem', lineHeight: 1.1 }}>
+                <h1 className="opt1-title" style={{ marginTop: 0, marginBottom: '1rem', lineHeight: 1.1 }}>
                     {project.title}
                 </h1>
 
@@ -66,7 +66,7 @@ export const ProjectDetail: React.FC = () => {
                 </div>
 
                 {detailImages.length > 0 && (
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginBottom: '6rem' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '2rem', marginBottom: '6rem' }}>
                         {detailImages.map((img, index) => (
                             <div key={index} style={{ width: '100%' }}>
                                 <img src={img} alt={`${project.title} detail ${index + 1}`} style={{ width: '100%', height: 'auto', display: 'block' }} />
