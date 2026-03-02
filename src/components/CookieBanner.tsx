@@ -5,11 +5,20 @@ export const CookieBanner: React.FC = () => {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
-        const consent = localStorage.getItem('cookieConsent');
-        // If no consent has been given yet, show the banner
-        if (!consent) {
-            setIsVisible(true);
-        }
+        const checkConsent = () => {
+            const consent = localStorage.getItem('cookieConsent');
+            setIsVisible(!consent);
+        };
+
+        checkConsent();
+
+        window.addEventListener('cookieConsentChange', checkConsent);
+        window.addEventListener('storage', checkConsent);
+
+        return () => {
+            window.removeEventListener('cookieConsentChange', checkConsent);
+            window.removeEventListener('storage', checkConsent);
+        };
     }, []);
 
     const handleAccept = () => {

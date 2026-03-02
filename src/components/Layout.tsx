@@ -6,7 +6,7 @@ export const Navbar: React.FC = () => {
     return (
         <nav className="opt1-nav">
             <Link to="/" className="opt1-logo" style={{ textDecoration: 'none', color: 'inherit' }}>
-                Ciara Burns.
+                Ciara Burns Costume.
             </Link>
             <div className="opt1-links">
                 <Link to="/projects">Projects</Link>
@@ -21,11 +21,11 @@ export const Footer: React.FC = () => {
         <footer id="contact" className="opt1-footer">
             <h2>Let's Collaborate</h2>
             <a href="mailto:ciara@ciaraburnscostume.com" className="opt1-email">ciara@ciaraburnscostume.com</a>
-            <div className="opt1-socials">
-                <a href="https://www.instagram.com/ciaraburns_design">Find me on Instagram (@ciaraburns_design)</a>
+            <div className="opt1-locations">
+                Glasgow &bull; Edinburgh &bull; Dublin
             </div>
             <div className="opt1-copyright">
-                CiaraBurnsCostume &copy; {new Date().getFullYear()}
+                Ciara Burns &copy; {new Date().getFullYear()}
             </div>
         </footer>
     );

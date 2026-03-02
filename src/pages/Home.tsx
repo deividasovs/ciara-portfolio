@@ -37,10 +37,10 @@ export const Home: React.FC = () => {
         <div className="option1-container fade-in">
             <Navbar />
 
-            <div className="opt1-hero-background" style={{ backgroundImage: "url('/assets/images/projects/Lenfanet-les-sortileges/Photoshoot1.JPG')" }}>
+            <div className="opt1-hero-background">
                 <header className="opt1-hero">
-                    <h1 className="opt1-title">
-                        <i><u>Ciara Burns Costume</u></i>
+                    <h1 className="opt1-title" style={{ maxWidth: '1000px', lineHeight: 1.2, fontSize: '4rem' }}>
+                        Performance Costume & Spectacle Arts
                     </h1>
                 </header>
             </div>
