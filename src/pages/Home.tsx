@@ -1,8 +1,62 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Footer } from '../components/Layout';
 import { projectsData } from '../data/projects';
 import '../designs/Option1.css';
+
+const InteractiveTitle: React.FC = () => {
+    const titleRef = useRef<HTMLHeadingElement>(null);
+    const [mouse, setMouse] = useState({ x: 0, y: 0 });
+    const [isHovering, setIsHovering] = useState(false);
+
+    const handleMouseMove = (e: React.MouseEvent) => {
+        if (!titleRef.current) return;
+        const rect = titleRef.current.getBoundingClientRect();
+        
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        setMouse({ x, y });
+    };
+
+    const text = "Performance Costume & Spectacle Arts";
+    const words = text.split(" ");
+
+    return (
+        <h1 
+            className="opt1-title interactive-spectacle-title" 
+            ref={titleRef}
+            onMouseMove={handleMouseMove}
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={() => setIsHovering(false)}
+        >
+            <span className="sr-only">{text}</span>
+            <div className="words-wrapper" aria-hidden="true">
+                {words.map((word, i) => (
+                    <span key={`base-${i}`} className="word-anim" style={{ animationDelay: `${i * 0.12}s` }}>
+                        {word === '&' ? <span className="ampersand">&</span> : word}&nbsp;
+                    </span>
+                ))}
+            </div>
+            
+            <div 
+                className="interactive-overlay"
+                aria-hidden="true"
+                style={{
+                    opacity: isHovering ? 1 : 0,
+                    WebkitMaskImage: `radial-gradient(circle 160px at ${mouse.x}px ${mouse.y}px, black 15%, transparent 80%)`,
+                    maskImage: `radial-gradient(circle 160px at ${mouse.x}px ${mouse.y}px, black 15%, transparent 80%)`,
+                }}
+            >
+                {words.map((word, i) => (
+                    <span key={`overlay-${i}`} className="word-anim" style={{ animationDelay: `${i * 0.12}s` }}>
+                        {word === '&' ? <span className="ampersand">&</span> : word}&nbsp;
+                    </span>
+                ))}
+            </div>
+        </h1>
+    );
+};
 
 export const Home: React.FC = () => {
     const featuredProjects = projectsData.filter(p => p.featured);
@@ -39,9 +93,7 @@ export const Home: React.FC = () => {
 
             <div className="opt1-hero-background">
                 <header className="opt1-hero">
-                    <h1 className="opt1-title" style={{ maxWidth: '1000px', lineHeight: 1.2, fontSize: '4rem' }}>
-                        Performance Costume & Spectacle Arts
-                    </h1>
+                    <InteractiveTitle />
                 </header>
             </div>
 

@@ -152,6 +152,86 @@
     /* pure black for stronger contrast */
 }
 
+/* Interactive Spectacle Title Enhanced Styles */
+.interactive-spectacle-title {
+    position: relative;
+    max-width: 1000px;
+    line-height: 1.25;
+    font-size: 5rem; /* Match the opt1-title font size */
+    margin: 0 auto 1.5rem auto;
+    text-align: center;
+}
+
+.interactive-spectacle-title .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.interactive-spectacle-title .words-wrapper {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    color: #2B2B2B;
+}
+
+.interactive-spectacle-title .word-anim {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(30px) translateZ(0);
+    animation: wordFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.interactive-spectacle-title .ampersand {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: #9c8047; /* muted gold by default */
+}
+
+@keyframes wordFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0) translateZ(0);
+    }
+}
+
+.interactive-spectacle-title .interactive-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    pointer-events: none;
+    color: transparent;
+    /* A shimmering metallic layer revealed on hover */
+    background: linear-gradient(120deg, #d4af37 0%, #ffdf00 25%, #fff8dc 50%, #ffdf00 75%, #d4af37 100%);
+    background-size: 300% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    transition: opacity 0.4s ease;
+    animation: shimmerShine 4s linear infinite;
+}
+
+.interactive-spectacle-title .interactive-overlay .ampersand {
+    color: transparent;
+}
+
+@keyframes shimmerShine {
+    to { background-position: 300% center; }
+}
+
 .opt1-subtitle {
     font-size: 1.25rem;
     color: #555;
@@ -358,10 +438,22 @@
         grid-template-columns: 1fr;
     }
 
+    .opt1-projects-content {
+        padding: 0 1.5rem;
+    }
+
     .opt1-project-card-link,
     .opt1-project-card.reverse .opt1-project-card-link {
         flex-direction: column;
         gap: 2rem;
+        align-items: center;
+        text-align: center;
+    }
+
+    .opt1-project-image-container,
+    .opt1-project-info {
+        width: 100%;
+        max-width: 100%;
     }
 }
 
