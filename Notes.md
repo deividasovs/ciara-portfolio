@@ -1,7 +1,7 @@
 IMPORTANT!
 Always start the project with 
 git pull
-
+git push kill server for this
 npm start - starts the server (do this everytime to edit) 
 http://localhost:3000/ - URL for website
 To kill server press ctrl + c

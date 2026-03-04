@@ -67,5 +67,33 @@ export const projectsData: Project[] = [
         images: [
             '/assets/images/projects/Macbeth/macbethillustration-back.png'
         ]
+    },
+    {
+        id: 'l\'enfant et les sortilèges',
+        title: 'l\'enfant et les sortilèges',
+        desc: 'A redesign project of L\'enfant et les sortilèges by Maurice Ravel',
+        longDesc: "Designed for the children\'s French opera L\'Ènfant et les Sortilèges, this costume draws inspiration from vibrant and bold aesthetic of the French circus. Its colourful design is intended to captivate and engage young audiences. Additionally, it features integrated lighting along the bottom, adding an extra layer of magic and visual interest.",
+        date: '2024',
+        featured: false,
+        thumbnailUrl: '/assets/images/projects/circus/circus-ecashow.png',
+        topHorizontalImage: '/assets/images/projects/circus/circus-ecashow.png',
+        images: [
+            '/assets/images/projects/circus/circus-ecashow.png',
+            '/assets/images/projects/circus/circus-ecashow2.png',
+            '/assets/images/projects/circus/smile.JPG'
+        ]
+    },
+    {
+        id: 'theres-a-wocket-in-my-pocket',
+        title: "There's a Wocket in my pocket",
+        desc: 'A Dr. Seuss inspired costume design.',
+        longDesc: 'A Dr. Seuss inspired costume design.',
+        date: '2024',
+        featured: false,
+        thumbnailUrl: '/assets/images/projects/dr-seuss/drseussy.png',
+        topHorizontalImage: '/assets/images/projects/dr-seuss/drseussy.png',
+        images: [
+            '/assets/images/projects/dr-seuss/drseussy.png'
+        ]
     }
 ];

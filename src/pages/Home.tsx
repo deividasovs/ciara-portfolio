@@ -12,19 +12,19 @@ const InteractiveTitle: React.FC = () => {
     const handleMouseMove = (e: React.MouseEvent) => {
         if (!titleRef.current) return;
         const rect = titleRef.current.getBoundingClientRect();
-        
+
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
         setMouse({ x, y });
     };
 
-    const text = "Performance Costume & Spectacle Arts";
+    const text = "Performance Costume";
     const words = text.split(" ");
 
     return (
-        <h1 
-            className="opt1-title interactive-spectacle-title" 
+        <h1
+            className="opt1-title interactive-spectacle-title"
             ref={titleRef}
             onMouseMove={handleMouseMove}
             onMouseEnter={() => setIsHovering(true)}
@@ -38,8 +38,8 @@ const InteractiveTitle: React.FC = () => {
                     </span>
                 ))}
             </div>
-            
-            <div 
+
+            <div
                 className="interactive-overlay"
                 aria-hidden="true"
                 style={{
@@ -91,7 +91,7 @@ export const Home: React.FC = () => {
         <div className="option1-container fade-in">
             <Navbar />
 
-            <div className="opt1-hero-background">
+            <div className="opt1-hero-background" style={{ backgroundImage: "url('/assets/images/projects/dr-seuss/drseussy.png')" }}>
                 <header className="opt1-hero">
                     <InteractiveTitle />
                 </header>
