@@ -105,7 +105,7 @@ export const projectsData: Project[] = [
                     {
                         url: '/assets/images/projects/circus/smile.JPG',
                         credit: 'Credit: Random Sample Credit',
-                        height: '60%'
+                        height: '80%'
                     },
                     {
                         url: '/assets/images/projects/circus/circus-ecashow2.png',

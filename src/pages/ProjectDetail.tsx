@@ -4,6 +4,182 @@ import { Navbar, Footer } from '../components/Layout';
 import { projectsData } from '../data/projects';
 import '../designs/Option1.css';
 
+type NormalizedImage = {
+    url: string;
+    credit?: string;
+    height?: string;
+};
+
+type NormalizedRow = {
+    layout: string;
+    height?: string;
+    images: NormalizedImage[];
+};
+
+const buildImageRows = (project: typeof projectsData[number], topImageUrl: string | undefined): NormalizedRow[] => {
+    const rows: NormalizedRow[] = [];
+    let currentRowGroup: NormalizedImage[] = [];
+
+    const commitCurrentGroup = () => {
+        if (currentRowGroup.length === 0) return;
+
+        rows.push({
+            layout: project.layout || 'auto-fit',
+            images: currentRowGroup,
+        });
+
+        currentRowGroup = [];
+    };
+
+    project.images.forEach((item: any) => {
+        // Simple image references become part of the current "auto" row
+        if (typeof item === 'string') {
+            if (item !== topImageUrl) {
+                currentRowGroup.push({ url: item });
+            }
+            return;
+        }
+
+        // Explicit image object
+        if ('url' in item) {
+            if (item.url !== topImageUrl) {
+                currentRowGroup.push(item as NormalizedImage);
+            }
+            return;
+        }
+
+        // Explicit row definition in the data (ProjectRow)
+        if ('layout' in item) {
+            commitCurrentGroup();
+
+            const rowImages: NormalizedImage[] = item.images
+                .map((img: any) =>
+                    typeof img === 'string'
+                        ? { url: img }
+                        : (img as NormalizedImage)
+                )
+                .filter((img: NormalizedImage) => img.url !== topImageUrl);
+
+            if (rowImages.length > 0) {
+                rows.push({
+                    layout: item.layout,
+                    height: item.height,
+                    images: rowImages,
+                });
+            }
+        }
+    });
+
+    // Flush any remaining "auto" images into a row
+    commitCurrentGroup();
+
+    return rows;
+};
+
+const getRowGridStyle = (row: NormalizedRow): React.CSSProperties => {
+    const gridStyle: React.CSSProperties = {
+        display: 'grid',
+        gap: '2rem',
+        marginBottom: '6rem',
+    };
+
+    switch (row.layout) {
+        case '1-col':
+            gridStyle.gridTemplateColumns = '1fr';
+            break;
+        case '2-col':
+        case '2x1':
+            gridStyle.gridTemplateColumns = 'repeat(2, minmax(0, 1fr))';
+            break;
+        case '3-col':
+            gridStyle.gridTemplateColumns = 'repeat(3, minmax(0, 1fr))';
+            break;
+        case '4-col':
+        case '4x4':
+            gridStyle.gridTemplateColumns = 'repeat(4, minmax(0, 1fr))';
+            break;
+        case '2-left-1-right': {
+            // Two columns of equal width; right image spans two rows.
+            // The heights of the top and bottom left images (if provided)
+            // are used as relative fractions for the two grid rows.
+            gridStyle.gridTemplateColumns = 'minmax(0, 1fr) minmax(0, 1fr)';
+
+            const top = row.images[0];
+            const bottom = row.images[1];
+
+            const topHint = top?.height ? parseFloat(top.height) : NaN;
+            const bottomHint = bottom?.height ? parseFloat(bottom.height) : NaN;
+
+            if (!Number.isNaN(topHint) || !Number.isNaN(bottomHint)) {
+                const topVal = Number.isNaN(topHint) ? 50 : topHint;
+                const bottomVal = Number.isNaN(bottomHint) ? 50 : bottomHint;
+                const total = topVal + bottomVal || 100;
+
+                const topFr = topVal / total;
+                const bottomFr = bottomVal / total;
+
+                gridStyle.gridTemplateRows = `${topFr}fr ${bottomFr}fr`;
+            } else {
+                gridStyle.gridTemplateRows = '1fr 1fr';
+            }
+
+            break;
+        }
+        case 'auto-fit':
+            gridStyle.gridTemplateColumns =
+                'repeat(auto-fit, minmax(min(100%, 300px), 1fr))';
+            break;
+        default:
+            // Allow completely custom CSS values to be defined in the data
+            // e.g. "2fr 1fr", "minmax(0, 2fr) minmax(0, 3fr)", etc.
+            gridStyle.gridTemplateColumns = row.layout;
+            break;
+    }
+
+    if (row.height) {
+        gridStyle.height = row.height;
+    }
+
+    return gridStyle;
+};
+
+const getItemGridStyle = (row: NormalizedRow, index: number): React.CSSProperties => {
+    const itemStyle: React.CSSProperties = {
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: 0,
+        minWidth: 0,
+    };
+
+    // For the 2x1 layout, make every third image span the full width
+    if (row.layout === '2x1' && index % 3 === 2) {
+        itemStyle.gridColumn = '1 / -1';
+    }
+
+    // For 2-left-1-right:
+    //  - first image: top-left
+    //  - second image: bottom-left
+    //  - third image: full-height right column
+    if (row.layout === '2-left-1-right') {
+        const group = Math.floor(index / 3);
+        const startRow = group * 2 + 1;
+
+        if (index % 3 === 0) {
+            itemStyle.gridColumn = '1';
+            itemStyle.gridRow = `${startRow}`;
+        } else if (index % 3 === 1) {
+            itemStyle.gridColumn = '1';
+            itemStyle.gridRow = `${startRow + 1}`;
+        } else if (index % 3 === 2) {
+            itemStyle.gridColumn = '2';
+            itemStyle.gridRow = `${startRow} / span 2`;
+        }
+    }
+
+    return itemStyle;
+};
+
 export const ProjectDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const project = projectsData.find(p => p.id === id);
@@ -23,7 +199,7 @@ export const ProjectDetail: React.FC = () => {
 
     const isDark = project.theme === 'dark';
     const isCoral = project.id === 'spaceship-earth';
-    const topImageInfo = {
+    const topImageInfo: { url?: string; credit?: string } = {
         url: project.topHorizontalImage || project.thumbnailUrl,
         credit: project.topHorizontalCredit || project.thumbnailCredit
     };
@@ -75,141 +251,61 @@ export const ProjectDetail: React.FC = () => {
                 </div>
 
                 {project.images && project.images.length > 0 && (() => {
-                    // Restructure project.images into rows
-                    const rows: { layout: string, height?: string, images: { url: string, credit?: string, height?: string }[] }[] = [];
-                    let currentRowGroup: { url: string, credit?: string, height?: string }[] = [];
-
-                    const commitCurrentGroup = () => {
-                        if (currentRowGroup.length > 0) {
-                            rows.push({
-                                layout: project.layout || 'auto-fit',
-                                images: currentRowGroup
-                            });
-                            currentRowGroup = [];
-                        }
-                    };
-
-                    project.images.forEach((item: any) => {
-                        if (typeof item === 'string') {
-                            if (item !== topImageInfo.url) {
-                                currentRowGroup.push({ url: item });
-                            }
-                        } else if ('url' in item) {
-                            if (item.url !== topImageInfo.url) {
-                                currentRowGroup.push(item as { url: string, credit?: string, height?: string });
-                            }
-                        } else if ('layout' in item) {
-                            // It's a row
-                            commitCurrentGroup();
-                            const rowImages = item.images
-                                .map((img: any) => typeof img === 'string' ? { url: img } : img)
-                                .filter((img: any) => img.url !== topImageInfo.url);
-                            if (rowImages.length > 0) {
-                                rows.push({ layout: item.layout, height: item.height, images: rowImages });
-                            }
-                        }
-                    });
-                    commitCurrentGroup();
+                    const rows = buildImageRows(project, topImageInfo.url);
 
                     return rows.map((row, rowIndex) => {
-                        let gridStyle: React.CSSProperties = {
-                            display: 'grid',
-                            gap: '2rem',
-                            marginBottom: '6rem',
-                        };
-
-                        if (row.layout === '1-col') gridStyle.gridTemplateColumns = '1fr';
-                        else if (row.layout === '2-col' || row.layout === '2x1') gridStyle.gridTemplateColumns = 'repeat(2, 1fr)';
-                        else if (row.layout === '3-col') gridStyle.gridTemplateColumns = 'repeat(3, 1fr)';
-                        else if (row.layout === '4-col' || row.layout === '4x4') gridStyle.gridTemplateColumns = 'repeat(4, 1fr)';
-                        else if (row.layout === '2-left-1-right') {
-                            gridStyle.gridTemplateColumns = '1fr 1fr';
-
-                            // Get heights for the two left images (at index 0 and 1 in the row.images array)
-                            let h0: string | number = row.images[0]?.height || '1fr';
-                            let h1: string | number = row.images[1]?.height || '1fr';
-
-                            // Convert percentages to fr units for more robust dynamic sizing
-                            const parseToFr = (val: string | undefined): number | null => {
-                                if (!val) return null;
-                                if (val.endsWith('%')) return parseFloat(val) / 10;
-                                if (val.endsWith('fr')) return parseFloat(val);
-                                return null;
-                            };
-
-                            const fr0 = parseToFr(row.images[0]?.height);
-                            const fr1 = parseToFr(row.images[1]?.height);
-
-                            if (fr0 !== null && fr1 === null) {
-                                // If only h0 is set as % or fr, make h1 the remainder of a "10" (100%) scale
-                                h0 = `${fr0}fr`;
-                                h1 = `${Math.max(0.1, 10 - fr0)}fr`;
-                            } else if (fr1 !== null && fr0 === null) {
-                                // If only h1 is set as % or fr, make h0 the remainder
-                                h1 = `${fr1}fr`;
-                                h0 = `${Math.max(0.1, 10 - fr1)}fr`;
-                            } else if (fr0 !== null && fr1 !== null) {
-                                h0 = `${fr0}fr`;
-                                h1 = `${fr1}fr`;
-                            }
-
-                            gridStyle.gridTemplateRows = `${h0} ${h1}`;
-
-                            // If neither row height nor individual image heights are set, default min-height
-                            if (!row.height && !row.images[0]?.height && !row.images[1]?.height) {
-                                gridStyle.minHeight = '600px';
-                            }
-                        }
-                        else if (row.layout === 'auto-fit') gridStyle.gridTemplateColumns = 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))';
-                        else gridStyle.gridTemplateColumns = row.layout;
-
-                        if (row.height) {
-                            gridStyle.height = row.height;
-                        }
+                        const gridStyle = getRowGridStyle(row);
 
                         return (
                             <div key={rowIndex} style={gridStyle}>
                                 {row.images.map((img, index) => {
-                                    let itemStyle: React.CSSProperties = {
-                                        width: '100%',
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        minHeight: 0,
-                                        minWidth: 0,
-                                    };
-
-                                    if (row.layout === '2x1' && index % 3 === 2) {
-                                        itemStyle.gridColumn = '1 / -1';
-                                    } else if (row.layout === '2-left-1-right') {
-                                        const group = Math.floor(index / 3);
-                                        const startRow = group * 2 + 1;
-                                        if (index % 3 === 0) {
-                                            itemStyle.gridColumn = '1';
-                                            itemStyle.gridRow = `${startRow}`;
-                                        } else if (index % 3 === 1) {
-                                            itemStyle.gridColumn = '1';
-                                            itemStyle.gridRow = `${startRow + 1}`;
-                                        } else if (index % 3 === 2) {
-                                            itemStyle.gridColumn = '2';
-                                            itemStyle.gridRow = `${startRow} / span 2`;
-                                        }
-                                    }
-
-                                    const isHeightConstrained = row.layout === '2-left-1-right' || !!row.height || !!img.height;
-                                    const effectiveHeight = img.height || (row.height ? '100%' : 'auto');
+                                    const itemStyle = getItemGridStyle(row, index);
+                                    const isHeightConstrained =
+                                        row.layout === '2-left-1-right' ||
+                                        !!row.height ||
+                                        !!img.height;
+                                    const effectiveHeight =
+                                        row.layout === '2-left-1-right'
+                                            ? 'auto'
+                                            : img.height || (row.height ? '100%' : 'auto');
 
                                     return (
-                                        <div key={index} style={{ ...itemStyle, height: effectiveHeight }}>
-                                            <div style={{ flex: 1, minHeight: 0, display: 'flex' }}>
-                                                <img src={img.url} alt={`${project.title} detail ${index + 1}`} style={{
-                                                    width: '100%',
-                                                    height: isHeightConstrained ? '100%' : 'auto',
-                                                    display: 'block',
-                                                    objectFit: isHeightConstrained ? 'cover' : 'contain'
-                                                }} />
+                                        <div
+                                            key={index}
+                                            style={{ ...itemStyle, height: effectiveHeight }}
+                                        >
+                                            <div
+                                                style={{
+                                                    flex: 1,
+                                                    minHeight: 0,
+                                                    display: 'flex',
+                                                }}
+                                            >
+                                                <img
+                                                    src={img.url}
+                                                    alt={`${project.title} detail ${index + 1}`}
+                                                    style={{
+                                                        width: '100%',
+                                                        height: isHeightConstrained
+                                                            ? '100%'
+                                                            : 'auto',
+                                                        display: 'block',
+                                                        objectFit: isHeightConstrained
+                                                            ? 'cover'
+                                                            : 'contain',
+                                                    }}
+                                                />
                                             </div>
                                             {img.credit && (
-                                                <span style={{ marginTop: '0.5rem', fontSize: '0.8rem', color: isDark ? '#A0A0A0' : '#888', fontStyle: 'italic', textAlign: 'left' }}>
+                                                <span
+                                                    style={{
+                                                        marginTop: '0.5rem',
+                                                        fontSize: '0.8rem',
+                                                        color: isDark ? '#A0A0A0' : '#888',
+                                                        fontStyle: 'italic',
+                                                        textAlign: 'left',
+                                                    }}
+                                                >
                                                     {img.credit}
                                                 </span>
                                             )}
