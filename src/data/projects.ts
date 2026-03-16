@@ -1,3 +1,14 @@
+export interface ProjectImage {
+    url: string;
+    credit?: string;
+}
+
+export interface ProjectRow {
+    layout: '1-col' | '2-col' | '3-col' | '4-col' | '2x1' | '4x4' | '2-left-1-right' | string;
+    maxHeight?: string;
+    images: (string | ProjectImage)[];
+}
+
 export interface Project {
     id: string;
     title: string;
@@ -6,9 +17,12 @@ export interface Project {
     date: string;
     featured: boolean;
     thumbnailUrl: string;
+    thumbnailCredit?: string;
     topHorizontalImage?: string;
-    images: string[];
+    topHorizontalCredit?: string;
+    images: (string | ProjectImage | ProjectRow)[];
     theme?: 'light' | 'dark';
+    layout?: '1-col' | '2-col' | '3-col' | '4-col' | '2x1' | '4x4' | '2-left-1-right' | string; // Adjust the grid layout for project images
 }
 
 export const projectsData: Project[] = [
@@ -22,7 +36,10 @@ export const projectsData: Project[] = [
         thumbnailUrl: '/assets/images/projects/paperbag-princess/princess-back.PNG',
         topHorizontalImage: '/assets/images/projects/paperbag-princess/prince.PNG', // Make sure to include this line in each different section if you want to have a different top image to the featured one. 
         images: [
-            '/assets/images/projects/paperbag-princess/princess-back.PNG',
+            {
+                url: '/assets/images/projects/paperbag-princess/princess-back.PNG',
+                credit: 'Credit: Ciara Burns'
+            },
             '/assets/images/projects/paperbag-princess/princess-front.PNG'
         ]
     },
@@ -75,12 +92,28 @@ export const projectsData: Project[] = [
         longDesc: "Designed for the children\'s French opera L\'Ènfant et les Sortilèges, this costume draws inspiration from vibrant and bold aesthetic of the French circus. Its colourful design is intended to captivate and engage young audiences. Additionally, it features integrated lighting along the bottom, adding an extra layer of magic and visual interest.",
         date: '2024',
         featured: false,
+        layout: '3-col',
         thumbnailUrl: '/assets/images/projects/circus/circus-ecashow.png',
         topHorizontalImage: '/assets/images/projects/circus/circus-ecashow.png',
         images: [
             '/assets/images/projects/circus/circus-ecashow.png',
-            '/assets/images/projects/circus/circus-ecashow2.png',
-            '/assets/images/projects/circus/smile.JPG'
+            {
+                layout: '2-left-1-right',
+                maxHeight: '20px',
+                images: [
+                    '/assets/images/projects/circus/circus-ecashow2.png',
+                    {
+                        url: '/assets/images/projects/circus/smile.JPG',
+                        credit: 'Credit: Random Sample Credit'
+                    },
+                    '/assets/images/projects/circus/circus-ecashow.png',
+                    '/assets/images/projects/circus/smile.JPG',
+                    {
+                        url: '/assets/images/projects/circus/circus-ecashow2.png',
+                        credit: 'Credit: Ciara Burns'
+                    }
+                ]
+            },
         ]
     },
     {
@@ -97,4 +130,3 @@ export const projectsData: Project[] = [
         ]
     }
 ];
-AnimationPlaybackEvent
