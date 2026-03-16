@@ -62,10 +62,10 @@ export const projectsData: Project[] = [
         longDesc: "A redesign project of Macbeth by William Shakespeare, this brief challenged me to reinterpret the play in a randomly assigned historical period, using orange waxed cotton paired with donated Harris Tweed. I reimagined Macbeth as a Macaroni man — a flamboyant, extravagantly dressed gentleman of the 1770s. The exaggerated silhouette, bold colour, and rich textures reflect his ambition, insecurity, and descent into excess, using 18th-century dandyism to mirror his psychological unraveling. I drafted and adapted the garment from an original historical pattern, refining it to modern proportions while maintaining period authenticity.",
         date: '2025',
         featured: false,
-        thumbnailUrl: '/assets/images/projects/Macbeth/macbethillustration-back.png',
-        topHorizontalImage: '/assets/images/projects/Macbeth/macbethillustration-back.png',
+        thumbnailUrl: '/assets/images/projects/Macbeth/macbeth-back.png',
+        topHorizontalImage: '/assets/images/projects/Macbeth/macbeth-back.png',
         images: [
-            '/assets/images/projects/Macbeth/macbethillustration-back.png'
+            '/assets/images/projects/Macbeth/macbeth-back.png'
         ]
     },
     {
@@ -97,3 +97,4 @@ export const projectsData: Project[] = [
         ]
     }
 ];
+AnimationPlaybackEvent
