@@ -1,11 +1,12 @@
 export interface ProjectImage {
     url: string;
     credit?: string;
+    height?: string;
 }
 
 export interface ProjectRow {
     layout: '1-col' | '2-col' | '3-col' | '4-col' | '2x1' | '4x4' | '2-left-1-right' | string;
-    maxHeight?: string;
+    height?: string;
     images: (string | ProjectImage)[];
 }
 
@@ -99,18 +100,20 @@ export const projectsData: Project[] = [
             '/assets/images/projects/circus/circus-ecashow.png',
             {
                 layout: '2-left-1-right',
-                maxHeight: '20px',
                 images: [
-                    '/assets/images/projects/circus/circus-ecashow2.png',
+                    '/assets/images/projects/circus/circus-ecashow.png',
                     {
                         url: '/assets/images/projects/circus/smile.JPG',
-                        credit: 'Credit: Random Sample Credit'
+                        credit: 'Credit: Random Sample Credit',
+                        height: '60%'
                     },
-                    '/assets/images/projects/circus/circus-ecashow.png',
-                    '/assets/images/projects/circus/smile.JPG',
                     {
                         url: '/assets/images/projects/circus/circus-ecashow2.png',
-                        credit: 'Credit: Ciara Burns'
+                        credit: 'Credit: Ciara Burns',
+                    },
+                    {
+                        url: '/assets/images/projects/circus/circus-ecashow2.png',
+                        credit: 'Credit: Ciara Burns',
                     }
                 ]
             },
