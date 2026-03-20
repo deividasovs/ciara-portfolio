@@ -231,7 +231,7 @@ export const ProjectDetail: React.FC = () => {
                             alt={`${project.title} hero`}
                             style={{
                                 maxWidth: '100%',
-                                maxHeight: '70vh',
+                                maxHeight: project.topHorizontalHeight || '70vh',
                                 width: 'auto',
                                 height: 'auto',
                                 display: 'block',
@@ -248,6 +248,28 @@ export const ProjectDetail: React.FC = () => {
 
                 <div style={{ fontSize: '1.25rem', lineHeight: 1.8, color: isDark ? '#EBEBEB' : '#444', maxWidth: '800px', margin: '0 auto 6rem auto' }}>
                     <p>{project.longDesc}</p>
+                    {project.link && (
+                        <div style={{ marginTop: '3rem', display: 'flex', justifyContent: 'center' }}>
+                            <Link 
+                                to={project.link} 
+                                className="opt1-view-link"
+                                style={{ 
+                                    padding: '1rem 3rem',
+                                    backgroundColor: isDark ? '#FDFDFC' : '#1a1a1a',
+                                    color: isDark ? '#1a1a1a' : '#FDFDFC',
+                                    textDecoration: 'none',
+                                    fontSize: '1rem',
+                                    fontWeight: 500,
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.1em',
+                                    transition: 'all 0.3s ease',
+                                    border: isDark ? 'none' : '1px solid #1a1a1a'
+                                }}
+                            >
+                                Visit Project
+                            </Link>
+                        </div>
+                    )}
                 </div>
 
                 {project.images && project.images.length > 0 && (() => {

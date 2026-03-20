@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './PaperBagPrincessApp.css';
 
-import { Product, fakeProducts } from './fakeProducts';
+import { fakeProducts } from './fakeProducts';
 
 
 function PaperBagPrincess() {
@@ -21,61 +21,36 @@ function PaperBagPrincess() {
     return () => clearInterval(timer);
   }, []);
 
-  // Escalating harassment based on time
+  // Escalating harassment based on time (Slowed down to 45s intervals)
   useEffect(() => {
-    // Level 1: After 5 seconds - first popup
-    if (timeOnSite === 5) {
-      showMessage("Exclusive Collection. Available Now.");
-    }
-
-    // Level 2: After 10 seconds - banner appears
+    // Level 1: Initial banner at 10s
     if (timeOnSite === 10) {
-      setBannerMessage("Limited Time Offer — Up to 99% Off Select Styles");
+      setBannerMessage("Limited Time Offer — Up to 70% Off Select Styles");
     }
 
-    // Level 3: After 15 seconds - desperate popup
-    if (timeOnSite === 15) {
-      showMessage("These prices won't last. Consider adding to cart.");
-    }
-
-    // Level 4: After 20 seconds - aggressive banner
+    // Level 2: Aggressive banner at 20s
     if (timeOnSite === 20) {
       setBannerMessage("Final Hours — Archive Sale Ends Soon");
     }
 
-    // Level 5: After 25 seconds - very desperate
-    if (timeOnSite === 25) {
-      showMessage("Perhaps you'd like to reconsider? Unprecedented values.");
-    }
-
-    // Level 6: After 30 seconds - cursor follower activates
-    if (timeOnSite === 30) {
-      setCursorFollower({ x: 0, y: 0, show: true });
-      showMessage("We notice you're still browsing. May we assist?");
-    }
-
-    // Level 7: After 35 seconds
+    // Level 3: Exclusive banner at 35s
     if (timeOnSite === 35) {
       setBannerMessage("Exclusive Pricing — One Time Only");
     }
 
-    // Level 8: After 40 seconds - complete chaos
-    if (timeOnSite === 40) {
-      showMessage("This is rather unusual. These prices are historically low.");
+    // Recurring popups every 45 seconds
+    if (timeOnSite > 0 && timeOnSite % 45 === 0) {
+      const messages = [
+        "Join the Haute Mess Club—news, drops, and chaos straight to your inbox.",
+        "These prices won't last. Consider adding to cart.",
+        "Market adjustments are frequent. Act accordingly.",
+      ];
+      showMessage(messages[Math.floor((timeOnSite / 45) - 1) % messages.length]);
     }
 
-    // Random popups after 45 seconds
-    if (timeOnSite > 45 && timeOnSite % 7 === 0) {
-      const messages = [
-        "Your cart awaits completion.",
-        "Consider the value proposition.",
-        "Others are viewing these items.",
-        "Complimentary shipping on all orders.",
-        "Limited availability. Act accordingly.",
-        "These reductions are significant.",
-        "Rare opportunity. Time sensitive.",
-      ];
-      showMessage(messages[Math.floor(Math.random() * messages.length)]);
+    // Level 4: Cursor follower activates at 60s (was 30s)
+    if (timeOnSite === 60) {
+      setCursorFollower({ x: 0, y: 0, show: true });
     }
   }, [timeOnSite]);
 
@@ -117,6 +92,10 @@ function PaperBagPrincess() {
 
   return (
     <div className="PaperBagApp">
+      {/* Decorative Minimalist Fragments */}
+      <div className="paper-fragment fragment-1" />
+      <div className="paper-fragment fragment-2" />
+
       {/* Floating Banner */}
       {bannerMessage && (
         <div className="floating-banner">
@@ -126,37 +105,29 @@ function PaperBagPrincess() {
 
       {/* Header */}
       <header className="header">
-        <h1 className="logo">Consume Now</h1>
-        <div className="tagline">Curated Collection</div>
-        <div className="cart-badge">
-          Cart: {cartCount}
-          {cartCount === 0 && " — Empty"}
-        </div>
+        <h1 className="logo">Paper Couture</h1>
+        <div className="tagline">By Your Former Princess</div>
+        <button className="cart-badge" onClick={() => showMessage("Your cart is currently under review.")}>
+          Cart ({cartCount})
+        </button>
       </header>
 
-      {/* Aggressive Sub-banner */}
+      {/* Sub-banner (Refined) */}
       <div className="sub-banner">
-        <span className="blink">Archive Sale</span>
-        <span className="pulse">Exceptional Values</span>
-        <span className="blink">Limited Time</span>
+        <span>Curated Selection</span>
+        <span>Archive Value</span>
+        <span>Limited Edition</span>
       </div>
-
-      {/* Time pressure indicator */}
-      {timeOnSite > 20 && (
-        <div className="pressure-timer">
-          Browsing for {timeOnSite} seconds — Prices subject to change
-        </div>
-      )}
 
       {/* Products Grid */}
       <main className="products-container">
         {fakeProducts.map((product) => (
           <div
             key={product.id}
-            className={`product-card ${shakingElement === product.id ? 'shake' : ''} ${timeOnSite > 35 ? 'desperate' : ''}`}
+            className={`product-card ${shakingElement === product.id ? 'shake' : ''}`}
           >
             <div className="product-badge">
-              {discountPercentage(product.originalPrice, product.discountedPrice)}% OFF!
+              -{discountPercentage(product.originalPrice, product.discountedPrice)}%
             </div>
 
             <div className="product-image-container">
@@ -176,6 +147,9 @@ function PaperBagPrincess() {
               <div className="discounted-price">
                 ${product.discountedPrice}
               </div>
+              <div className="urgency-text">
+                {timeOnSite > 30 ? "High Demand" : "Availability: Low"}
+              </div>
             </div>
 
             <button
@@ -184,12 +158,6 @@ function PaperBagPrincess() {
             >
               Add to Cart
             </button>
-
-            {timeOnSite > 30 && (
-              <div className="urgency-text">
-                {Math.floor(Math.random() * 3) + 1} viewing now
-              </div>
-            )}
           </div>
         ))}
       </main>
@@ -201,7 +169,7 @@ function PaperBagPrincess() {
             <button className="popup-close" onClick={() => setShowPopup(false)}>✕</button>
             <div className="popup-message">{popupMessage}</div>
             <button className="popup-btn" onClick={() => setShowPopup(false)}>
-              Continue Shopping
+              Continue
             </button>
           </div>
         </div>
@@ -218,25 +186,19 @@ function PaperBagPrincess() {
         />
       )}
 
-      {/* Animated Sales Lady */}
+      {/* Minimal Status Label instead of Sales Lady */}
       <div className="sales-lady">
-        <div className="speech-bubble">
-          <div className="speech-bubble-text">
-            Don't miss out!
-            <span className="speech-bubble-emphasis">99% OFF!</span>
-          </div>
-        </div>
-        <div className="lady-character">💃</div>
+        Personal Shopper: Online
       </div>
 
       {/* Footer */}
       <footer className="footer">
-        <p>Authentic Value</p>
+        <p>© Paper Couture 2024</p>
         <p className="small-print">
-          * Original prices may be aspirational. Savings are a matter of perspective.
+          *All prices are subject to existential interpretation. Savings may vary based on perspective. Limited availability strictly enforced by market whim.
         </p>
         <p className="manifesto">
-          Satire — Consume Mindfully
+          Refined Consumption / Satirical Archive
         </p>
       </footer>
     </div>

@@ -7,12 +7,10 @@ export interface Product {
 }
 
 export const fakeProducts: Product[] = [
-    { id: 1, name: "Essential Linen Tee", originalPrice: 89999.99, discountedPrice: 0.99, image: "/assets/images/fakeConsumerPage/papershirt.png" },
-    { id: 2, name: "Ribbed Cotton Socks", originalPrice: 45000.00, discountedPrice: 0.49, image: "🧦" },
-    { id: 3, name: "Tailored Denim", originalPrice: 125000.00, discountedPrice: 1.99, image: "👖" },
-    { id: 4, name: "Oversized Knit", originalPrice: 67890.00, discountedPrice: 0.79, image: "🧥" },
-    { id: 5, name: "Midi Slip Dress", originalPrice: 234567.89, discountedPrice: 1.49, image: "👗" },
-    { id: 6, name: "Leather Sneakers", originalPrice: 99999.99, discountedPrice: 0.69, image: "👟" },
-    { id: 7, name: "Wide Brim Hat", originalPrice: 34500.50, discountedPrice: 0.39, image: "🎩" },
-    { id: 8, name: "High-Rise Shorts", originalPrice: 56789.00, discountedPrice: 0.89, image: "🩳" },
+    { id: 1, name: "Prince's Ego Tee", originalPrice: 60.00, discountedPrice: 0.99, image: "" },
+    { id: 2, name: "Barcode Socks", originalPrice: 20.00, discountedPrice: 0.49, image: "" },
+    { id: 3, name: "Paperclip Skirt", originalPrice: 120.00, discountedPrice: 1.99, image: "" },
+    { id: 4, name: "Lingerie Set", originalPrice: 40.00, discountedPrice: 0.79, image: "" },
+    { id: 5, name: "Paperbag Long Tee", originalPrice: 70.00, discountedPrice: 1.49, image: "" },
+    { id: 6, name: "Paperbag Clutch", originalPrice: 130.00, discountedPrice: 0.69, image: "" },
 ];

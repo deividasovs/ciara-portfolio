@@ -21,15 +21,17 @@ export interface Project {
     thumbnailCredit?: string;
     topHorizontalImage?: string;
     topHorizontalCredit?: string;
+    topHorizontalHeight?: string;
     images: (string | ProjectImage | ProjectRow)[];
     theme?: 'light' | 'dark';
     layout?: '1-col' | '2-col' | '3-col' | '4-col' | '2x1' | '4x4' | '2-left-1-right' | string; // Adjust the grid layout for project images
+    link?: string;
 }
 
 export const projectsData: Project[] = [
     {
         id: 'the-paperbag-princess',
-        title: "The Paperbag Princess",
+        title: "Paper Couture",
         desc: 'A high fashion paper world exploring a gender flipped fairytale.',
         longDesc: "Princess Elizabeth had all the dresses a storybook royal could dream of. But when a dragon scorches her castle, steals her prince, and leaves her with nothing but ashes and a paper bag, she doesn't crumble — she rises. In her shredded dignity and a makeshift outfit, she faces fire, tricks a monster, and saves the prince. But when he mocks her for how she looks, Elizabeth sees the truth: the fairytale isn’t real — but she is. She tears off the paper bag and becomes something new — a princess of her own making.Bold, raw, and reassembled, her final look is a declaration: no prince, no crown, no rules.Just power, paper, and pride.",
         date: '2026',
@@ -42,7 +44,8 @@ export const projectsData: Project[] = [
                 credit: 'Credit: Ciara Burns'
             },
             '/assets/images/projects/paperbag-princess/princess-front.PNG'
-        ]
+        ],
+        link: '/interactive/paperbagprincess'
     },
 
     {
@@ -61,17 +64,19 @@ export const projectsData: Project[] = [
     {
         id: 'spaceship-earth',
         title: 'Spaceship Earth',
-        desc: 'A bioluminescent festival',
         longDesc: 'This project envisions a sustainable music festival set 100 years from now. Inspired by bioluminescent organisms, I imagined a world where genetically modified plants provide natural lighting and clean air. From this idea, I designed characters that coexist with humans, with costumes reflecting bioluminescence and sustainable values. My final design was inspired by coral and made using discarded tent fabric, highlighting reuse and eco-conscious design in future performance.',
         date: '2025',
         featured: true,
         thumbnailUrl: '/assets/images/projects/spaceship-earth/coral-illustration.PNG',
         topHorizontalImage: '/assets/images/projects/spaceship-earth/coral-collage.png',
+        desc: 'Coral inspired costume made from discarded tent material at Edinburgh Science Festival 2025',
         images: [
             '/assets/images/projects/spaceship-earth/coralposterized1.png',
-            '/assets/images/projects/spaceship-earth/coral-illustration.PNG'
+            '/assets/images/projects/spaceship-earth/coralediscifest2.png',
+            '/assets/images/projects/spaceship-earth/lineup.png'
         ],
-        theme: 'dark'
+        theme: 'dark',
+        layout: '2x1'
     },
     {
         id: 'macbeth',
@@ -81,8 +86,10 @@ export const projectsData: Project[] = [
         date: '2025',
         featured: false,
         thumbnailUrl: '/assets/images/projects/Macbeth/macbeth-back.png',
-        topHorizontalImage: '/assets/images/projects/Macbeth/macbeth-back.png',
+        topHorizontalImage: '/assets/images/projects/Macbeth/Deivobsessed.png',
+        topHorizontalHeight: '85vh',
         images: [
+            '/assets/images/projects/Macbeth/Deivobsessed.png',
             '/assets/images/projects/Macbeth/macbeth-back.png'
         ]
     },
@@ -90,7 +97,7 @@ export const projectsData: Project[] = [
         id: 'l\'enfant et les sortilèges',
         title: 'l\'enfant et les sortilèges',
         desc: 'A redesign project of L\'enfant et les sortilèges by Maurice Ravel',
-        longDesc: "Designed for the children\'s French opera L\'Ènfant et les Sortilèges, this costume draws inspiration from vibrant and bold aesthetic of the French circus. Its colourful design is intended to captivate and engage young audiences. Additionally, it features integrated lighting along the bottom, adding an extra layer of magic and visual interest.",
+        longDesc: "Designed for the children's French opera L'Ènfant et les Sortilèges, this costume draws inspiration from vibrant and bold aesthetic of the French circus. Its colourful design is intended to captivate and engage young audiences. Additionally, it features integrated lighting along the bottom, adding an extra layer of magic and visual interest.",
         date: '2024',
         featured: false,
         layout: '3-col',
@@ -101,18 +108,17 @@ export const projectsData: Project[] = [
             {
                 layout: '2-left-1-right',
                 images: [
-                    '/assets/images/projects/circus/circus-ecashow.png',
                     {
-                        url: '/assets/images/projects/circus/smile.JPG',
+                        url: '/assets/images/projects/circus/circus-ecashow2.png',
                         credit: 'Credit: Random Sample Credit',
-                        height: '80%'
+                        height: '60%'
                     },
                     {
                         url: '/assets/images/projects/circus/circus-ecashow2.png',
                         credit: 'Credit: Ciara Burns',
                     },
                     {
-                        url: '/assets/images/projects/circus/circus-ecashow2.png',
+                        url: '/assets/images/projects/circus/smile.JPG',
                         credit: 'Credit: Ciara Burns',
                     }
                 ]
