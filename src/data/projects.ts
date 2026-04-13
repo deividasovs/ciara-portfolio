@@ -101,7 +101,7 @@ export const projectsData: Project[] = [
         date: '2024',
         featured: false,
         layout: '3-col',
-        thumbnailUrl: '/assets/images/projects/circus/circus-ecashow.png',
+        thumbnailUrl: '/assets/images/projects/circus/smile.jpg',
         topHorizontalImage: '/assets/images/projects/circus/circus-ecashow.png',
         images: [
             '/assets/images/projects/circus/circus-ecashow.png',
