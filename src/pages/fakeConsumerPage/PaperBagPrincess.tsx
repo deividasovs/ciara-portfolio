@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './PaperBagPrincessApp.css';
 
 import { fakeProducts } from './fakeProducts';
@@ -66,6 +67,12 @@ function PaperBagPrincess() {
           );
         })}
       </main>
+
+      <div className="visit-portfolio-wrap">
+        <Link to="/" className="visit-portfolio">
+          Visit Ciara Burns Costume
+        </Link>
+      </div>
 
       {/* Footer */}
       <footer className="footer">

@@ -39,17 +39,7 @@ export const projectsData: Project[] = [
         featured: true,
         thumbnailUrl: '/assets/images/projects/paperbag-princess/princess-back.png',
         topHorizontalImage: '/assets/images/projects/paperbag-princess/prince.png',
-        images: [
-            {
-                layout: '2-col',
-                images: [
-                    {
-                        url: '/assets/images/projects/paperbag-princess/princess-back.png',
-                        credit: 'Credit: Ciara Burns'
-                    }
-                ]
-            }
-        ],
+        images: [],
         link: '/interactive/paperbagprincess',
         linkLabel: 'Step Inside the Shop'
     },
@@ -60,7 +50,7 @@ export const projectsData: Project[] = [
         longDesc: 'Exploring the vibrant culture of Mexico and Dia de los Muertos through the lens of Pixar\'s Coco. This project is a celebration of life, death, and the importance of family and rememberance. Looking into both traditional Mexican dress and parade culture, bringing in elemnets of lantern puppetry to bring the alebrijes inspired spirit guides to life on stage.',
         date: '2026',
         featured: true,
-        thumbnailUrl: '/assets/images/projects/Coco/pepita-white.png',
+        thumbnailUrl: '/assets/images/projects/Coco/pepita-illustration.png',
         images: [
             {
                 layout: '2-col',
@@ -82,17 +72,11 @@ export const projectsData: Project[] = [
         topHorizontalImage: '/assets/images/projects/spaceship-earth/coral-collage.png',
         images: [
             {
-                layout: '2-col',
+                layout: '3-col',
                 images: [
-                    '/assets/images/projects/spaceship-earth/coralposterized1.png',
-                    '/assets/images/projects/spaceship-earth/coralunposterized1.JPG'
-                ]
-            },
-            {
-                layout: '2-col',
-                images: [
-                    '/assets/images/projects/spaceship-earth/coral-ediscifest.png',
-                    '/assets/images/projects/spaceship-earth/coralediscifest2.jpg'
+                    '/assets/images/projects/spaceship-earth/coralunposterized1.JPG',
+                    '/assets/images/projects/spaceship-earth/coralediscifest2.jpg',
+                    '/assets/images/projects/spaceship-earth/coral-ediscifest.png'
                 ]
             },
             {
@@ -102,7 +86,7 @@ export const projectsData: Project[] = [
                 ]
             },
             {
-                layout: '2-col',
+                layout: '1-col',
                 images: [
                     '/assets/images/projects/spaceship-earth/coral-illustration.PNG'
                 ]
@@ -122,19 +106,18 @@ export const projectsData: Project[] = [
         topHorizontalHeight: '85vh',
         images: [
             {
-                layout: '3-col',
+                layout: '1-col',
                 images: [
                     {
                         url: '/assets/images/projects/Macbeth/ECA Costume_23May25_photo Brian Hartley_9939_lo.jpg',
                         credit: 'Credit: Brian Hartley'
-                    },
-                    '/assets/images/projects/Macbeth/macbeth-back.png',
-                    '/assets/images/projects/Macbeth/macbeth-backiphone.jpg'
+                    }
                 ]
             },
             {
-                layout: '2-col',
+                layout: '3-col',
                 images: [
+                    '/assets/images/projects/Macbeth/macbeth-back.png',
                     '/assets/images/projects/Macbeth/Untitled_Artwork 135.png',
                     '/assets/images/projects/Macbeth/macbethillustration-back.png'
                 ]
@@ -152,7 +135,7 @@ export const projectsData: Project[] = [
         topHorizontalImage: '/assets/images/projects/circus/circus-ecashow.png',
         images: [
             {
-                layout: '2-col',
+                layout: '3-col',
                 images: [
                     {
                         url: '/assets/images/projects/circus/circus-ecashow2.png',
@@ -161,14 +144,13 @@ export const projectsData: Project[] = [
                     {
                         url: '/assets/images/projects/circus/smile.JPG',
                         credit: 'Credit: Ciara Burns'
-                    }
+                    },
+                    '/assets/images/projects/circus/circusillustration.png'
                 ]
             },
             {
-                layout: '3-col',
+                layout: '1-col',
                 images: [
-                    '/assets/images/projects/circus/circusillustration.png',
-                    '/assets/images/projects/circus/7bec6337-ed61-4a63-a16a-6ab226fbf84a.JPG',
                     '/assets/images/projects/circus/a2f62cf1-9976-4567-b6cc-e588894298b6.JPG'
                 ]
             }

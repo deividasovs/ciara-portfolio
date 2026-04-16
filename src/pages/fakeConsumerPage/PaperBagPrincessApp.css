@@ -56,6 +56,35 @@ body {
   text-transform: uppercase;
 }
 
+/* Visit portfolio link */
+.visit-portfolio-wrap {
+  text-align: center;
+  padding: 0 40px;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 20;
+}
+
+.visit-portfolio {
+  display: inline-block;
+  padding: 14px 38px;
+  border: 1px solid #111111;
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 0.7rem;
+  color: #111111;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: transparent;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.visit-portfolio:hover {
+  background: #111111;
+  color: #ffffff;
+}
+
 /* Header */
 .header {
   padding: 140px 40px 60px;
@@ -135,8 +164,8 @@ body {
 /* Products Container */
 .products-container {
   max-width: 1400px;
-  margin: 100px auto;
-  padding: 0 40px 120px;
+  margin: 100px auto 40px;
+  padding: 0 40px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 60px;
@@ -401,7 +430,7 @@ body {
 @media (max-width: 768px) {
   .logo { font-size: 3rem; letter-spacing: 8px; }
   .header { padding: 100px 20px 40px; }
-  .products-container { padding: 0 20px 80px; gap: 40px; }
+  .products-container { padding: 0 20px; gap: 40px; }
   .popup-content { padding: 60px 40px; }
   .popup-message { font-size: 2rem; }
 }

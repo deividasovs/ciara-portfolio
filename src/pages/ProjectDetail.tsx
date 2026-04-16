@@ -76,16 +76,29 @@ const buildImageRows = (project: typeof projectsData[number], topImageUrl: strin
     return rows;
 };
 
+const MULTI_COL_LAYOUTS = new Set(['2-col', '3-col', '4-col', '2x1', '4x4']);
+const DEFAULT_MULTI_COL_HEIGHT = 'min(65vh, 620px)';
+const SINGLE_COL_MAX_WIDTH = '900px';
+
+const getEffectiveRowHeight = (row: NormalizedRow): string | undefined => {
+    if (row.height) return row.height;
+    if (MULTI_COL_LAYOUTS.has(row.layout)) return DEFAULT_MULTI_COL_HEIGHT;
+    return undefined;
+};
+
 const getRowGridStyle = (row: NormalizedRow): React.CSSProperties => {
     const gridStyle: React.CSSProperties = {
         display: 'grid',
-        gap: '2rem',
-        marginBottom: '6rem',
+        gap: '1.5rem',
+        marginBottom: '2rem',
     };
 
     switch (row.layout) {
         case '1-col':
             gridStyle.gridTemplateColumns = '1fr';
+            gridStyle.maxWidth = SINGLE_COL_MAX_WIDTH;
+            gridStyle.marginLeft = 'auto';
+            gridStyle.marginRight = 'auto';
             break;
         case '2-col':
         case '2x1':
@@ -136,8 +149,9 @@ const getRowGridStyle = (row: NormalizedRow): React.CSSProperties => {
             break;
     }
 
-    if (row.height) {
-        gridStyle.height = row.height;
+    const effectiveHeight = getEffectiveRowHeight(row);
+    if (effectiveHeight) {
+        gridStyle.height = effectiveHeight;
     }
 
     return gridStyle;
@@ -205,26 +219,21 @@ export const ProjectDetail: React.FC = () => {
     };
 
     return (
-        <div className={`option1-container fade-in ${isDark ? 'opt1-dark-theme' : ''} ${isCoral ? 'opt1-coral-theme' : ''}`} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+        <div className={`option1-container fade-in ${isDark ? 'opt1-dark-theme' : ''} ${isCoral ? 'opt1-coral-theme' : ''}`} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', textAlign: 'left' }}>
             <Navbar />
 
-            <main className="opt1-section" style={{ flex: 1, width: '100%' }}>
-                <Link to="/projects" className="opt1-role" style={{ display: 'inline-block', marginBottom: '2rem', textDecoration: 'none', color: isDark ? '#FDFDFC' : 'inherit' }}>
+            <div style={{ width: '100%', padding: '2rem 2.5rem 0' }}>
+                <Link to="/projects" className="opt1-role" style={{ display: 'inline-block', textDecoration: 'none', color: isDark ? '#FDFDFC' : 'inherit' }}>
                     ← Back to Projects
                 </Link>
+            </div>
 
-                <h1 className="opt1-title" style={{ marginTop: 0, marginBottom: '1rem', lineHeight: 1.1 }}>
+            <main className="opt1-section" style={{ flex: 1, width: '100%', padding: '1.5rem 4rem 3rem' }}>
+                <h1 className="opt1-title" style={{ marginTop: 0, marginBottom: '2rem', lineHeight: 1.1, fontSize: '3rem', textAlign: 'center' }}>
                     {project.title}
                 </h1>
 
-                <div style={{ display: 'flex', gap: '2rem', borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : '#EBEBEB'}`, paddingBottom: '2rem', marginBottom: '4rem' }}>
-                    <div>
-                        <span style={{ display: 'block', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: isDark ? '#8C8881' : '#8C8881' }}>Year</span>
-                        <span style={{ fontSize: '1.1rem' }}>{project.date}</span>
-                    </div>
-                </div>
-
-                <div style={{ width: '100%', marginBottom: '4rem', display: 'flex', justifyContent: 'center' }}>
+                <div style={{ width: '100%', marginBottom: '2rem', display: 'flex', justifyContent: 'center' }}>
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                         <img
                             src={topImageInfo.url}
@@ -239,14 +248,14 @@ export const ProjectDetail: React.FC = () => {
                             }}
                         />
                         {topImageInfo.credit && (
-                            <span style={{ marginTop: '0.75rem', fontSize: '0.85rem', color: isDark ? '#A0A0A0' : '#888', fontStyle: 'italic', display: 'block', textAlign: 'left' }}>
+                            <span style={{ marginTop: '0.5rem', fontSize: '0.85rem', color: isDark ? '#A0A0A0' : '#888', fontStyle: 'italic', display: 'block', textAlign: 'left' }}>
                                 {topImageInfo.credit}
                             </span>
                         )}
                     </div>
                 </div>
 
-                <div style={{ fontSize: '1.25rem', lineHeight: 1.8, color: isDark ? '#EBEBEB' : '#444', maxWidth: '800px', margin: '0 auto 6rem auto' }}>
+                <div style={{ fontSize: '1.25rem', lineHeight: 1.8, color: isDark ? '#EBEBEB' : '#444', maxWidth: '800px', margin: '0 auto 3rem auto' }}>
                     <p>{project.longDesc}</p>
                     {project.link && (
                         <div style={{ marginTop: '3rem', display: 'flex', justifyContent: 'center' }}>
@@ -277,6 +286,7 @@ export const ProjectDetail: React.FC = () => {
 
                     return rows.map((row, rowIndex) => {
                         const gridStyle = getRowGridStyle(row);
+                        const rowEffectiveHeight = getEffectiveRowHeight(row);
 
                         return (
                             <div key={rowIndex} style={gridStyle}>
@@ -284,12 +294,12 @@ export const ProjectDetail: React.FC = () => {
                                     const itemStyle = getItemGridStyle(row, index);
                                     const isHeightConstrained =
                                         row.layout === '2-left-1-right' ||
-                                        !!row.height ||
+                                        !!rowEffectiveHeight ||
                                         !!img.height;
                                     const effectiveHeight =
                                         row.layout === '2-left-1-right'
                                             ? 'auto'
-                                            : img.height || (row.height ? '100%' : 'auto');
+                                            : img.height || (rowEffectiveHeight ? '100%' : 'auto');
 
                                     return (
                                         <div
@@ -301,20 +311,20 @@ export const ProjectDetail: React.FC = () => {
                                                     flex: 1,
                                                     minHeight: 0,
                                                     display: 'flex',
+                                                    justifyContent: 'center',
+                                                    alignItems: 'center',
                                                 }}
                                             >
                                                 <img
                                                     src={img.url}
                                                     alt={`${project.title} detail ${index + 1}`}
                                                     style={{
-                                                        width: '100%',
-                                                        height: isHeightConstrained
-                                                            ? '100%'
-                                                            : 'auto',
+                                                        width: isHeightConstrained ? 'auto' : '100%',
+                                                        height: isHeightConstrained ? '100%' : 'auto',
+                                                        maxWidth: '100%',
+                                                        maxHeight: row.layout === '1-col' ? '70vh' : undefined,
                                                         display: 'block',
-                                                        objectFit: isHeightConstrained
-                                                            ? 'cover'
-                                                            : 'contain',
+                                                        objectFit: 'contain',
                                                     }}
                                                 />
                                             </div>
@@ -338,6 +348,11 @@ export const ProjectDetail: React.FC = () => {
                         );
                     });
                 })()}
+
+                <div style={{ marginTop: '4rem', paddingTop: '2rem', borderTop: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : '#EBEBEB'}` }}>
+                    <span style={{ display: 'block', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#8C8881' }}>Year</span>
+                    <span style={{ fontSize: '1.1rem' }}>{project.date}</span>
+                </div>
 
             </main>
 
