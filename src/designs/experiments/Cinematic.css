@@ -1,0 +1,115 @@
+.exp-cinematic {
+    background: #0a0a0a;
+    color: #fff;
+    height: calc(100vh - 60px);
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    position: relative;
+}
+
+.exp-cinematic-slide {
+    height: calc(100vh - 60px);
+    scroll-snap-align: start;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 40px;
+}
+
+.exp-cinematic-slide img {
+    max-height: 90%;
+    max-width: 90%;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 30px 80px rgba(0, 0, 0, 0.5));
+}
+
+.exp-cinematic-intro h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 4rem;
+    font-weight: 400;
+    margin: 0 0 16px;
+    text-align: center;
+}
+
+.exp-cinematic-intro p {
+    max-width: 600px;
+    text-align: center;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #ccc;
+    margin: 0;
+}
+
+.exp-cinematic-intro-meta {
+    color: #888;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+}
+
+.exp-cinematic-caption {
+    position: absolute;
+    bottom: 24px;
+    left: 40px;
+    right: 40px;
+    display: flex;
+    justify-content: space-between;
+    color: #aaa;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.exp-cinematic-dots {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 5;
+}
+
+.exp-cinematic-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.3s ease;
+}
+
+.exp-cinematic-dot.on {
+    background: #fff;
+    height: 24px;
+    border-radius: 3px;
+}
+
+.exp-cinematic-hint {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #666;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    animation: cin-bounce 2s infinite;
+}
+
+@keyframes cin-bounce {
+    0%, 100% { transform: translate(-50%, 0); opacity: 0.6; }
+    50% { transform: translate(-50%, 8px); opacity: 1; }
+}
+
+@media (max-width: 720px) {
+    .exp-cinematic-intro h1 { font-size: 2.4rem; }
+    .exp-cinematic-caption { left: 20px; right: 20px; font-size: 0.7rem; }
+    .exp-cinematic-dots { right: 10px; }
+}

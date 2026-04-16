@@ -53,10 +53,9 @@ export const projectsData: Project[] = [
         thumbnailUrl: '/assets/images/projects/Coco/pepita-illustration.png',
         images: [
             {
-                layout: '2-col',
+                layout: '1-col',
                 images: [
-                    '/assets/images/projects/Coco/pepita-black.png',
-                    '/assets/images/projects/Coco/pepita-illustration.png'
+                    '/assets/images/projects/Coco/pepita-black.png'
                 ]
             }
         ]

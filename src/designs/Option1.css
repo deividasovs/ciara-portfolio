@@ -47,7 +47,7 @@
 }
 
 .option1-container.opt1-dark-theme .opt1-socials a {
-    color: #8C8881;
+    color: #6B6763;
 }
 
 .option1-container.opt1-dark-theme .opt1-socials a:hover {
@@ -138,8 +138,7 @@
 .opt1-hero {
     position: relative;
     z-index: 2;
-    padding: 10rem 4rem 18rem 4rem;
-    /* Removed bottom padding so no whitespace to the next section */
+    padding: 7rem 4rem 12rem 4rem;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -256,7 +255,10 @@
     font-weight: 400;
     margin-top: 0;
     margin-bottom: 0;
-    /* Removed margin-bottom to avoid whitespace */
+}
+
+.opt1-about h2 {
+    margin-bottom: 1.5rem;
 }
 
 .opt1-projects {
@@ -264,7 +266,7 @@
     background-position: center;
     background-repeat: no-repeat;
     max-width: 100%;
-    margin-top: -140px;
+    margin-top: -80px;
     padding-left: 0;
     padding-right: 0;
     z-index: 1;
@@ -278,9 +280,15 @@
 
 .opt1-about-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 5rem;
     align-items: center;
+}
+
+.opt1-page-heading {
+    font-size: 3.5rem;
+    text-align: center;
+    margin-bottom: 3rem;
 }
 
 .opt1-about-text p {
@@ -306,7 +314,8 @@
 .opt1-project-showcase-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
-    gap: 2rem;
+    column-gap: 2.5rem;
+    row-gap: 4rem;
 }
 
 .opt1-project-card {
@@ -352,7 +361,7 @@
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: #8C8881;
+    color: #6B6763;
     margin-bottom: 1rem;
 }
 
@@ -373,8 +382,8 @@
 
 .opt1-footer {
     text-align: center;
-    padding: 8rem 2rem;
-    background-color: #F7F6F4;
+    padding: 5rem 4rem;
+    background-color: #F1EEE8;
 }
 
 .opt1-footer h2 {
@@ -424,14 +433,90 @@
 .opt1-locations {
     margin-top: 1.5rem;
     font-size: 0.9rem;
-    color: #8C8881;
+    color: #6B6763;
     letter-spacing: 0.05em;
 }
 
 .opt1-copyright {
     margin-top: 1.5rem;
     font-size: 0.85rem;
-    color: #8C8881;
+    color: #6B6763;
+}
+
+.opt1-image-credit {
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+    color: #6B6763;
+    font-style: italic;
+    text-align: left;
+}
+
+.option1-container.opt1-dark-theme .opt1-image-credit {
+    color: #A0A0A0;
+}
+
+.opt1-links a:focus-visible,
+.opt1-logo:focus-visible,
+.opt1-view-link:focus-visible,
+.opt1-email:focus-visible,
+.opt1-socials a:focus-visible,
+.opt1-project-image-container:focus-visible,
+.opt1-role:focus-visible {
+    outline: 2px solid #2B2B2B;
+    outline-offset: 3px;
+    border-radius: 2px;
+}
+
+.option1-container.opt1-dark-theme a:focus-visible {
+    outline-color: #FDFDFC;
+}
+
+.opt1-project-detail-main {
+    flex: 1;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 4rem;
+}
+
+.opt1-instagram-fallback {
+    padding: 4rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #F7F6F4;
+    border: 1px solid #EBEBEB;
+}
+
+.opt1-instagram-fallback p {
+    margin: 0 0 1.5rem 0;
+    font-size: 1.1rem;
+    color: #2B2B2B;
+}
+
+.opt1-primary-button {
+    padding: 0.9rem 2rem;
+    background-color: #2B2B2B;
+    color: #FDFDFC;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-family: inherit;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: background-color 0.2s;
+}
+
+.opt1-primary-button:hover,
+.opt1-primary-button:focus-visible {
+    background-color: #000;
+}
+
+.opt1-primary-button:focus-visible {
+    outline: 2px solid #2B2B2B;
+    outline-offset: 3px;
 }
 
 @media (max-width: 768px) {
@@ -439,7 +524,8 @@
     .opt1-nav,
     .opt1-hero,
     .opt1-section,
-    .opt1-footer {
+    .opt1-footer,
+    .opt1-project-detail-main {
         padding-left: 1.5rem;
         padding-right: 1.5rem;
     }

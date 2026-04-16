@@ -222,13 +222,7 @@ export const ProjectDetail: React.FC = () => {
         <div className={`option1-container fade-in ${isDark ? 'opt1-dark-theme' : ''} ${isCoral ? 'opt1-coral-theme' : ''}`} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', textAlign: 'left' }}>
             <Navbar />
 
-            <div style={{ width: '100%', padding: '2rem 2.5rem 0' }}>
-                <Link to="/projects" className="opt1-role" style={{ display: 'inline-block', textDecoration: 'none', color: isDark ? '#FDFDFC' : 'inherit' }}>
-                    ← Back to Projects
-                </Link>
-            </div>
-
-            <main className="opt1-section" style={{ flex: 1, width: '100%', padding: '1.5rem 4rem 3rem' }}>
+            <main className="opt1-project-detail-main">
                 <h1 className="opt1-title" style={{ marginTop: 0, marginBottom: '2rem', lineHeight: 1.1, fontSize: '3rem', textAlign: 'center' }}>
                     {project.title}
                 </h1>

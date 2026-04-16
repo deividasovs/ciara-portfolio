@@ -1,0 +1,141 @@
+.exp-stage {
+    background: #0a0a0a;
+    color: #fff;
+    min-height: calc(100vh - 60px);
+    padding: 40px 32px 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+}
+
+.exp-stage-header {
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.exp-stage-header .exp-stage-meta {
+    display: block;
+    color: #888;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.exp-stage-header h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 2.4rem;
+    margin: 0;
+    font-weight: 400;
+}
+
+.exp-stage-spot {
+    width: 100%;
+    max-width: 1100px;
+    height: 65vh;
+    min-height: 480px;
+    background: #141414;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.6);
+    position: relative;
+    overflow: hidden;
+}
+
+.exp-stage-spot::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(255, 200, 140, 0.12), transparent 65%);
+    pointer-events: none;
+}
+
+.exp-stage-spot img {
+    max-height: 90%;
+    max-width: 88%;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.6));
+    animation: exp-stage-fade 0.4s ease;
+}
+
+@keyframes exp-stage-fade {
+    from { opacity: 0; transform: scale(0.98); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.exp-stage-caption {
+    position: absolute;
+    left: 24px;
+    bottom: 16px;
+    right: 24px;
+    display: flex;
+    justify-content: space-between;
+    color: #aaa;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.exp-stage-thumbs {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 4px 4px 16px;
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
+}
+
+.exp-stage-thumbs::-webkit-scrollbar { height: 4px; }
+.exp-stage-thumbs::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+
+.exp-stage-thumb {
+    flex: 0 0 auto;
+    width: 72px;
+    height: 90px;
+    background: #1f1f1f;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    padding: 0;
+    transition: border-color 0.2s, transform 0.2s;
+}
+
+.exp-stage-thumb:hover { transform: translateY(-2px); }
+
+.exp-stage-thumb[aria-pressed='true'] {
+    border-color: #c67d4c;
+}
+
+.exp-stage-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.exp-stage-thumb[aria-pressed='true'] img,
+.exp-stage-thumb:hover img {
+    opacity: 1;
+}
+
+.exp-stage-desc {
+    max-width: 720px;
+    color: #bbb;
+    font-size: 1rem;
+    line-height: 1.75;
+    text-align: center;
+    margin: 0;
+}
+
+@media (max-width: 720px) {
+    .exp-stage { padding: 24px 16px 40px; }
+    .exp-stage-header h1 { font-size: 1.6rem; }
+    .exp-stage-spot { height: 55vh; min-height: 360px; }
+    .exp-stage-thumb { width: 56px; height: 72px; }
+}

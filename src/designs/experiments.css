@@ -1,0 +1,155 @@
+.exp-shell {
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    background: #fdfdfc;
+    color: #2b2b2b;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+.exp-shell.dark {
+    background: #0a0a0a;
+    color: #fff;
+}
+
+.exp-bar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 24px;
+    background: rgba(253, 253, 252, 0.94);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #ebebeb;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.exp-shell.dark .exp-bar {
+    background: rgba(10, 10, 10, 0.85);
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.exp-bar-logo {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: inherit;
+    text-decoration: none;
+    padding-right: 12px;
+    border-right: 1px solid #ebebeb;
+    margin-right: 8px;
+    flex-shrink: 0;
+    letter-spacing: -0.01em;
+}
+
+.exp-shell.dark .exp-bar-logo {
+    border-right-color: rgba(255, 255, 255, 0.15);
+}
+
+.exp-bar-tabs {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.exp-bar-tab {
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: inherit;
+    text-decoration: none;
+    border: 1px solid transparent;
+    background: transparent;
+    white-space: nowrap;
+    transition: all 0.15s;
+}
+
+.exp-bar-tab:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.exp-shell.dark .exp-bar-tab:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.exp-bar-tab.on {
+    background: #2b2b2b;
+    color: #fdfdfc;
+    border-color: #2b2b2b;
+}
+
+.exp-shell.dark .exp-bar-tab.on {
+    background: #fdfdfc;
+    color: #2b2b2b;
+    border-color: #fdfdfc;
+}
+
+.exp-bar-spacer {
+    flex: 1;
+    min-width: 16px;
+}
+
+.exp-bar-select {
+    flex-shrink: 0;
+    padding: 7px 30px 7px 12px;
+    font-size: 0.82rem;
+    font-family: inherit;
+    color: inherit;
+    background: transparent;
+    border: 1px solid #ddd;
+    border-radius: 999px;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238c8881' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+
+.exp-shell.dark .exp-bar-select {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.exp-notfound {
+    max-width: 600px;
+    margin: 120px auto;
+    padding: 0 24px;
+    text-align: center;
+}
+
+.exp-notfound h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 2rem;
+    font-weight: 400;
+}
+
+.exp-notfound a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+@media (max-width: 720px) {
+    .exp-bar {
+        padding: 10px 14px;
+        gap: 8px;
+    }
+    .exp-bar-logo {
+        font-size: 0.85rem;
+        padding-right: 8px;
+        margin-right: 4px;
+    }
+    .exp-bar-tab {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+    }
+    .exp-bar-select {
+        padding: 6px 24px 6px 10px;
+        font-size: 0.75rem;
+        max-width: 110px;
+        text-overflow: ellipsis;
+    }
+}

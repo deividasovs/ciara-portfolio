@@ -31,15 +31,15 @@ const InteractiveTitle: React.FC = () => {
             onMouseLeave={() => setIsHovering(false)}
         >
             <span className="sr-only">{text}</span>
-            <div className="words-wrapper" aria-hidden="true">
+            <span className="words-wrapper" aria-hidden="true">
                 {words.map((word, i) => (
                     <span key={`base-${i}`} className="word-anim" style={{ animationDelay: `${i * 0.12}s` }}>
                         {word === '&' ? <span className="ampersand">&</span> : word}&nbsp;
                     </span>
                 ))}
-            </div>
+            </span>
 
-            <div
+            <span
                 className="interactive-overlay"
                 aria-hidden="true"
                 style={{
@@ -53,7 +53,7 @@ const InteractiveTitle: React.FC = () => {
                         {word === '&' ? <span className="ampersand">&</span> : word}&nbsp;
                     </span>
                 ))}
-            </div>
+            </span>
         </h1>
     );
 };
@@ -141,8 +141,8 @@ export const Home: React.FC = () => {
                             </div>
                         ))}
                     </div>
-                    <div style={{ textAlign: 'center', margin: '1rem 0' }}>
-                        <Link to="/projects" className="opt1-view-link" style={{ fontSize: '1.2rem' }}>
+                    <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+                        <Link to="/projects" className="opt1-view-link">
                             View All Projects
                         </Link>
                     </div>
@@ -150,8 +150,8 @@ export const Home: React.FC = () => {
             </section>
 
             {/* Mirror App Instagram Feed */}
-            <div className="opt1-section" style={{ paddingBottom: '2rem' }}>
-                <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto' }}>
+            <div className="opt1-section opt1-instagram-section">
+                <div style={{ width: '100%' }}>
                     {cookieConsent === 'accepted' ? (
                         <div
                             dangerouslySetInnerHTML={{
@@ -166,38 +166,14 @@ export const Home: React.FC = () => {
                             ` }}
                         />
                     ) : (
-                        <div style={{
-                            padding: '3rem 1rem',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            minHeight: '200px',
-                            border: '1px solid #ccc',
-                            backgroundColor: 'rgba(0, 0, 0, 0.02)',
-                            textAlign: 'center'
-                        }}>
-                            <p style={{ marginBottom: '1.5rem', fontSize: '1.1rem', color: 'inherit' }}>
-                                Please accept cookies to view this content.
-                            </p>
+                        <div className="opt1-instagram-fallback">
+                            <p>Please accept cookies to view the Instagram feed.</p>
                             <button
+                                className="opt1-primary-button"
                                 onClick={() => {
                                     localStorage.setItem('cookieConsent', 'accepted');
                                     window.dispatchEvent(new Event('cookieConsentChange'));
                                 }}
-                                style={{
-                                    padding: '0.8rem 1.5rem',
-                                    backgroundColor: '#000',
-                                    color: '#fff',
-                                    border: 'none',
-                                    cursor: 'pointer',
-                                    fontSize: '1rem',
-                                    transition: 'background-color 0.2s',
-                                    textTransform: 'uppercase',
-                                    letterSpacing: '0.05em'
-                                }}
-                                onMouseOver={(e) => { e.currentTarget.style.backgroundColor = '#333'; }}
-                                onMouseOut={(e) => { e.currentTarget.style.backgroundColor = '#000'; }}
                             >
                                 Accept Cookies
                             </button>
@@ -206,20 +182,17 @@ export const Home: React.FC = () => {
                 </div>
             </div>
 
-            <section id="about" className="opt1-section opt1-about" style={{ borderTop: 'none', paddingTop: 0 }}>
+            <section id="about" className="opt1-section opt1-about">
                 <div className="opt1-about-grid">
                     <div className="opt1-about-text">
-                        <h2>About me</h2>
+                        <h2>About Me</h2>
                         <p style={{ marginBottom: '1.5rem' }}>
-                            My name is Ciara, and I’m a Performance Costume graduate from the University of Edinburgh. with an interest in spectacle arts — I love building immersive concepts and using costume to create memorable and fun experiences.
+                            My name is Ciara, and I’m a Performance Costume graduate from the University of Edinburgh, with an interest in spectacle arts — I love building immersive concepts and using costume to create memorable and fun experiences.
                             I’m always looking to expand my skills, collaborate with other creatives, and keep pushing my ideas further.
                             <br /><br />
 
                             Throughout this portfolio you’ll see a range of concept-led projects that reflect my interest in immersive storytelling, alongside the technical skills and experimentation I developed during my degree.
                             Thank you for taking the time to look through my work — I hope you enjoy it.
-                        </p>
-                        <p>
-
                         </p>
                     </div>
                     <div className="opt1-about-image">
