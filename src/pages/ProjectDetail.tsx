@@ -266,7 +266,7 @@ export const ProjectDetail: React.FC = () => {
                                     border: isDark ? 'none' : '1px solid #1a1a1a'
                                 }}
                             >
-                                Visit Project
+                                {project.linkLabel || 'Visit Project'}
                             </Link>
                         </div>
                     )}

@@ -39,35 +39,6 @@ body {
   mix-blend-mode: multiply;
 }
 
-/* Decorative minimalist paper fragments */
-.PaperBagApp .paper-fragment {
-  position: fixed;
-  background: #ffffff;
-  border: 1px solid #eeeeee;
-  z-index: 0;
-  opacity: 0.9;
-  pointer-events: none;
-  box-shadow: 2px 2px 15px rgba(0,0,0,0.03);
-}
-
-.fragment-1 {
-  width: 500px;
-  height: 600px;
-  top: -150px;
-  left: -200px;
-  transform: rotate(-8deg);
-  clip-path: polygon(2% 0%, 98% 3%, 100% 97%, 0% 100%);
-}
-
-.fragment-2 {
-  width: 400px;
-  height: 500px;
-  bottom: -100px;
-  right: -150px;
-  transform: rotate(12deg);
-  clip-path: polygon(0% 5%, 95% 0%, 100% 95%, 5% 100%);
-}
-
 /* Floating Banner */
 .floating-banner {
   position: fixed;
@@ -174,33 +145,35 @@ body {
 
 /* Product Card */
 .product-card {
-  background: #ffffff;
-  padding: 0;
+  padding: 30px 22px 26px;
   position: relative;
-  transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+  background: #ffffff;
+  transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
   /* Torn paper edge effect */
-  clip-path: polygon(0.5% 2%, 99% 0.5%, 100% 99%, 1% 99.5%, 2% 80%, 0% 50%);
-  box-shadow: 1px 1px 1px rgba(0,0,0,0.05);
+  clip-path: polygon(
+    1% 3%, 6% 1%, 14% 2.5%, 24% 0.8%, 36% 2%, 48% 0.5%, 62% 2.2%, 74% 0.7%,
+    86% 2.5%, 94% 1.2%, 99% 3%, 98.5% 14%, 100% 28%, 98.8% 42%, 99.5% 58%,
+    98% 72%, 99.5% 86%, 98.5% 97%, 92% 99%, 80% 97.8%, 66% 99.2%, 52% 97.5%,
+    38% 99%, 24% 97.8%, 12% 99.3%, 3% 98%, 1.5% 86%, 0.5% 72%, 1.8% 58%,
+    0.4% 42%, 1.5% 28%, 0.2% 14%
+  );
+  filter: drop-shadow(2px 4px 3px rgba(0, 0, 0, 0.12));
 }
 
-.product-card::before {
-  content: '';
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  width: 60px;
-  height: 25px;
-  background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(1px);
-  transform: translateX(-50%) rotate(-2deg);
-  z-index: 10;
-  border: 1px solid rgba(0,0,0,0.02);
-  pointer-events: none;
+.product-card:nth-child(odd) {
+  transform: rotate(-0.8deg);
+}
+
+.product-card:nth-child(even) {
+  transform: rotate(0.6deg);
+}
+
+.product-card:nth-child(3n) {
+  transform: rotate(-0.3deg);
 }
 
 .product-card:hover {
-  transform: translateY(-8px) rotate(0.5deg);
-  box-shadow: 10px 10px 20px rgba(0,0,0,0.03);
+  transform: translateY(-6px) rotate(0deg);
 }
 
 .product-badge {
@@ -227,7 +200,7 @@ body {
   position: relative;
 }
 
-.product-emoji, 
+.product-coming-soon,
 .product-image {
   width: 100%;
   height: 100%;
@@ -235,14 +208,18 @@ body {
   transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-.product-emoji {
-  font-size: 6.5rem;
+.product-coming-soon {
+  font-family: 'Papyrus', fantasy;
+  font-size: 2.6rem;
+  color: #111111;
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
+  letter-spacing: 1px;
 }
 
-.product-card:hover .product-emoji,
+.product-card:hover .product-coming-soon,
 .product-card:hover .product-image {
   transform: scale(1.1);
 }
