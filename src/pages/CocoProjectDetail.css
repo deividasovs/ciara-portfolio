@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Permanent+Marker&display=swap');
+
+.coco-page {
+    background: #000;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.coco-main {
+    flex: 1;
+    padding: 4rem clamp(1.5rem, 5vw, 5rem) 6rem;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.coco-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    font-size: 3rem;
+    line-height: 1.1;
+    text-align: center;
+    margin: 0 0 4rem;
+    color: #fff;
+}
+
+.coco-top-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: start;
+    margin-bottom: 5rem;
+}
+
+.coco-text-box {
+    border: 2px solid #fff;
+    border-radius: 4px;
+    aspect-ratio: 3 / 4;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(1.25rem, 1.6vw, 1.6rem);
+    line-height: 1.5;
+    color: #fff;
+    font-family: 'Caveat', cursive;
+}
+
+.coco-text-box p {
+    margin: 0;
+}
+
+.coco-hero {
+    position: relative;
+}
+
+.coco-hero-media {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    display: block;
+    background: #1a1a1a;
+}
+
+.coco-hero-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    background: rgba(0, 0, 0, 0.45);
+    color: #fff;
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: background 0.2s ease, color 0.2s ease;
+    z-index: 2;
+}
+
+.coco-hero-arrow:hover {
+    background: #fff;
+    color: #000;
+}
+
+.coco-hero-arrow--prev {
+    left: 0.75rem;
+}
+
+.coco-hero-arrow--next {
+    right: 0.75rem;
+}
+
+.coco-bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: end;
+}
+
+.coco-jaguar {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.coco-right {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.5rem;
+}
+
+.coco-book-btn {
+    align-self: flex-start;
+    background: transparent;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 30px;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.2rem;
+    letter-spacing: 0.03em;
+    padding: 0.8rem 1.6rem;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.coco-book-btn:hover {
+    background: #fff;
+    color: #000;
+}
+
+.coco-collage {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+.coco-page .opt1-nav,
+.coco-page .opt1-footer {
+    background: #000;
+    color: #fff;
+}
+
+.coco-page .opt1-logo,
+.coco-page .opt1-links a,
+.coco-page .opt1-email {
+    color: #fff;
+}
+
+.coco-page .opt1-footer h2 {
+    color: #fff;
+}
+
+.coco-page .opt1-locations {
+    color: #ccc;
+}
+
+@media (max-width: 900px) {
+    .coco-top-grid,
+    .coco-bottom-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .coco-text-box {
+        aspect-ratio: auto;
+        min-height: 280px;
+    }
+}

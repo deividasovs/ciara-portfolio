@@ -1,6 +1,6 @@
 /* High-Fashion Editorial Minimalist Design - Paper Bag Princess */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@200;300;400&family=Caveat:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@200;300;400&family=Caveat:wght@400;500;700&display=swap');
 
 * {
   margin: 0;
@@ -87,7 +87,7 @@ body {
 
 /* Header */
 .header {
-  padding: 140px 40px 60px;
+  padding: 140px 0px 0px;
   text-align: center;
   position: relative;
   z-index: 10;
@@ -164,17 +164,112 @@ body {
 /* Products Container */
 .products-container {
   max-width: 1400px;
-  margin: 100px auto 40px;
+  margin: 00px auto 40px;
   padding: 0 40px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 60px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: 340px;
+  gap: 50px;
   position: relative;
+}
+
+/* SALE badge — squished horizontal starburst, with vertically stretched text */
+.sale-badge {
+  grid-column: 1;
+  grid-row: 1;
+  margin-top: 100px;
+  justify-self: center;
+  align-self: start;
+  width: 400px;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #c8ff3d;
+  color: #111111;
+  font-family: 'Caveat', cursive;
+  font-size: 8rem;
+  line-height: 0.82;
+  font-weight: 700;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.22);
+  clip-path: polygon(
+    50% 0%, 61% 12%, 78% 5%, 78% 22%, 95% 22%, 87% 38%, 100% 50%,
+    87% 62%, 95% 78%, 78% 78%, 78% 95%, 61% 88%, 50% 100%, 39% 88%,
+    22% 95%, 22% 78%, 5% 78%, 13% 62%, 0% 50%, 13% 38%, 5% 22%,
+    22% 22%, 22% 5%, 39% 12%
+  );
+  animation: flashSale 1.4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.sale-badge span {
+  display: inline-block;
+  transform: rotate(-2deg);
+}
+
+@keyframes flashSale {
+  0%, 100% {
+    transform: rotate(-8deg) scale(1);
+    filter: drop-shadow(0 4px 0 rgba(0,0,0,0.15));
+  }
+  50% {
+    transform: rotate(-4deg) scale(1.08);
+    filter: drop-shadow(0 6px 0 rgba(0,0,0,0.2));
+  }
+}
+
+/* Princess — single image. Slot reserves cells 2-3 of row 1; the image
+   is sized and offset so the figure's body lands across cells 2-3 (in line
+   with SALE) and the legs naturally fall into col 3 of row 2 below.
+   Reserved (3,2) cell keeps items from auto-flowing under the legs. */
+.character-slot {
+  pointer-events: none;
+}
+
+.character-slot--princess {
+  grid-column: 2 / span 2;
+  grid-row: 1;
+  position: relative;
+  overflow: visible;
+  align-self: start;
+}
+
+.character-slot--princess img {
+  display: block;
+  width: 80.5%;
+  margin-left: 31.4%;
+  margin-top: -60px;
+  height: auto;
+  max-width: none;
+}
+
+.grid-spacer {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+/* Bottom hero prince illustration */
+.hero-prince {
+  max-width: 1400px;
+  margin: 80px auto 20px;
+  padding: 0 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-prince img {
+  width: 100%;
+  max-width: 1320px;
+  height: auto;
+  object-fit: contain;
 }
 
 /* Product Card */
 .product-card {
-  padding: 30px 22px 26px;
+  padding: 18px 22px 18px;
   position: relative;
   background: #ffffff;
   transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
@@ -221,7 +316,7 @@ body {
 
 .product-image-container {
   width: 100%;
-  aspect-ratio: 4/5;
+  aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -427,10 +522,86 @@ body {
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
+  .products-container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto;
+    gap: 40px;
+    padding: 0 24px;
+  }
+  .sale-badge {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+    max-width: 320px;
+    height: 220px;
+    font-size: 6.5rem;
+    letter-spacing: 4px;
+    justify-self: center;
+  }
+  .character-slot--princess {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+    justify-self: center;
+    overflow: visible;
+  }
+  .character-slot--princess img {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+  .grid-spacer { display: none; }
+}
+
+@media (max-width: 600px) {
   .logo { font-size: 3rem; letter-spacing: 8px; }
   .header { padding: 100px 20px 40px; }
-  .products-container { padding: 0 20px; gap: 40px; }
+  .products-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 32px;
+  }
+  /* SALE sits as a sticker on the top-left corner of the princess illustration */
+  .character-slot--princess {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: center;
+    position: relative;
+    z-index: 1;
+  }
+  .character-slot--princess img {
+    width: 300px;
+    max-width: none;
+    margin: 0 auto;
+  }
+  .sale-badge {
+    grid-column: 1;
+    grid-row: 1;
+    width: 180px;
+    height: 120px;
+    margin-top: -10px;
+    margin-left: -8px;
+    font-size: 3.6rem;
+    letter-spacing: 3px;
+    justify-self: start;
+    align-self: start;
+    z-index: 5;
+  }
+  .hero-prince { margin: 40px auto 10px; padding: 0 20px; }
   .popup-content { padding: 60px 40px; }
   .popup-message { font-size: 2rem; }
+}
+
+/* Very small screens — flip SALE to bottom-left so it doesn't cover her face */
+@media (max-width: 480px) {
+  .sale-badge {
+    width: 150px;
+    height: 100px;
+    font-size: 3rem;
+    letter-spacing: 2px;
+    margin-top: 0;
+    margin-bottom: -8px;
+    align-self: end;
+  }
 }

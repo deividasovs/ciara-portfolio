@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Navbar, Footer } from '../components/Layout';
 import { projectsData } from '../data/projects';
+import { CocoProjectDetail } from './CocoProjectDetail';
 import '../designs/Option1.css';
 
 type NormalizedImage = {
@@ -196,6 +197,11 @@ const getItemGridStyle = (row: NormalizedRow, index: number): React.CSSPropertie
 
 export const ProjectDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
+
+    if (id === 'Coco') {
+        return <CocoProjectDetail />;
+    }
+
     const project = projectsData.find(p => p.id === id);
 
     if (!project) {
