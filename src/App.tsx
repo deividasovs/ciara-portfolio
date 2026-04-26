@@ -7,10 +7,12 @@ import { PaperBagPrincess } from './pages/fakeConsumerPage/PaperBagPrincess';
 import { ExperimentalProjectPage } from './pages/experiments/ExperimentalProjectPage';
 import { ScrollToHash } from './components/ScrollToHash';
 import { CookieBanner } from './components/CookieBanner';
+import { ThemeProvider } from './contexts/ThemeContext';
 import './App.css';
 
 function App() {
   return (
+    <ThemeProvider>
     <BrowserRouter>
       <ScrollToHash />
       <div className="App">
@@ -25,6 +27,7 @@ function App() {
         </Routes>
       </div>
     </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

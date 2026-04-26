@@ -8,7 +8,7 @@ export interface Product {
 
 export const fakeProducts: Product[] = [
     { id: 1, name: "Prince's Ego Tee", originalPrice: 60.00, discountedPrice: 35.00, image: '/assets/images/fakeConsumerPage/papershirt.png' },
-    { id: 2, name: "Lingerie Set", originalPrice: 40.00, discountedPrice: 28.00, image: '/assets/images/fakeConsumerPage/limitededitionbra.jpg' },
+    { id: 2, name: "Bralette", originalPrice: 40.00, discountedPrice: 28.00, image: '/assets/images/fakeConsumerPage/limitededitionbra.jpg' },
     { id: 3, name: "Paperbag Long Tee", originalPrice: 70.00, discountedPrice: 45.00, image: '/assets/images/fakeConsumerPage/paperbagtee.png' },
     { id: 4, name: "Paperbag Clutch", originalPrice: 130.00, discountedPrice: 85.00, image: '/assets/images/fakeConsumerPage/paperbagclutch.png' },
     { id: 5, name: "", originalPrice: 0, discountedPrice: 0, image: '' },

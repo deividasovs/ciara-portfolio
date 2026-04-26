@@ -2,11 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Footer } from '../components/Layout';
 import { projectsData } from '../data/projects';
+import { useTheme } from '../contexts/ThemeContext';
 import '../designs/Option1.css';
 
 export const Projects: React.FC = () => {
+    const { theme } = useTheme();
+    const themeClass = theme === 'dark' ? 'opt1-dark-theme' : '';
     return (
-        <div className="option1-container fade-in" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+        <div className={`option1-container fade-in ${themeClass}`} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
             <Navbar />
 
             <main className="opt1-section" style={{ flex: 1, width: '100%' }}>

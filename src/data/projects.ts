@@ -7,7 +7,14 @@ export interface ProjectImage {
 export interface ProjectRow {
     layout: '1-col' | '2-col' | '3-col' | '4-col' | '2x1' | '4x4' | '2-left-1-right' | string;
     height?: string;
+    heading?: string;
     images: (string | ProjectImage)[];
+}
+
+export interface ProjectMedia {
+    kind: 'image' | 'video';
+    src: string;
+    alt?: string;
 }
 
 export interface Project {
@@ -22,11 +29,14 @@ export interface Project {
     topHorizontalImage?: string;
     topHorizontalCredit?: string;
     topHorizontalHeight?: string;
+    carousel?: ProjectMedia[];
     images: (string | ProjectImage | ProjectRow)[];
+    credits?: string;
     theme?: 'light' | 'dark';
-    layout?: '1-col' | '2-col' | '3-col' | '4-col' | '2x1' | '4x4' | '2-left-1-right' | string; // Adjust the grid layout for project images
+    layout?: '1-col' | '2-col' | '3-col' | '4-col' | '2x1' | '4x4' | '2-left-1-right' | string;
     link?: string;
     linkLabel?: string;
+    designBookUrl?: string;
 }
 
 export const projectsData: Project[] = [
@@ -34,12 +44,17 @@ export const projectsData: Project[] = [
         id: 'the-paperbag-princess',
         title: "Paper Couture",
         desc: 'A high fashion paper world exploring a gender flipped fairytale.',
-        longDesc: "Princess Elizabeth had all the dresses a storybook royal could dream of. But when a dragon scorches her castle, steals her prince, and leaves her with nothing but ashes and a paper bag, she doesn't crumble — she rises. In her shredded dignity and a makeshift outfit, she faces fire, tricks a monster, and saves the prince. But when he mocks her for how she looks, Elizabeth sees the truth: the fairytale isn’t real — but she is. She tears off the paper bag and becomes something new — a princess of her own making.Bold, raw, and reassembled, her final look is a declaration: no prince, no crown, no rules.Just power, paper, and pride.",
+        longDesc: "Princess Elizabeth had all the dresses a storybook royal could dream of. But when a dragon scorches her castle, steals her prince, and leaves her with nothing but ashes and a paper bag, she doesn't crumble — she rises. In her shredded dignity and a makeshift outfit, she faces fire, tricks a monster, and saves the prince. But when he mocks her for how she looks, Elizabeth sees the truth: the fairytale isn’t real — but she is. She tears off the paper bag and becomes something new — a princess of her own making. Bold, raw, and reassembled, her final look is a declaration: no prince, no crown, no rules. Just power, paper, and pride.",
         date: '2026',
         featured: true,
         thumbnailUrl: '/assets/images/projects/paperbag-princess/princess-back.png',
         topHorizontalImage: '/assets/images/projects/paperbag-princess/prince.png',
+        carousel: [
+            { kind: 'image', src: '/assets/images/projects/paperbag-princess/prince.png', alt: 'Paper Couture' },
+            { kind: 'image', src: '/assets/images/projects/paperbag-princess/princess-back.png', alt: 'Princess back' }
+        ],
         images: [],
+        theme: 'light',
         link: '/interactive/paperbagprincess',
         linkLabel: 'Step Inside the Shop'
     },
@@ -51,14 +66,24 @@ export const projectsData: Project[] = [
         date: '2026',
         featured: true,
         thumbnailUrl: '/assets/images/projects/Coco/pepitafinal.png',
+        carousel: [
+            { kind: 'video', src: '/assets/images/projects/Coco/Pepita.mov' },
+            { kind: 'image', src: '/assets/images/projects/Coco/lauradance.jpg', alt: 'Pepita illustration' },
+            { kind: 'image', src: '/assets/images/projects/Coco/adjustmentshot.jpg', alt: 'Pepita on black' },
+            { kind: 'image', src: '/assets/images/projects/Coco/backstageshot.png', alt: 'Performance shot' },
+            { kind: 'image', src: '/assets/images/projects/Coco/lauralit.jpg', alt: 'Performance dance' }
+        ],
         images: [
             {
-                layout: '1-col',
+                layout: '2-col',
                 images: [
-                    '/assets/images/projects/Coco/pepitadark.png'
+                    '/assets/images/projects/Coco/pepitafinal.png',
+                    '/assets/images/projects/Coco/Textiles.png'
                 ]
             }
-        ]
+        ],
+        credits: 'Photo credit: TBC',
+        theme: 'dark'
     },
     {
         id: 'spaceship-earth',
@@ -69,28 +94,29 @@ export const projectsData: Project[] = [
         featured: true,
         thumbnailUrl: '/assets/images/projects/spaceship-earth/coral-illustration.PNG',
         topHorizontalImage: '/assets/images/projects/spaceship-earth/coral-collage.png',
+        carousel: [
+            { kind: 'image', src: '/assets/images/projects/spaceship-earth/coralunposterized1.JPG', alt: 'Coral costume 1' },
+            { kind: 'image', src: '/assets/images/projects/spaceship-earth/coralediscifest2.jpg', alt: 'Coral costume 2' },
+            { kind: 'image', src: '/assets/images/projects/spaceship-earth/coral-ediscifest.png', alt: 'Coral costume 3' }
+        ],
         images: [
             {
-                layout: '3-col',
-                images: [
-                    '/assets/images/projects/spaceship-earth/coralunposterized1.JPG',
-                    '/assets/images/projects/spaceship-earth/coralediscifest2.jpg',
-                    '/assets/images/projects/spaceship-earth/coral-ediscifest.png'
-                ]
-            },
-            {
                 layout: '1-col',
+                heading: 'Bioluminescent walkabout performance line-up',
                 images: [
                     '/assets/images/projects/spaceship-earth/lineup.png'
                 ]
             },
             {
-                layout: '1-col',
+                layout: '2-col',
+                heading: 'Development drawings',
                 images: [
-                    '/assets/images/projects/spaceship-earth/coral-illustration.PNG'
+                    '/assets/images/projects/spaceship-earth/coral-illustration.PNG',
+                    '/assets/images/projects/spaceship-earth/coral-collage.png'
                 ]
             }
         ],
+        credits: 'Photo credit: TBC',
         theme: 'dark'
     },
     {
@@ -103,6 +129,11 @@ export const projectsData: Project[] = [
         thumbnailUrl: '/assets/images/projects/Macbeth/macbeth-back.png',
         topHorizontalImage: '/assets/images/projects/Macbeth/Deivobsessed.png',
         topHorizontalHeight: '85vh',
+        carousel: [
+            { kind: 'image', src: '/assets/images/projects/Macbeth/Deivobsessed.png', alt: 'Macbeth costume on stairs' },
+            { kind: 'image', src: '/assets/images/projects/Macbeth/macbeth-textile.jpeg', alt: 'Macbeth textile detail' },
+            { kind: 'image', src: '/assets/images/projects/Macbeth/macbeth-back.png', alt: 'Macbeth costume back' }
+        ],
         images: [
             {
                 layout: '1-col',
@@ -112,16 +143,10 @@ export const projectsData: Project[] = [
                         credit: 'Credit: Brian Hartley'
                     }
                 ]
-            },
-            {
-                layout: '3-col',
-                images: [
-                    '/assets/images/projects/Macbeth/macbeth-back.png',
-                    '/assets/images/projects/Macbeth/Untitled_Artwork 135.png',
-                    '/assets/images/projects/Macbeth/macbethillustration-back.png'
-                ]
             }
-        ]
+        ],
+        credits: 'A special thank you to Harris Tweed for their generous donation for this project.\nPhoto credit: Brian Hartley, Megan McCaffery',
+        theme: 'dark'
     },
     {
         id: 'l\'enfant et les sortilèges',
@@ -132,28 +157,22 @@ export const projectsData: Project[] = [
         featured: false,
         thumbnailUrl: '/assets/images/projects/circus/smile.JPG',
         topHorizontalImage: '/assets/images/projects/circus/circus-ecashow.png',
+        carousel: [
+            { kind: 'image', src: '/assets/images/projects/circus/circus-ecashow2.png', alt: 'Circus ECA show 2' },
+            { kind: 'image', src: '/assets/images/projects/circus/smile.JPG', alt: 'Circus smile' },
+            { kind: 'image', src: '/assets/images/projects/circus/circus-ecashow.png', alt: 'Circus ECA show' }
+        ],
         images: [
             {
-                layout: '3-col',
+                layout: '2-col',
                 images: [
-                    {
-                        url: '/assets/images/projects/circus/circus-ecashow2.png',
-                        credit: 'Credit: Ciara Burns'
-                    },
-                    {
-                        url: '/assets/images/projects/circus/smile.JPG',
-                        credit: 'Credit: Ciara Burns'
-                    },
-                    '/assets/images/projects/circus/circusillustration.png'
-                ]
-            },
-            {
-                layout: '1-col',
-                images: [
-                    '/assets/images/projects/circus/a2f62cf1-9976-4567-b6cc-e588894298b6.JPG'
+                    '/assets/images/projects/circus/circusillustration.png',
+                    '/assets/images/projects/circus/overhead shot.JPG'
                 ]
             }
-        ]
+        ],
+        credits: 'Photos: Ciara Burns',
+        theme: 'dark'
     },
     {
         id: 'theres-a-wocket-in-my-pocket',
@@ -164,6 +183,10 @@ export const projectsData: Project[] = [
         featured: false,
         thumbnailUrl: '/assets/images/projects/dr-seuss/drseussy.png',
         topHorizontalImage: '/assets/images/projects/dr-seuss/drseussy.png',
-        images: []
+        carousel: [
+            { kind: 'image', src: '/assets/images/projects/dr-seuss/drseussy.png', alt: "There's a Wocket in my pocket" }
+        ],
+        images: [],
+        theme: 'dark'
     }
 ];

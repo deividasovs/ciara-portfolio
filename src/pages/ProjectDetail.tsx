@@ -1,356 +1,211 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Navbar, Footer } from '../components/Layout';
-import { projectsData } from '../data/projects';
-import { CocoProjectDetail } from './CocoProjectDetail';
-import { CircusProjectDetail } from './CircusProjectDetail';
-import { MacbethProjectDetail } from './MacbethProjectDetail';
-import { SpaceshipEarthProjectDetail } from './SpaceshipEarthProjectDetail';
-import '../designs/Option1.css';
+import { projectsData, ProjectMedia, ProjectRow, ProjectImage } from '../data/projects';
+import { useTheme } from '../contexts/ThemeContext';
+import './ProjectDetail.css';
 
-type NormalizedImage = {
-    url: string;
-    credit?: string;
-    height?: string;
+const isProjectRow = (item: any): item is ProjectRow =>
+    typeof item === 'object' && item !== null && 'layout' in item && 'images' in item;
+
+const normalizeImage = (item: string | ProjectImage): ProjectImage =>
+    typeof item === 'string' ? { url: item } : item;
+
+const carouselFromProject = (project: typeof projectsData[number]): ProjectMedia[] => {
+    if (project.carousel && project.carousel.length > 0) return project.carousel;
+    if (project.topHorizontalImage) {
+        return [{ kind: 'image', src: project.topHorizontalImage, alt: project.title }];
+    }
+    return [{ kind: 'image', src: project.thumbnailUrl, alt: project.title }];
 };
 
-type NormalizedRow = {
-    layout: string;
-    height?: string;
-    images: NormalizedImage[];
-};
+const rowsFromProject = (project: typeof projectsData[number]): ProjectRow[] => {
+    const rows: ProjectRow[] = [];
+    let loose: (string | ProjectImage)[] = [];
 
-const buildImageRows = (project: typeof projectsData[number], topImageUrl: string | undefined): NormalizedRow[] => {
-    const rows: NormalizedRow[] = [];
-    let currentRowGroup: NormalizedImage[] = [];
-
-    const commitCurrentGroup = () => {
-        if (currentRowGroup.length === 0) return;
-
-        rows.push({
-            layout: project.layout || 'auto-fit',
-            images: currentRowGroup,
-        });
-
-        currentRowGroup = [];
+    const flushLoose = () => {
+        if (loose.length === 0) return;
+        rows.push({ layout: project.layout || '1-col', images: loose });
+        loose = [];
     };
 
-    project.images.forEach((item: any) => {
-        // Simple image references become part of the current "auto" row
-        if (typeof item === 'string') {
-            if (item !== topImageUrl) {
-                currentRowGroup.push({ url: item });
-            }
-            return;
-        }
-
-        // Explicit image object
-        if ('url' in item) {
-            if (item.url !== topImageUrl) {
-                currentRowGroup.push(item as NormalizedImage);
-            }
-            return;
-        }
-
-        // Explicit row definition in the data (ProjectRow)
-        if ('layout' in item) {
-            commitCurrentGroup();
-
-            const rowImages: NormalizedImage[] = item.images
-                .map((img: any) =>
-                    typeof img === 'string'
-                        ? { url: img }
-                        : (img as NormalizedImage)
-                )
-                .filter((img: NormalizedImage) => img.url !== topImageUrl);
-
-            if (rowImages.length > 0) {
-                rows.push({
-                    layout: item.layout,
-                    height: item.height,
-                    images: rowImages,
-                });
-            }
+    project.images.forEach(item => {
+        if (isProjectRow(item)) {
+            flushLoose();
+            rows.push(item);
+        } else {
+            loose.push(item as string | ProjectImage);
         }
     });
 
-    // Flush any remaining "auto" images into a row
-    commitCurrentGroup();
-
+    flushLoose();
     return rows;
 };
 
-const MULTI_COL_LAYOUTS = new Set(['2-col', '3-col', '4-col', '2x1', '4x4']);
-const DEFAULT_MULTI_COL_HEIGHT = 'min(65vh, 620px)';
-const SINGLE_COL_MAX_WIDTH = '900px';
+const Carousel: React.FC<{ media: ProjectMedia[]; title: string }> = ({ media, title }) => {
+    const [index, setIndex] = useState(0);
+    const total = media.length;
+    const next = () => setIndex(i => (i + 1) % total);
+    const prev = () => setIndex(i => (i - 1 + total) % total);
 
-const getEffectiveRowHeight = (row: NormalizedRow): string | undefined => {
-    if (row.height) return row.height;
-    if (MULTI_COL_LAYOUTS.has(row.layout)) return DEFAULT_MULTI_COL_HEIGHT;
-    return undefined;
+    return (
+        <div className="project-detail-hero">
+            <div
+                className="project-detail-hero-track"
+                style={{ transform: `translateX(-${index * 100}%)` }}
+            >
+                {media.map((m, i) => (
+                    <div key={i} className="project-detail-hero-slide">
+                        {m.kind === 'video' ? (
+                            <video
+                                className="project-detail-hero-media"
+                                src={m.src}
+                                autoPlay
+                                muted
+                                loop
+                                playsInline
+                            />
+                        ) : (
+                            <img
+                                className="project-detail-hero-media"
+                                src={m.src}
+                                alt={m.alt || `${title} photo ${i + 1}`}
+                            />
+                        )}
+                    </div>
+                ))}
+            </div>
+
+            {total > 1 && (
+                <>
+                    <button
+                        type="button"
+                        className="project-detail-hero-arrow project-detail-hero-arrow--prev"
+                        aria-label="Previous photo"
+                        onClick={prev}
+                    >
+                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="15 18 9 12 15 6" />
+                        </svg>
+                    </button>
+                    <button
+                        type="button"
+                        className="project-detail-hero-arrow project-detail-hero-arrow--next"
+                        aria-label="Next photo"
+                        onClick={next}
+                    >
+                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="9 18 15 12 9 6" />
+                        </svg>
+                    </button>
+                </>
+            )}
+        </div>
+    );
 };
 
-const getRowGridStyle = (row: NormalizedRow): React.CSSProperties => {
-    const gridStyle: React.CSSProperties = {
-        display: 'grid',
-        gap: '1.5rem',
-        marginBottom: '2rem',
-    };
+const KNOWN_LAYOUTS = new Set(['1-col', '2-col', '3-col', '4-col']);
 
-    switch (row.layout) {
-        case '1-col':
-            gridStyle.gridTemplateColumns = '1fr';
-            gridStyle.maxWidth = SINGLE_COL_MAX_WIDTH;
-            gridStyle.marginLeft = 'auto';
-            gridStyle.marginRight = 'auto';
-            break;
-        case '2-col':
-        case '2x1':
-            gridStyle.gridTemplateColumns = 'repeat(2, minmax(0, 1fr))';
-            break;
-        case '3-col':
-            gridStyle.gridTemplateColumns = 'repeat(3, minmax(0, 1fr))';
-            break;
-        case '4-col':
-        case '4x4':
-            gridStyle.gridTemplateColumns = 'repeat(4, minmax(0, 1fr))';
-            break;
-        case '2-left-1-right': {
-            // Two columns of equal width; right image spans two rows.
-            // The heights of the top and bottom left images (if provided)
-            // are used as relative fractions for the two grid rows.
-            gridStyle.gridTemplateColumns = 'minmax(0, 1fr) minmax(0, 1fr)';
+const Row: React.FC<{ row: ProjectRow; title: string }> = ({ row, title }) => {
+    const layoutClass = KNOWN_LAYOUTS.has(row.layout) ? `layout-${row.layout}` : '';
+    const inlineStyle: React.CSSProperties | undefined = KNOWN_LAYOUTS.has(row.layout)
+        ? undefined
+        : { gridTemplateColumns: row.layout };
 
-            const top = row.images[0];
-            const bottom = row.images[1];
-
-            const topHint = top?.height ? parseFloat(top.height) : NaN;
-            const bottomHint = bottom?.height ? parseFloat(bottom.height) : NaN;
-
-            if (!Number.isNaN(topHint) || !Number.isNaN(bottomHint)) {
-                const topVal = Number.isNaN(topHint) ? 50 : topHint;
-                const bottomVal = Number.isNaN(bottomHint) ? 50 : bottomHint;
-                const total = topVal + bottomVal || 100;
-
-                const topFr = topVal / total;
-                const bottomFr = bottomVal / total;
-
-                gridStyle.gridTemplateRows = `${topFr}fr ${bottomFr}fr`;
-            } else {
-                gridStyle.gridTemplateRows = '1fr 1fr';
-            }
-
-            break;
-        }
-        case 'auto-fit':
-            gridStyle.gridTemplateColumns =
-                'repeat(auto-fit, minmax(min(100%, 300px), 1fr))';
-            break;
-        default:
-            // Allow completely custom CSS values to be defined in the data
-            // e.g. "2fr 1fr", "minmax(0, 2fr) minmax(0, 3fr)", etc.
-            gridStyle.gridTemplateColumns = row.layout;
-            break;
-    }
-
-    const effectiveHeight = getEffectiveRowHeight(row);
-    if (effectiveHeight) {
-        gridStyle.height = effectiveHeight;
-    }
-
-    return gridStyle;
-};
-
-const getItemGridStyle = (row: NormalizedRow, index: number): React.CSSProperties => {
-    const itemStyle: React.CSSProperties = {
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: 0,
-        minWidth: 0,
-    };
-
-    // For the 2x1 layout, make every third image span the full width
-    if (row.layout === '2x1' && index % 3 === 2) {
-        itemStyle.gridColumn = '1 / -1';
-    }
-
-    // For 2-left-1-right:
-    //  - first image: top-left
-    //  - second image: bottom-left
-    //  - third image: full-height right column
-    if (row.layout === '2-left-1-right') {
-        const group = Math.floor(index / 3);
-        const startRow = group * 2 + 1;
-
-        if (index % 3 === 0) {
-            itemStyle.gridColumn = '1';
-            itemStyle.gridRow = `${startRow}`;
-        } else if (index % 3 === 1) {
-            itemStyle.gridColumn = '1';
-            itemStyle.gridRow = `${startRow + 1}`;
-        } else if (index % 3 === 2) {
-            itemStyle.gridColumn = '2';
-            itemStyle.gridRow = `${startRow} / span 2`;
-        }
-    }
-
-    return itemStyle;
+    return (
+        <div className={`project-detail-row ${layoutClass}`} style={inlineStyle}>
+            {row.images.map((item, i) => {
+                const img = normalizeImage(item);
+                return (
+                    <img
+                        key={i}
+                        src={img.url}
+                        alt={img.credit || `${title} detail ${i + 1}`}
+                    />
+                );
+            })}
+        </div>
+    );
 };
 
 export const ProjectDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
-
-    if (id === 'Coco') {
-        return <CocoProjectDetail />;
-    }
-
-    if (id === "l'enfant et les sortilèges") {
-        return <CircusProjectDetail />;
-    }
-
-    if (id === 'macbeth') {
-        return <MacbethProjectDetail />;
-    }
-
-    if (id === 'spaceship-earth') {
-        return <SpaceshipEarthProjectDetail />;
-    }
-
     const project = projectsData.find(p => p.id === id);
+    const { theme: globalTheme, overridden } = useTheme();
 
     if (!project) {
         return (
-            <div className="option1-container fade-in">
+            <div className="project-detail-page fade-in">
                 <Navbar />
                 <main style={{ padding: '10rem 4rem', textAlign: 'center' }}>
                     <h2>Project Not Found</h2>
-                    <Link to="/projects" className="opt1-view-link">Return to Works</Link>
+                    <Link to="/projects" className="project-detail-cta">Return to Works</Link>
                 </main>
                 <Footer />
             </div>
         );
     }
 
-    const isDark = project.theme === 'dark';
-    const isCoral = project.id === 'spaceship-earth';
-    const topImageInfo: { url?: string; credit?: string } = {
-        url: project.topHorizontalImage || project.thumbnailUrl,
-        credit: project.topHorizontalCredit || project.thumbnailCredit
-    };
+    const effectiveTheme = overridden ? globalTheme : (project.theme || 'dark');
+    const isLight = effectiveTheme === 'light';
+    const carousel = carouselFromProject(project);
+    const rows = rowsFromProject(project);
 
     return (
-        <div className={`option1-container fade-in ${isDark ? 'opt1-dark-theme' : ''} ${isCoral ? 'opt1-coral-theme' : ''}`} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', textAlign: 'left' }}>
+        <div className={`project-detail-page fade-in ${isLight ? 'is-light' : ''}`}>
             <Navbar />
 
-            <main className="opt1-project-detail-main">
-                <h1 className="opt1-title" style={{ marginTop: 0, marginBottom: '2rem', lineHeight: 1.1, fontSize: '3rem', textAlign: 'center' }}>
-                    {project.title}
-                </h1>
+            <main className="project-detail-main">
+                <h1 className="project-detail-title">{project.title}</h1>
 
-                <div style={{ width: '100%', marginBottom: '2rem', display: 'flex', justifyContent: 'center' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        <img
-                            src={topImageInfo.url}
-                            alt={`${project.title} hero`}
-                            style={{
-                                maxWidth: '100%',
-                                maxHeight: project.topHorizontalHeight || '70vh',
-                                width: 'auto',
-                                height: 'auto',
-                                display: 'block',
-                                objectFit: 'contain'
-                            }}
-                        />
-                    </div>
-                </div>
-
-                <div style={{ fontSize: '1.25rem', lineHeight: 1.8, color: isDark ? '#EBEBEB' : '#444', maxWidth: '800px', margin: '0 auto 3rem auto' }}>
-                    <p>{project.longDesc}</p>
-                    {project.link && (
-                        <div style={{ marginTop: '3rem', display: 'flex', justifyContent: 'center' }}>
-                            <Link 
-                                to={project.link} 
-                                className="opt1-view-link"
-                                style={{ 
-                                    padding: '1rem 3rem',
-                                    backgroundColor: isDark ? '#FDFDFC' : '#1a1a1a',
-                                    color: isDark ? '#1a1a1a' : '#FDFDFC',
-                                    textDecoration: 'none',
-                                    fontSize: '1rem',
-                                    fontWeight: 500,
-                                    textTransform: 'uppercase',
-                                    letterSpacing: '0.1em',
-                                    transition: 'all 0.3s ease',
-                                    border: isDark ? 'none' : '1px solid #1a1a1a'
-                                }}
-                            >
-                                {project.linkLabel || 'Visit Project'}
-                            </Link>
+                <section className="project-detail-top-grid">
+                    <div className="project-detail-text-box">
+                        <p>{project.longDesc}</p>
+                        <div className="project-detail-cta-group">
+                            {project.link && (
+                                <Link to={project.link} className="project-detail-cta">
+                                    {project.linkLabel || 'Visit Project'}
+                                </Link>
+                            )}
+                            {project.designBookUrl ? (
+                                <a
+                                    href={project.designBookUrl}
+                                    target="_blank"
+                                    rel="noreferrer noopener"
+                                    className="project-detail-cta"
+                                >
+                                    Open Design Book
+                                </a>
+                            ) : (
+                                <button
+                                    type="button"
+                                    className="project-detail-cta"
+                                    disabled
+                                    aria-disabled="true"
+                                >
+                                    Open Design Book
+                                </button>
+                            )}
                         </div>
-                    )}
-                </div>
+                    </div>
 
-                {project.images && project.images.length > 0 && (() => {
-                    const rows = buildImageRows(project, topImageInfo.url);
+                    <Carousel media={carousel} title={project.title} />
+                </section>
 
-                    return rows.map((row, rowIndex) => {
-                        const gridStyle = getRowGridStyle(row);
-                        const rowEffectiveHeight = getEffectiveRowHeight(row);
+                {rows.map((row, i) => (
+                    <section key={i} className="project-detail-section">
+                        {row.heading && (
+                            <h2 className="project-detail-section-heading">{row.heading}</h2>
+                        )}
+                        <Row row={row} title={project.title} />
+                    </section>
+                ))}
 
-                        return (
-                            <div key={rowIndex} style={gridStyle}>
-                                {row.images.map((img, index) => {
-                                    const itemStyle = getItemGridStyle(row, index);
-                                    const isHeightConstrained =
-                                        row.layout === '2-left-1-right' ||
-                                        !!rowEffectiveHeight ||
-                                        !!img.height;
-                                    const effectiveHeight =
-                                        row.layout === '2-left-1-right'
-                                            ? 'auto'
-                                            : img.height || (rowEffectiveHeight ? '100%' : 'auto');
-
-                                    return (
-                                        <div
-                                            key={index}
-                                            style={{ ...itemStyle, height: effectiveHeight }}
-                                        >
-                                            <div
-                                                style={{
-                                                    flex: 1,
-                                                    minHeight: 0,
-                                                    display: 'flex',
-                                                    justifyContent: 'center',
-                                                    alignItems: 'center',
-                                                }}
-                                            >
-                                                <img
-                                                    src={img.url}
-                                                    alt={`${project.title} detail ${index + 1}`}
-                                                    style={{
-                                                        width: isHeightConstrained ? 'auto' : '100%',
-                                                        height: isHeightConstrained ? '100%' : 'auto',
-                                                        maxWidth: '100%',
-                                                        maxHeight: row.layout === '1-col' ? '70vh' : undefined,
-                                                        display: 'block',
-                                                        objectFit: 'contain',
-                                                    }}
-                                                />
-                                            </div>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        );
-                    });
-                })()}
-
-                <div style={{ marginTop: '4rem', paddingTop: '2rem', borderTop: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : '#EBEBEB'}` }}>
-                    <span style={{ display: 'block', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#8C8881' }}>Year</span>
-                    <span style={{ fontSize: '1.1rem' }}>{project.date}</span>
-                </div>
-
+                {project.credits && (
+                    <section className="project-detail-credits">
+                        <p>{project.credits}</p>
+                    </section>
+                )}
             </main>
 
             <Footer />

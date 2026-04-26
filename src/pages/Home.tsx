@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Footer } from '../components/Layout';
 import { projectsData } from '../data/projects';
+import { useTheme } from '../contexts/ThemeContext';
 import '../designs/Option1.css';
 
 const InteractiveTitle: React.FC = () => {
@@ -59,6 +60,8 @@ const InteractiveTitle: React.FC = () => {
 };
 
 export const Home: React.FC = () => {
+    const { theme } = useTheme();
+    const themeClass = theme === 'dark' ? 'opt1-dark-theme' : '';
     const featuredProjects = projectsData.filter(p => p.featured);
     const [cookieConsent, setCookieConsent] = React.useState<string | null>(localStorage.getItem('cookieConsent'));
 
@@ -88,7 +91,7 @@ export const Home: React.FC = () => {
     }, []);
 
     return (
-        <div className="option1-container fade-in">
+        <div className={`option1-container fade-in ${themeClass}`}>
             <Navbar />
 
             <div className="opt1-hero-background" style={{ backgroundImage: "url('/assets/images/projects/dr-seuss/drseussy.png')" }}>
