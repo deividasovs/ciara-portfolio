@@ -1,55 +1,53 @@
 import React, { useState } from 'react';
 import { Navbar, Footer } from '../components/Layout';
 import { projectsData } from '../data/projects';
-import './CocoProjectDetail.css';
+import './CircusProjectDetail.css';
 
-const COCO_JAGUAR = '/assets/images/projects/Coco/pepitadark.png';
-const COCO_COLLAGE = '/assets/images/projects/Coco/pepitafinal.png';
-
-type CocoMedia =
+type CircusMedia =
     | { kind: 'video'; src: string }
     | { kind: 'image'; src: string; alt?: string };
 
-const COCO_FINAL_MEDIA: CocoMedia[] = [
-    { kind: 'video', src: '/assets/images/projects/Coco/Pepita.mov' },
-    { kind: 'image', src: '/assets/images/projects/Coco/pepitafinal.png', alt: 'Pepita illustration' },
-    { kind: 'image', src: '/assets/images/projects/Coco/pepitadark.png', alt: 'Pepita on black' },
-    { kind: 'image', src: '/assets/images/projects/Coco/lauralit.jpg', alt: 'Performance shot' },
-    { kind: 'image', src: '/assets/images/projects/Coco/lauradance.jpg', alt: 'Performance dance' },
+const CIRCUS_CAROUSEL: CircusMedia[] = [
+    { kind: 'image', src: '/assets/images/projects/circus/circus-ecashow2.png', alt: 'Circus ECA show 2' },
+    { kind: 'image', src: '/assets/images/projects/circus/smile.JPG', alt: 'Circus smile' },
+    { kind: 'image', src: '/assets/images/projects/circus/circus-ecashow.png', alt: 'Circus ECA show' },
 ];
 
-export const CocoProjectDetail: React.FC = () => {
-    const project = projectsData.find(p => p.id === 'Coco');
+const CIRCUS_BOTTOM_LEFT = '/assets/images/projects/circus/circusillustration.png';
+const CIRCUS_BOTTOM_RIGHT = '/assets/images/projects/circus/overhead shot.JPG';
+
+export const CircusProjectDetail: React.FC = () => {
+    const project = projectsData.find(p => p.id === "l'enfant et les sortilèges");
     const [index, setIndex] = useState(0);
 
     if (!project) return null;
 
-    const total = COCO_FINAL_MEDIA.length;
+    const total = CIRCUS_CAROUSEL.length;
     const next = () => setIndex(i => (i + 1) % total);
     const prev = () => setIndex(i => (i - 1 + total) % total);
 
     return (
-        <div className="coco-page fade-in">
+        <div className="circus-page fade-in">
             <Navbar />
 
-            <main className="coco-main">
-                <h1 className="coco-title">{project.title}</h1>
+            <main className="circus-main">
+                <h1 className="circus-title">{project.title}</h1>
 
-                <section className="coco-top-grid">
-                    <div className="coco-text-box">
+                <section className="circus-top-grid">
+                    <div className="circus-text-box">
                         <p>{project.longDesc}</p>
                     </div>
 
-                    <div className="coco-hero">
+                    <div className="circus-hero">
                         <div
-                            className="coco-hero-track"
+                            className="circus-hero-track"
                             style={{ transform: `translateX(-${index * 100}%)` }}
                         >
-                            {COCO_FINAL_MEDIA.map((m, i) => (
-                                <div key={i} className="coco-hero-slide">
+                            {CIRCUS_CAROUSEL.map((m, i) => (
+                                <div key={i} className="circus-hero-slide">
                                     {m.kind === 'video' ? (
                                         <video
-                                            className="coco-hero-media"
+                                            className="circus-hero-media"
                                             src={m.src}
                                             autoPlay
                                             muted
@@ -58,7 +56,7 @@ export const CocoProjectDetail: React.FC = () => {
                                         />
                                     ) : (
                                         <img
-                                            className="coco-hero-media"
+                                            className="circus-hero-media"
                                             src={m.src}
                                             alt={m.alt || `${project.title} photo ${i + 1}`}
                                         />
@@ -69,7 +67,7 @@ export const CocoProjectDetail: React.FC = () => {
 
                         <button
                             type="button"
-                            className="coco-hero-arrow coco-hero-arrow--prev"
+                            className="circus-hero-arrow circus-hero-arrow--prev"
                             aria-label="Previous photo"
                             onClick={prev}
                         >
@@ -79,7 +77,7 @@ export const CocoProjectDetail: React.FC = () => {
                         </button>
                         <button
                             type="button"
-                            className="coco-hero-arrow coco-hero-arrow--next"
+                            className="circus-hero-arrow circus-hero-arrow--next"
                             aria-label="Next photo"
                             onClick={next}
                         >
@@ -90,19 +88,21 @@ export const CocoProjectDetail: React.FC = () => {
                     </div>
                 </section>
 
-                <section className="coco-bottom-grid">
-                    <img className="coco-jaguar" src={COCO_JAGUAR} alt="Pepita illustration" />
-
-                    <div className="coco-right">
-                        <button type="button" className="coco-book-btn">
-                            CLICK TO VIEW DESIGN BOOK!
-                        </button>
-                        <img className="coco-collage" src={COCO_COLLAGE} alt="Coco design collage" />
-                    </div>
+                <section className="circus-bottom-grid">
+                    <img
+                        className="circus-bottom-left"
+                        src={CIRCUS_BOTTOM_LEFT}
+                        alt="Circus illustration"
+                    />
+                    <img
+                        className="circus-bottom-right"
+                        src={CIRCUS_BOTTOM_RIGHT}
+                        alt="Circus performance"
+                    />
                 </section>
 
-                <section className="coco-credits">
-                    <p>Photo credit: TBC</p>
+                <section className="circus-credits">
+                    <p>Photos: Ciara Burns</p>
                 </section>
             </main>
 

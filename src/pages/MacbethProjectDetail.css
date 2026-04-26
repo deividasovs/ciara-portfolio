@@ -1,4 +1,4 @@
-.coco-page {
+.macbeth-page {
     background: #000;
     color: #fff;
     min-height: 100vh;
@@ -7,7 +7,7 @@
     font-family: 'Inter', sans-serif;
 }
 
-.coco-main {
+.macbeth-main {
     flex: 1;
     padding: 4rem clamp(1.5rem, 5vw, 5rem) 6rem;
     max-width: 1400px;
@@ -16,7 +16,7 @@
     box-sizing: border-box;
 }
 
-.coco-title {
+.macbeth-title {
     font-family: 'Playfair Display', serif;
     font-weight: 400;
     font-size: 3rem;
@@ -26,7 +26,7 @@
     color: #fff;
 }
 
-.coco-top-grid {
+.macbeth-top-grid {
     display: grid;
     grid-template-columns: 1fr 1.2fr;
     gap: clamp(2rem, 5vw, 5rem);
@@ -34,7 +34,7 @@
     margin-bottom: 5rem;
 }
 
-.coco-text-box {
+.macbeth-text-box {
     border: 2px solid #fff;
     border-radius: 4px;
     aspect-ratio: 3 / 4;
@@ -48,18 +48,18 @@
     font-family: 'Inter', sans-serif;
 }
 
-.coco-text-box p {
+.macbeth-text-box p {
     margin: 0;
 }
 
-.coco-hero {
+.macbeth-hero {
     position: relative;
     overflow: hidden;
+    isolation: isolate;
     aspect-ratio: 3 / 4;
-    background: #1a1a1a;
 }
 
-.coco-hero-track {
+.macbeth-hero-track {
     display: flex;
     width: 100%;
     height: 100%;
@@ -67,20 +67,25 @@
     will-change: transform;
 }
 
-.coco-hero-slide {
+.macbeth-hero-slide {
     flex: 0 0 100%;
     width: 100%;
     height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.coco-hero-media {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.macbeth-hero-media {
+    max-width: 100%;
+    max-height: 65%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
     display: block;
 }
 
-.coco-hero-arrow {
+.macbeth-hero-arrow {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -99,114 +104,80 @@
     z-index: 2;
 }
 
-.coco-hero-arrow svg {
+.macbeth-hero-arrow svg {
     display: block;
 }
 
-.coco-hero-arrow:hover {
+.macbeth-hero-arrow:hover {
     background: #fff;
     color: #000;
 }
 
-.coco-hero-arrow--prev {
+.macbeth-hero-arrow--prev {
     left: 0.75rem;
 }
 
-.coco-hero-arrow--next {
+.macbeth-hero-arrow--next {
     right: 0.75rem;
 }
 
-.coco-bottom-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: clamp(2rem, 5vw, 5rem);
-    align-items: end;
+.macbeth-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.coco-jaguar {
+.macbeth-bottom-image {
     width: 100%;
-    height: auto;
+    max-width: 900px;
+    aspect-ratio: 16 / 10;
     object-fit: contain;
     display: block;
 }
 
-.coco-right {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1.5rem;
-}
-
-.coco-book-btn {
-    align-self: flex-start;
-    background: transparent;
-    color: #fff;
-    border: 2px solid #fff;
-    border-radius: 30px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-size: 0.9rem;
-    letter-spacing: 0.03em;
-    padding: 0.8rem 1.6rem;
-    cursor: pointer;
-    transition: background 0.2s ease, color 0.2s ease;
-}
-
-.coco-book-btn:hover {
-    background: #fff;
-    color: #000;
-}
-
-.coco-collage {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-}
-
-.coco-credits {
+.macbeth-credits {
     margin-top: 5rem;
     padding-top: 2rem;
     border-top: 1px solid rgba(255, 255, 255, 0.15);
     text-align: center;
 }
 
-.coco-credits p {
+.macbeth-credits p {
     margin: 0;
     font-size: 0.95rem;
     line-height: 1.6;
     color: #ccc;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.coco-page .opt1-nav,
-.coco-page .opt1-footer {
+.macbeth-page .opt1-nav,
+.macbeth-page .opt1-footer {
     background: #000;
     color: #fff;
 }
 
-.coco-page .opt1-logo,
-.coco-page .opt1-links a,
-.coco-page .opt1-email {
+.macbeth-page .opt1-logo,
+.macbeth-page .opt1-links a,
+.macbeth-page .opt1-email {
     color: #fff;
 }
 
-.coco-page .opt1-footer h2 {
+.macbeth-page .opt1-footer h2 {
     color: #fff;
 }
 
-.coco-page .opt1-locations {
+.macbeth-page .opt1-locations {
     color: #ccc;
 }
 
 @media (max-width: 900px) {
-    .coco-top-grid,
-    .coco-bottom-grid {
+    .macbeth-top-grid {
         grid-template-columns: 1fr;
     }
 
-    .coco-text-box {
+    .macbeth-text-box {
         aspect-ratio: auto;
         min-height: 280px;
     }

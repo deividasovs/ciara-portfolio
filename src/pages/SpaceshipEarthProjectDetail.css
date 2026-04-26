@@ -1,4 +1,4 @@
-.coco-page {
+.spaceship-page {
     background: #000;
     color: #fff;
     min-height: 100vh;
@@ -7,7 +7,7 @@
     font-family: 'Inter', sans-serif;
 }
 
-.coco-main {
+.spaceship-main {
     flex: 1;
     padding: 4rem clamp(1.5rem, 5vw, 5rem) 6rem;
     max-width: 1400px;
@@ -16,7 +16,7 @@
     box-sizing: border-box;
 }
 
-.coco-title {
+.spaceship-title {
     font-family: 'Playfair Display', serif;
     font-weight: 400;
     font-size: 3rem;
@@ -26,7 +26,7 @@
     color: #fff;
 }
 
-.coco-top-grid {
+.spaceship-top-grid {
     display: grid;
     grid-template-columns: 1fr 1.2fr;
     gap: clamp(2rem, 5vw, 5rem);
@@ -34,7 +34,7 @@
     margin-bottom: 5rem;
 }
 
-.coco-text-box {
+.spaceship-text-box {
     border: 2px solid #fff;
     border-radius: 4px;
     aspect-ratio: 3 / 4;
@@ -48,18 +48,18 @@
     font-family: 'Inter', sans-serif;
 }
 
-.coco-text-box p {
+.spaceship-text-box p {
     margin: 0;
 }
 
-.coco-hero {
+.spaceship-hero {
     position: relative;
     overflow: hidden;
     aspect-ratio: 3 / 4;
     background: #1a1a1a;
 }
 
-.coco-hero-track {
+.spaceship-hero-track {
     display: flex;
     width: 100%;
     height: 100%;
@@ -67,20 +67,20 @@
     will-change: transform;
 }
 
-.coco-hero-slide {
+.spaceship-hero-slide {
     flex: 0 0 100%;
     width: 100%;
     height: 100%;
 }
 
-.coco-hero-media {
+.spaceship-hero-media {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
 }
 
-.coco-hero-arrow {
+.spaceship-hero-arrow {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -99,115 +99,103 @@
     z-index: 2;
 }
 
-.coco-hero-arrow svg {
+.spaceship-hero-arrow svg {
     display: block;
 }
 
-.coco-hero-arrow:hover {
+.spaceship-hero-arrow:hover {
     background: #fff;
     color: #000;
 }
 
-.coco-hero-arrow--prev {
+.spaceship-hero-arrow--prev {
     left: 0.75rem;
 }
 
-.coco-hero-arrow--next {
+.spaceship-hero-arrow--next {
     right: 0.75rem;
 }
 
-.coco-bottom-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: clamp(2rem, 5vw, 5rem);
-    align-items: end;
+.spaceship-section {
+    margin-bottom: 2.5rem;
 }
 
-.coco-jaguar {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    display: block;
-}
-
-.coco-right {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1.5rem;
-}
-
-.coco-book-btn {
-    align-self: flex-start;
-    background: transparent;
+.spaceship-section-heading {
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    font-size: clamp(1.4rem, 2.4vw, 2rem);
+    margin: 0 0 1.5rem;
     color: #fff;
-    border: 2px solid #fff;
-    border-radius: 30px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-size: 0.9rem;
-    letter-spacing: 0.03em;
-    padding: 0.8rem 1.6rem;
-    cursor: pointer;
-    transition: background 0.2s ease, color 0.2s ease;
 }
 
-.coco-book-btn:hover {
-    background: #fff;
-    color: #000;
+.spaceship-lineup {
+    max-width: 100%;
+    max-height: 60vh;
+    width: auto;
+    height: auto;
+    display: block;
+    margin: 0 auto;
 }
 
-.coco-collage {
+.spaceship-dev-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: center;
+}
+
+.spaceship-dev-left,
+.spaceship-dev-right {
     width: 100%;
     height: auto;
     display: block;
-    object-fit: cover;
 }
 
-.coco-credits {
+.spaceship-credits {
     margin-top: 5rem;
     padding-top: 2rem;
     border-top: 1px solid rgba(255, 255, 255, 0.15);
     text-align: center;
 }
 
-.coco-credits p {
+.spaceship-credits p {
     margin: 0;
     font-size: 0.95rem;
     line-height: 1.6;
     color: #ccc;
 }
 
-.coco-page .opt1-nav,
-.coco-page .opt1-footer {
+.spaceship-page .opt1-nav,
+.spaceship-page .opt1-footer {
     background: #000;
     color: #fff;
 }
 
-.coco-page .opt1-logo,
-.coco-page .opt1-links a,
-.coco-page .opt1-email {
+.spaceship-page .opt1-logo,
+.spaceship-page .opt1-links a,
+.spaceship-page .opt1-email {
     color: #fff;
 }
 
-.coco-page .opt1-footer h2 {
+.spaceship-page .opt1-footer h2 {
     color: #fff;
 }
 
-.coco-page .opt1-locations {
+.spaceship-page .opt1-locations {
     color: #ccc;
 }
 
 @media (max-width: 900px) {
-    .coco-top-grid,
-    .coco-bottom-grid {
+    .spaceship-top-grid {
         grid-template-columns: 1fr;
     }
 
-    .coco-text-box {
+    .spaceship-text-box {
         aspect-ratio: auto;
         min-height: 280px;
+    }
+
+    .spaceship-dev-grid {
+        grid-template-columns: 1fr;
     }
 }

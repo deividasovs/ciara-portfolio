@@ -1,55 +1,52 @@
 import React, { useState } from 'react';
 import { Navbar, Footer } from '../components/Layout';
 import { projectsData } from '../data/projects';
-import './CocoProjectDetail.css';
+import './MacbethProjectDetail.css';
 
-const COCO_JAGUAR = '/assets/images/projects/Coco/pepitadark.png';
-const COCO_COLLAGE = '/assets/images/projects/Coco/pepitafinal.png';
-
-type CocoMedia =
+type MacbethMedia =
     | { kind: 'video'; src: string }
     | { kind: 'image'; src: string; alt?: string };
 
-const COCO_FINAL_MEDIA: CocoMedia[] = [
-    { kind: 'video', src: '/assets/images/projects/Coco/Pepita.mov' },
-    { kind: 'image', src: '/assets/images/projects/Coco/pepitafinal.png', alt: 'Pepita illustration' },
-    { kind: 'image', src: '/assets/images/projects/Coco/pepitadark.png', alt: 'Pepita on black' },
-    { kind: 'image', src: '/assets/images/projects/Coco/lauralit.jpg', alt: 'Performance shot' },
-    { kind: 'image', src: '/assets/images/projects/Coco/lauradance.jpg', alt: 'Performance dance' },
+const MACBETH_CAROUSEL: MacbethMedia[] = [
+    { kind: 'image', src: '/assets/images/projects/Macbeth/Deivobsessed.png', alt: 'Macbeth costume on stairs' },
+    { kind: 'image', src: '/assets/images/projects/Macbeth/macbeth-textile.jpeg', alt: 'Macbeth textile detail' },
+    { kind: 'image', src: '/assets/images/projects/Macbeth/macbeth-back.png', alt: 'Macbeth costume back' },
 ];
 
-export const CocoProjectDetail: React.FC = () => {
-    const project = projectsData.find(p => p.id === 'Coco');
+const MACBETH_BOTTOM_IMAGE = '/assets/images/projects/Macbeth/ECA Costume_23May25_photo Brian Hartley_9939_lo.jpg';
+
+export const MacbethProjectDetail: React.FC = () => {
+    const project = projectsData.find(p => p.id === 'macbeth');
     const [index, setIndex] = useState(0);
 
     if (!project) return null;
 
-    const total = COCO_FINAL_MEDIA.length;
+    const total = MACBETH_CAROUSEL.length;
     const next = () => setIndex(i => (i + 1) % total);
     const prev = () => setIndex(i => (i - 1 + total) % total);
 
     return (
-        <div className="coco-page fade-in">
+        <div className="macbeth-page fade-in">
             <Navbar />
 
-            <main className="coco-main">
-                <h1 className="coco-title">{project.title}</h1>
+            <main className="macbeth-main">
+                <h1 className="macbeth-title">{project.title}</h1>
 
-                <section className="coco-top-grid">
-                    <div className="coco-text-box">
+                <section className="macbeth-top-grid">
+                    <div className="macbeth-text-box">
                         <p>{project.longDesc}</p>
                     </div>
 
-                    <div className="coco-hero">
+                    <div className="macbeth-hero">
                         <div
-                            className="coco-hero-track"
+                            className="macbeth-hero-track"
                             style={{ transform: `translateX(-${index * 100}%)` }}
                         >
-                            {COCO_FINAL_MEDIA.map((m, i) => (
-                                <div key={i} className="coco-hero-slide">
+                            {MACBETH_CAROUSEL.map((m, i) => (
+                                <div key={i} className="macbeth-hero-slide">
                                     {m.kind === 'video' ? (
                                         <video
-                                            className="coco-hero-media"
+                                            className="macbeth-hero-media"
                                             src={m.src}
                                             autoPlay
                                             muted
@@ -58,7 +55,7 @@ export const CocoProjectDetail: React.FC = () => {
                                         />
                                     ) : (
                                         <img
-                                            className="coco-hero-media"
+                                            className="macbeth-hero-media"
                                             src={m.src}
                                             alt={m.alt || `${project.title} photo ${i + 1}`}
                                         />
@@ -69,7 +66,7 @@ export const CocoProjectDetail: React.FC = () => {
 
                         <button
                             type="button"
-                            className="coco-hero-arrow coco-hero-arrow--prev"
+                            className="macbeth-hero-arrow macbeth-hero-arrow--prev"
                             aria-label="Previous photo"
                             onClick={prev}
                         >
@@ -79,7 +76,7 @@ export const CocoProjectDetail: React.FC = () => {
                         </button>
                         <button
                             type="button"
-                            className="coco-hero-arrow coco-hero-arrow--next"
+                            className="macbeth-hero-arrow macbeth-hero-arrow--next"
                             aria-label="Next photo"
                             onClick={next}
                         >
@@ -90,19 +87,20 @@ export const CocoProjectDetail: React.FC = () => {
                     </div>
                 </section>
 
-                <section className="coco-bottom-grid">
-                    <img className="coco-jaguar" src={COCO_JAGUAR} alt="Pepita illustration" />
-
-                    <div className="coco-right">
-                        <button type="button" className="coco-book-btn">
-                            CLICK TO VIEW DESIGN BOOK!
-                        </button>
-                        <img className="coco-collage" src={COCO_COLLAGE} alt="Coco design collage" />
-                    </div>
+                <section className="macbeth-bottom">
+                    <img
+                        className="macbeth-bottom-image"
+                        src={MACBETH_BOTTOM_IMAGE}
+                        alt="Macbeth performance"
+                    />
                 </section>
 
-                <section className="coco-credits">
-                    <p>Photo credit: TBC</p>
+                <section className="macbeth-credits">
+                    <p>
+                        A special thank you to Harris Tweed for their generous donation for this project.
+                        <br />
+                        Photo credit: Brian Hartley, Megan McCaffery
+                    </p>
                 </section>
             </main>
 

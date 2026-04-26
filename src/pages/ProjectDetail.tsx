@@ -3,6 +3,9 @@ import { useParams, Link } from 'react-router-dom';
 import { Navbar, Footer } from '../components/Layout';
 import { projectsData } from '../data/projects';
 import { CocoProjectDetail } from './CocoProjectDetail';
+import { CircusProjectDetail } from './CircusProjectDetail';
+import { MacbethProjectDetail } from './MacbethProjectDetail';
+import { SpaceshipEarthProjectDetail } from './SpaceshipEarthProjectDetail';
 import '../designs/Option1.css';
 
 type NormalizedImage = {
@@ -202,6 +205,18 @@ export const ProjectDetail: React.FC = () => {
         return <CocoProjectDetail />;
     }
 
+    if (id === "l'enfant et les sortilèges") {
+        return <CircusProjectDetail />;
+    }
+
+    if (id === 'macbeth') {
+        return <MacbethProjectDetail />;
+    }
+
+    if (id === 'spaceship-earth') {
+        return <SpaceshipEarthProjectDetail />;
+    }
+
     const project = projectsData.find(p => p.id === id);
 
     if (!project) {
@@ -247,11 +262,6 @@ export const ProjectDetail: React.FC = () => {
                                 objectFit: 'contain'
                             }}
                         />
-                        {topImageInfo.credit && (
-                            <span style={{ marginTop: '0.5rem', fontSize: '0.85rem', color: isDark ? '#A0A0A0' : '#888', fontStyle: 'italic', display: 'block', textAlign: 'left' }}>
-                                {topImageInfo.credit}
-                            </span>
-                        )}
                     </div>
                 </div>
 
@@ -328,19 +338,6 @@ export const ProjectDetail: React.FC = () => {
                                                     }}
                                                 />
                                             </div>
-                                            {img.credit && (
-                                                <span
-                                                    style={{
-                                                        marginTop: '0.5rem',
-                                                        fontSize: '0.8rem',
-                                                        color: isDark ? '#A0A0A0' : '#888',
-                                                        fontStyle: 'italic',
-                                                        textAlign: 'left',
-                                                    }}
-                                                >
-                                                    {img.credit}
-                                                </span>
-                                            )}
                                         </div>
                                     );
                                 })}

@@ -50,12 +50,12 @@ export const projectsData: Project[] = [
         longDesc: 'Exploring the vibrant culture of Mexico and Dia de los Muertos through the lens of Pixar\'s Coco. This project is a celebration of life, death, and the importance of family and rememberance. Looking into both traditional Mexican dress and parade culture, bringing in elemnets of lantern puppetry to bring the alebrijes inspired spirit guides to life on stage.',
         date: '2026',
         featured: true,
-        thumbnailUrl: '/assets/images/projects/Coco/pepita-illustration.png',
+        thumbnailUrl: '/assets/images/projects/Coco/pepitafinal.png',
         images: [
             {
                 layout: '1-col',
                 images: [
-                    '/assets/images/projects/Coco/pepita-black.png'
+                    '/assets/images/projects/Coco/pepitadark.png'
                 ]
             }
         ]
