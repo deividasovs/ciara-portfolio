@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Footer } from '../components/Layout';
+import { LayoutPicker, LayoutOption } from '../components/LayoutPicker';
 import { projectsData, Project } from '../data/projects';
 import '../designs/Option1.css';
 import '../designs/HomeLayouts.css';
@@ -10,30 +11,12 @@ type LayoutKey = 'A' | 'B' | 'C' | 'D';
 const LAYOUT_STORAGE_KEY = 'home-layout-variant';
 const HERO_IMAGE = '/assets/images/projects/dr-seuss/drseussy.png';
 
-const LAYOUT_OPTIONS: { key: LayoutKey; name: string; }[] = [
+const LAYOUT_OPTIONS: LayoutOption<LayoutKey>[] = [
     { key: 'A', name: 'Editorial' },
     { key: 'B', name: 'Cinematic' },
     { key: 'C', name: 'Theatrical' },
     { key: 'D', name: 'Minimal' },
 ];
-
-const LayoutPicker: React.FC<{ active: LayoutKey; onChange: (k: LayoutKey) => void; }> = ({ active, onChange }) => (
-    <div className="home-layout-picker" role="group" aria-label="Home layout variant">
-        <span className="home-layout-picker__title">Layout</span>
-        {LAYOUT_OPTIONS.map(opt => (
-            <button
-                key={opt.key}
-                type="button"
-                onClick={() => onChange(opt.key)}
-                className={`home-layout-picker__btn ${active === opt.key ? 'is-active' : ''}`}
-                aria-pressed={active === opt.key}
-            >
-                <span className="home-layout-picker__letter">{opt.key}</span>
-                <span className="home-layout-picker__name">{opt.name}</span>
-            </button>
-        ))}
-    </div>
-);
 
 const HeroEditorial: React.FC = () => (
     <header className="home-hero">
@@ -296,7 +279,7 @@ export const Home: React.FC = () => {
 
             <Footer />
 
-            <LayoutPicker active={layout} onChange={setLayout} />
+            <LayoutPicker options={LAYOUT_OPTIONS} active={layout} onChange={setLayout} />
         </div>
     );
 };

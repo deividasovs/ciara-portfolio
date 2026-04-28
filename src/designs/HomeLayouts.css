@@ -50,8 +50,8 @@
     color: #FDFDFC;
 }
 
-/* Layout picker (floating control) */
-.home-layout-picker {
+/* Layout picker (floating control - shared across pages) */
+.layout-picker {
     position: fixed;
     right: 1.25rem;
     bottom: 1.25rem;
@@ -69,7 +69,7 @@
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 }
 
-.home-layout-picker__title {
+.layout-picker__title {
     font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 0.12em;
@@ -78,7 +78,7 @@
     margin-bottom: 0.15rem;
 }
 
-.home-layout-picker__btn {
+.layout-picker__btn {
     display: flex;
     align-items: center;
     gap: 0.6rem;
@@ -95,18 +95,18 @@
     transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
 }
 
-.home-layout-picker__btn:hover {
+.layout-picker__btn:hover {
     background: rgba(255, 255, 255, 0.05);
     color: #FDFDFC;
 }
 
-.home-layout-picker__btn.is-active {
+.layout-picker__btn.is-active {
     background: rgba(212, 175, 55, 0.12);
     border-color: rgba(212, 175, 55, 0.45);
     color: #FDFDFC;
 }
 
-.home-layout-picker__letter {
+.layout-picker__letter {
     font-family: 'Playfair Display', serif;
     font-size: 1rem;
     font-style: italic;
@@ -115,7 +115,7 @@
     text-align: center;
 }
 
-.home-layout-picker__name {
+.layout-picker__name {
     font-size: 0.78rem;
     letter-spacing: 0.04em;
 }

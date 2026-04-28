@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Navbar, Footer } from '../components/Layout';
 import { projectsData, ProjectMedia, ProjectRow, ProjectImage } from '../data/projects';
-import { useTheme } from '../contexts/ThemeContext';
 import './ProjectDetail.css';
 
 const isProjectRow = (item: any): item is ProjectRow =>
@@ -131,7 +130,6 @@ const Row: React.FC<{ row: ProjectRow; title: string }> = ({ row, title }) => {
 export const ProjectDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const project = projectsData.find(p => p.id === id);
-    const { theme: globalTheme, overridden } = useTheme();
 
     if (!project) {
         return (
@@ -146,8 +144,7 @@ export const ProjectDetail: React.FC = () => {
         );
     }
 
-    const effectiveTheme = overridden ? globalTheme : (project.theme || 'dark');
-    const isLight = effectiveTheme === 'light';
+    const isLight = (project.theme || 'dark') === 'light';
     const carousel = carouselFromProject(project);
     const rows = rowsFromProject(project);
 
