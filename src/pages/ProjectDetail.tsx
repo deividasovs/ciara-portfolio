@@ -152,7 +152,7 @@ export const ProjectDetail: React.FC = () => {
     const rows = rowsFromProject(project);
 
     return (
-        <div className={`project-detail-page fade-in ${isLight ? 'is-light' : ''}`}>
+        <div className={`project-detail-page fade-in project-${project.id} ${isLight ? 'is-light' : ''}`}>
             <Navbar />
 
             <main className="project-detail-main">
