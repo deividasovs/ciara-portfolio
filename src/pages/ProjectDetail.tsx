@@ -104,7 +104,7 @@ const Carousel: React.FC<{ media: ProjectMedia[]; title: string }> = ({ media, t
     );
 };
 
-const KNOWN_LAYOUTS = new Set(['1-col', '2-col', '3-col', '4-col']);
+const KNOWN_LAYOUTS = new Set(['1-col', '2-col', '3-col', '4-col', 'left-stack']);
 
 const Row: React.FC<{ row: ProjectRow; title: string }> = ({ row, title }) => {
     const layoutClass = KNOWN_LAYOUTS.has(row.layout) ? `layout-${row.layout}` : '';
@@ -155,10 +155,9 @@ export const ProjectDetail: React.FC = () => {
             <Navbar />
 
             <main className="project-detail-main">
-                <h1 className="project-detail-title">{project.title}</h1>
-
                 <section className="project-detail-top-grid">
                     <div className="project-detail-text-box">
+                        <h1 className="project-detail-title">{project.title}</h1>
                         <p>{project.longDesc}</p>
                         <div className="project-detail-cta-group">
                             {project.link && (
@@ -166,7 +165,7 @@ export const ProjectDetail: React.FC = () => {
                                     {project.linkLabel || 'Visit Project'}
                                 </Link>
                             )}
-                            {project.designBookUrl ? (
+                            {project.designBookPages && project.designBookPages.length > 0 ? (
                                 <button
                                     type="button"
                                     className="project-detail-cta"
@@ -174,7 +173,16 @@ export const ProjectDetail: React.FC = () => {
                                 >
                                     Open Design Book
                                 </button>
-                            ) : (
+                            ) : project.designBookUrl ? (
+                                <a
+                                    href={project.designBookUrl}
+                                    target="_blank"
+                                    rel="noreferrer noopener"
+                                    className="project-detail-cta"
+                                >
+                                    Open Design Book
+                                </a>
+                            ) : project.designBookComingSoon ? (
                                 <button
                                     type="button"
                                     className="project-detail-cta"
@@ -182,8 +190,9 @@ export const ProjectDetail: React.FC = () => {
                                     aria-disabled="true"
                                 >
                                     Open Design Book
+                                    <span className="project-detail-cta-note">Coming soon</span>
                                 </button>
-                            )}
+                            ) : null}
                         </div>
                     </div>
 
@@ -208,10 +217,12 @@ export const ProjectDetail: React.FC = () => {
 
             <Footer />
 
-            {designBookOpen && project.designBookUrl && (
+            {project.designBookPages && project.designBookPages.length > 0 && (
                 <DesignBookModal
-                    pdfUrl={project.designBookUrl}
+                    pages={project.designBookPages}
+                    open={designBookOpen}
                     onClose={() => setDesignBookOpen(false)}
+                    title={project.title}
                 />
             )}
         </div>

@@ -1,12 +1,10 @@
 export interface ProjectImage {
     url: string;
     credit?: string;
-    height?: string;
 }
 
 export interface ProjectRow {
-    layout: '1-col' | '2-col' | '3-col' | '4-col' | '2x1' | '4x4' | '2-left-1-right' | string;
-    height?: string;
+    layout: '1-col' | '2-col' | '3-col' | '4-col' | string;
     heading?: string;
     images: (string | ProjectImage)[];
 }
@@ -28,16 +26,21 @@ export interface Project {
     thumbnailCredit?: string;
     topHorizontalImage?: string;
     topHorizontalCredit?: string;
-    topHorizontalHeight?: string;
     carousel?: ProjectMedia[];
     images: (string | ProjectImage | ProjectRow)[];
     credits?: string;
     theme?: 'light' | 'dark';
-    layout?: '1-col' | '2-col' | '3-col' | '4-col' | '2x1' | '4x4' | '2-left-1-right' | string;
+    layout?: '1-col' | '2-col' | '3-col' | '4-col' | string;
     link?: string;
     linkLabel?: string;
     designBookUrl?: string;
+    designBookPages?: string[];
+    designBookComingSoon?: boolean;
 }
+
+const cocoDesignBookPages: string[] = Array.from({ length: 41 }, (_, i) =>
+    `/assets/images/projects/Coco/designbook/page-${String(i + 1).padStart(3, '0')}.jpg`
+);
 
 export const projectsData: Project[] = [
     {
@@ -50,13 +53,28 @@ export const projectsData: Project[] = [
         thumbnailUrl: '/assets/images/projects/paperbag-princess/princess-back.png',
         topHorizontalImage: '/assets/images/projects/paperbag-princess/prince.png',
         carousel: [
-            { kind: 'image', src: '/assets/images/projects/paperbag-princess/prince.png', alt: 'Paper Couture' },
-            { kind: 'image', src: '/assets/images/projects/paperbag-princess/princess-back.png', alt: 'Princess back' }
+        
+            { kind: 'image', src: '/assets/images/projects/paperbag-princess/IMG_7304.JPG', alt: 'Paper Couture photoshoot 1' },
+            { kind: 'image', src: '/assets/images/projects/paperbag-princess/IMG_7305.JPG', alt: 'Paper Couture photoshoot 2' },
+            { kind: 'image', src: '/assets/images/projects/paperbag-princess/IMG_7306.JPG', alt: 'Paper Couture photoshoot 3' },
+            { kind: 'image', src: '/assets/images/projects/paperbag-princess/IMG_7307.JPG', alt: 'Paper Couture photoshoot 4' },
+            { kind: 'image', src: '/assets/images/projects/paperbag-princess/IMG_7308.JPG', alt: 'Paper Couture photoshoot 5' },
         ],
-        images: [],
+        images: [
+            {
+                layout: 'left-stack',
+                images: [
+                    '/assets/images/projects/paperbag-princess/prince.png',
+                    '/assets/images/projects/paperbag-princess/princess-back.png',
+                    '/assets/images/projects/paperbag-princess/Final Line-Up.png'
+                ]
+            }
+        ],
+        credits: 'Photo credit: Ciara Burns',
         theme: 'light',
         link: '/interactive/paperbagprincess',
-        linkLabel: 'Step Inside the Shop'
+        linkLabel: 'Step Inside the Shop',
+        designBookComingSoon: true
     },
     {
         id: 'Coco',
@@ -82,9 +100,9 @@ export const projectsData: Project[] = [
                 ]
             }
         ],
-        credits: 'Photo credit: TBC',
+        credits: 'Photo credit: Sally Jubb',
         theme: 'dark',
-        designBookUrl: '/assets/images/projects/Coco/Coco Design Book Digital.pdf'
+        designBookPages: cocoDesignBookPages
     },
     {
         id: 'spaceship-earth',
@@ -117,7 +135,7 @@ export const projectsData: Project[] = [
                 ]
             }
         ],
-        credits: 'Photo credit: TBC',
+        credits: 'Photo credit: Edinburgh Science Festival',
         theme: 'dark'
     },
     {
@@ -127,9 +145,8 @@ export const projectsData: Project[] = [
         longDesc: "A redesign project of Macbeth by William Shakespeare, this brief challenged me to reinterpret the play in a randomly assigned historical period, using orange waxed cotton paired with donated Harris Tweed. I reimagined Macbeth as a Macaroni man — a flamboyant, extravagantly dressed gentleman of the 1770s. The exaggerated silhouette, bold colour, and rich textures reflect his ambition, insecurity, and descent into excess, using 18th-century dandyism to mirror his psychological unraveling. I drafted and adapted the garment from an original historical pattern, refining it to modern proportions while maintaining period authenticity.",
         date: '2025',
         featured: false,
-        thumbnailUrl: '/assets/images/projects/Macbeth/macbeth-back.png',
+        thumbnailUrl: '/assets/images/projects/Macbeth/macbethillustration-back.png',
         topHorizontalImage: '/assets/images/projects/Macbeth/Deivobsessed.png',
-        topHorizontalHeight: '85vh',
         carousel: [
             { kind: 'image', src: '/assets/images/projects/Macbeth/Deivobsessed.png', alt: 'Macbeth costume on stairs' },
             { kind: 'image', src: '/assets/images/projects/Macbeth/macbeth-textile.jpeg', alt: 'Macbeth textile detail' },
@@ -172,22 +189,7 @@ export const projectsData: Project[] = [
                 ]
             }
         ],
-        credits: 'Photos: Ciara Burns',
+        credits: 'Photo credit: Issac McCann',
         theme: 'dark'
     },
-    {
-        id: 'theres-a-wocket-in-my-pocket',
-        title: "There's a Wocket in my pocket",
-        desc: 'A Dr. Seuss inspired costume design.',
-        longDesc: 'A Dr. Seuss inspired costume design.',
-        date: '2024',
-        featured: false,
-        thumbnailUrl: '/assets/images/projects/dr-seuss/drseussy.png',
-        topHorizontalImage: '/assets/images/projects/dr-seuss/drseussy.png',
-        carousel: [
-            { kind: 'image', src: '/assets/images/projects/dr-seuss/drseussy.png', alt: "There's a Wocket in my pocket" }
-        ],
-        images: [],
-        theme: 'dark'
-    }
 ];

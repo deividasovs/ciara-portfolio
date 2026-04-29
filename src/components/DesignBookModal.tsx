@@ -1,225 +1,174 @@
-import React, { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
-import * as pdfjsLib from 'pdfjs-dist';
-import HTMLFlipBook from 'react-pageflip';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import './DesignBookModal.css';
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
-
-const RENDER_TARGET_PX_DEFAULT = 900;
-const RENDER_TARGET_PX_LOW_MEM = 700;
-const LOW_MEM_THRESHOLD_GB = 4;
-const JPEG_QUALITY = 0.78;
-const VIEWPORT_PAD_X = 220;
-const VIEWPORT_PAD_Y = 100;
-const FALLBACK_PAGE_ASPECT = 0.75;
-
-const yieldToBrowser = () =>
-    new Promise<void>(resolve => {
-        if (typeof requestAnimationFrame !== 'undefined') requestAnimationFrame(() => resolve());
-        else setTimeout(resolve, 0);
-    });
-
-const detectRenderTarget = (): number => {
-    if (typeof navigator !== 'undefined') {
-        const mem = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
-        if (typeof mem === 'number' && mem < LOW_MEM_THRESHOLD_GB) return RENDER_TARGET_PX_LOW_MEM;
-    }
-    return RENDER_TARGET_PX_DEFAULT;
-};
-
-interface Props {
-    pdfUrl: string;
+interface DesignBookModalProps {
+    pages: string[];
+    open: boolean;
     onClose: () => void;
+    title?: string;
 }
 
-const BookPage = forwardRef<
-    HTMLDivElement,
-    { src: string | null; pageNumber: number; hard?: boolean }
->(({ src, pageNumber, hard }, ref) => (
-    <div
-        className={`design-book-leaf${hard ? ' design-book-leaf--hard' : ''}${
-            src ? '' : ' design-book-leaf--pending'
-        }`}
-        ref={ref}
-        data-density={hard ? 'hard' : 'soft'}
-    >
-        {src ? (
-            <img
-                src={src}
-                alt={`Page ${pageNumber}`}
-                draggable={false}
-                loading="lazy"
-                decoding="async"
-            />
-        ) : (
-            <div className="design-book-leaf-placeholder">
-                <div className="design-book-leaf-spinner" />
-            </div>
-        )}
-    </div>
-));
-BookPage.displayName = 'BookPage';
+type HalfSide = 'left' | 'right' | 'full';
 
-const getInitialWindowSize = () => ({
-    w: typeof window !== 'undefined' ? window.innerWidth : 1280,
-    h: typeof window !== 'undefined' ? window.innerHeight : 800,
-});
+interface Half {
+    src: string;
+    side: HalfSide;
+}
 
-export const DesignBookModal: React.FC<Props> = ({ pdfUrl, onClose }) => {
-    const [pages, setPages] = useState<(string | null)[]>([]);
-    const [aspect, setAspect] = useState<number | null>(null);
-    const [progress, setProgress] = useState({ current: 0, total: 0 });
-    const [winSize, setWinSize] = useState(getInitialWindowSize);
+interface View {
+    left: Half | null;
+    right: Half | null;
+}
 
-    const bookRef = useRef<any>(null);
-    const blobUrlsRef = useRef<string[]>([]);
+interface FlipState {
+    dir: 'next' | 'prev';
+    fromView: number;
+    toView: number;
+    halfSrc: string;
+    halfSide: HalfSide;
+}
 
-    useEffect(() => {
-        let cancelled = false;
-        const blobUrls: string[] = [];
-        blobUrlsRef.current = blobUrls;
-        setPages([]);
-        setAspect(null);
-        setProgress({ current: 0, total: 0 });
+const FLIP_MS = 1100;
 
-        const renderTargetPx = detectRenderTarget();
+function buildViews(pages: string[]): View[] {
+    if (pages.length === 0) return [];
+    if (pages.length === 1) {
+        return [{ left: null, right: { src: pages[0], side: 'full' } }];
+    }
+    const views: View[] = [];
+    views.push({ left: null, right: { src: pages[0], side: 'full' } });
+    for (let i = 1; i < pages.length - 1; i++) {
+        views.push({
+            left: { src: pages[i], side: 'left' },
+            right: { src: pages[i], side: 'right' },
+        });
+    }
+    views.push({ left: { src: pages[pages.length - 1], side: 'full' }, right: null });
+    return views;
+}
 
-        (async () => {
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            let doc: Awaited<ReturnType<typeof pdfjsLib.getDocument>['promise']> | null = null;
-            try {
-                if (!ctx) throw new Error('No 2D canvas context available');
-                doc = await pdfjsLib.getDocument(pdfUrl).promise;
-                if (cancelled) return;
-                const total = doc.numPages;
-                setProgress({ current: 0, total });
+const halfBackgroundStyle = (half: Half | null): React.CSSProperties => {
+    if (!half) return { backgroundImage: 'none' };
+    return {
+        backgroundImage: `url(${half.src})`,
+        backgroundSize: half.side === 'full' ? 'contain' : '200% 100%',
+        backgroundPosition:
+            half.side === 'full'
+                ? 'center'
+                : half.side === 'left'
+                    ? 'left center'
+                    : 'right center',
+        backgroundRepeat: 'no-repeat',
+    };
+};
 
-                const firstPage = await doc.getPage(1);
-                if (cancelled) return;
-                const baseVp = firstPage.getViewport({ scale: 1 });
-                setAspect(baseVp.width / baseVp.height);
+export const DesignBookModal: React.FC<DesignBookModalProps> = ({ pages, open, onClose, title }) => {
+    const views = useMemo(() => buildViews(pages), [pages]);
+    const totalViews = views.length;
 
-                const slots: (string | null)[] = new Array(total).fill(null);
-                setPages(slots.slice());
-
-                const renderToBlobUrl = async (page: any): Promise<string | null> => {
-                    const vp = page.getViewport({ scale: 1 });
-                    const scale = renderTargetPx / vp.width;
-                    const viewport = page.getViewport({ scale });
-                    canvas.width = viewport.width;
-                    canvas.height = viewport.height;
-                    await page.render({ canvasContext: ctx, viewport }).promise;
-                    const blob = await new Promise<Blob | null>(resolve =>
-                        canvas.toBlob(resolve, 'image/jpeg', JPEG_QUALITY),
-                    );
-                    page.cleanup();
-                    if (!blob) return null;
-                    const url = URL.createObjectURL(blob);
-                    blobUrls.push(url);
-                    return url;
-                };
-
-                const coverUrl = await renderToBlobUrl(firstPage);
-                if (cancelled) return;
-                if (coverUrl) {
-                    slots[0] = coverUrl;
-                    setPages(slots.slice());
-                    setProgress({ current: 1, total });
-                }
-                await yieldToBrowser();
-
-                for (let i = 2; i <= total; i++) {
-                    if (cancelled) return;
-                    const page = await doc.getPage(i);
-                    if (cancelled) return;
-                    const url = await renderToBlobUrl(page);
-                    if (cancelled) return;
-                    if (url) {
-                        slots[i - 1] = url;
-                        setPages(slots.slice());
-                        setProgress({ current: i, total });
-                    }
-                    await yieldToBrowser();
-                }
-            } catch (err) {
-                console.error('Design book PDF load error', err);
-            } finally {
-                canvas.width = 0;
-                canvas.height = 0;
-                if (doc) {
-                    try {
-                        await doc.cleanup();
-                    } catch {
-                        /* ignore */
-                    }
-                    try {
-                        await doc.destroy();
-                    } catch {
-                        /* ignore */
-                    }
-                }
-            }
-        })();
-
-        return () => {
-            cancelled = true;
-            blobUrls.forEach(URL.revokeObjectURL);
-        };
-    }, [pdfUrl]);
+    const [leftIndex, setLeftIndex] = useState(0);
+    const [rightIndex, setRightIndex] = useState(0);
+    const [flip, setFlip] = useState<FlipState | null>(null);
 
     useEffect(() => {
-        const handler = () => setWinSize({ w: window.innerWidth, h: window.innerHeight });
-        window.addEventListener('resize', handler);
-        return () => window.removeEventListener('resize', handler);
-    }, []);
-
-    const handlePrev = useCallback(() => {
-        bookRef.current?.pageFlip()?.flipPrev();
-    }, []);
-    const handleNext = useCallback(() => {
-        bookRef.current?.pageFlip()?.flipNext();
-    }, []);
+        if (!open) {
+            setLeftIndex(0);
+            setRightIndex(0);
+            setFlip(null);
+        }
+    }, [open]);
 
     useEffect(() => {
-        const handler = (e: KeyboardEvent) => {
-            if (e.key === 'Escape') onClose();
-            else if (e.key === 'ArrowRight') handleNext();
-            else if (e.key === 'ArrowLeft') handlePrev();
-        };
-        window.addEventListener('keydown', handler);
-        return () => window.removeEventListener('keydown', handler);
-    }, [onClose, handleNext, handlePrev]);
-
-    useEffect(() => {
+        if (!open) return;
         const prev = document.body.style.overflow;
         document.body.style.overflow = 'hidden';
         return () => {
             document.body.style.overflow = prev;
         };
-    }, []);
+    }, [open]);
 
-    const pageAspect = aspect || FALLBACK_PAGE_ASPECT;
-    const spreadAspect = pageAspect * 2;
-    const availW = Math.max(200, winSize.w - VIEWPORT_PAD_X);
-    const availH = Math.max(200, winSize.h - VIEWPORT_PAD_Y);
-    const bookW = Math.floor(Math.min(availW, availH * spreadAspect));
-    const bookH = Math.floor(bookW / spreadAspect);
-    const pageW = Math.floor(bookW / 2);
-    const pageH = bookH;
+    const visualIndex = flip ? flip.toView : leftIndex;
 
-    const isLoading = pages.length === 0 || !pages[0];
-    const showCounter = pages.length > 1 && !isLoading;
-    const totalPages = progress.total;
-    const loadedPages = pages.filter(Boolean).length;
-    const stillLoading = totalPages > 0 && loadedPages < totalPages;
+    const flipRef = useRef(flip);
+    flipRef.current = flip;
+    const indicesRef = useRef({ left: leftIndex, right: rightIndex });
+    indicesRef.current = { left: leftIndex, right: rightIndex };
+
+    const goNext = useCallback(() => {
+        const { left, right } = indicesRef.current;
+        const cur = Math.max(left, right);
+        if (cur >= totalViews - 1) return;
+        const oldView = views[cur];
+        if (!oldView.right) return;
+        setFlip({
+            dir: 'next',
+            fromView: cur,
+            toView: cur + 1,
+            halfSrc: oldView.right.src,
+            halfSide: oldView.right.side,
+        });
+        setLeftIndex(cur + 1);
+        setRightIndex(cur + 1);
+    }, [totalViews, views]);
+
+    const goPrev = useCallback(() => {
+        const { left, right } = indicesRef.current;
+        const cur = Math.min(left, right);
+        if (cur <= 0) return;
+        const oldView = views[cur];
+        if (!oldView.left) return;
+        setFlip({
+            dir: 'prev',
+            fromView: cur,
+            toView: cur - 1,
+            halfSrc: oldView.left.src,
+            halfSide: oldView.left.side,
+        });
+        setLeftIndex(cur - 1);
+        setRightIndex(cur - 1);
+    }, [views]);
+
+    useEffect(() => {
+        if (!open) return;
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') {
+                onClose();
+            } else if (e.key === 'ArrowRight') {
+                goNext();
+            } else if (e.key === 'ArrowLeft') {
+                goPrev();
+            }
+        };
+        window.addEventListener('keydown', onKey);
+        return () => window.removeEventListener('keydown', onKey);
+    }, [open, goNext, goPrev, onClose]);
+
+    useEffect(() => {
+        if (!open) return;
+        const targets = [visualIndex - 1, visualIndex, visualIndex + 1, visualIndex + 2];
+        targets.forEach(i => {
+            if (i < 0 || i >= pages.length) return;
+            const img = new Image();
+            img.src = pages[i];
+        });
+    }, [open, visualIndex, pages]);
+
+    if (!open) return null;
+
+    const onFlipEnd = (e: React.AnimationEvent) => {
+        if (e.target !== e.currentTarget) return;
+        setFlip(null);
+    };
+
+    const leftView = views[leftIndex];
+    const rightView = views[rightIndex];
 
     return (
         <div
             className="design-book-modal"
             role="dialog"
             aria-modal="true"
-            aria-label="Design book"
+            aria-label={title ? `${title} design book` : 'Design book'}
             onClick={onClose}
         >
             <button
@@ -228,96 +177,75 @@ export const DesignBookModal: React.FC<Props> = ({ pdfUrl, onClose }) => {
                 onClick={onClose}
                 aria-label="Close design book"
             >
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="18" y1="6" x2="6" y2="18" />
                     <line x1="6" y1="6" x2="18" y2="18" />
                 </svg>
             </button>
 
-            {isLoading ? (
-                <div className="design-book-loading" onClick={e => e.stopPropagation()}>
-                    <div className="design-book-spinner" />
-                    <div className="design-book-loading-text">
-                        {progress.total > 0
-                            ? `Loading cover…`
-                            : 'Loading'}
-                    </div>
-                </div>
-            ) : (
-                <>
-                    <div
-                        className="design-book-frame"
-                        onClick={e => e.stopPropagation()}
-                        style={{ width: bookW, height: bookH }}
-                    >
-                        <HTMLFlipBook
-                            key={`book-${pageW}x${pageH}-${pages.length}`}
-                            ref={bookRef}
-                            width={pageW}
-                            height={pageH}
-                            size="fixed"
-                            minWidth={pageW}
-                            maxWidth={pageW}
-                            minHeight={pageH}
-                            maxHeight={pageH}
-                            showCover={true}
-                            flippingTime={700}
-                            usePortrait={false}
-                            startZIndex={0}
-                            autoSize={false}
-                            maxShadowOpacity={0.5}
-                            mobileScrollSupport={true}
-                            swipeDistance={30}
-                            clickEventForward={false}
-                            useMouseEvents={true}
-                            drawShadow={true}
-                            showPageCorners={true}
-                            disableFlipByClick={false}
-                            startPage={0}
-                            className="design-book-flipbook"
-                            style={{}}
-                        >
-                            {pages.map((src, i) => (
-                                <BookPage
-                                    key={i}
-                                    src={src}
-                                    pageNumber={i + 1}
-                                    hard={i === 0 || i === pages.length - 1}
-                                />
-                            ))}
-                        </HTMLFlipBook>
-                    </div>
+            <div className="design-book-stage" onClick={e => e.stopPropagation()}>
+                <div
+                    className="design-book-half design-book-half--left"
+                    style={halfBackgroundStyle(leftView?.left ?? null)}
+                />
+                <div
+                    className="design-book-half design-book-half--right"
+                    style={halfBackgroundStyle(rightView?.right ?? null)}
+                />
 
+                {flip && (
+                    <div
+                        key={`${flip.fromView}-${flip.toView}-${flip.dir}`}
+                        className={`design-book-flip design-book-flip--${flip.dir}`}
+                        style={{
+                            animationDuration: `${FLIP_MS}ms`,
+                            ['--flip-ms' as any]: `${FLIP_MS}ms`,
+                        }}
+                        onAnimationEnd={onFlipEnd}
+                    >
+                        <div className="design-book-flip-lift">
+                            <div
+                                className="design-book-flip-face design-book-flip-front"
+                                style={halfBackgroundStyle({ src: flip.halfSrc, side: flip.halfSide })}
+                            >
+                                <span className="design-book-flip-shade design-book-flip-shade--front" />
+                            </div>
+                            <div className="design-book-flip-face design-book-flip-back">
+                                <span className="design-book-flip-shade design-book-flip-shade--back" />
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {visualIndex > 0 && (
                     <button
                         type="button"
                         className="design-book-arrow design-book-arrow--prev"
-                        onClick={handlePrev}
+                        onClick={goPrev}
                         aria-label="Previous page"
                     >
-                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                             <polyline points="15 18 9 12 15 6" />
                         </svg>
                     </button>
+                )}
+                {visualIndex < totalViews - 1 && (
                     <button
                         type="button"
                         className="design-book-arrow design-book-arrow--next"
-                        onClick={handleNext}
+                        onClick={goNext}
                         aria-label="Next page"
                     >
-                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                             <polyline points="9 18 15 12 9 6" />
                         </svg>
                     </button>
-                </>
-            )}
+                )}
+            </div>
 
-            {showCounter && (
-                <div className="design-book-counter" onClick={e => e.stopPropagation()}>
-                    {stillLoading
-                        ? `Loading pages ${loadedPages} / ${totalPages}`
-                        : 'swipe, click corners, or use arrows'}
-                </div>
-            )}
+            <div className="design-book-counter" onClick={e => e.stopPropagation()}>
+                {visualIndex + 1} / {totalViews}
+            </div>
         </div>
     );
 };

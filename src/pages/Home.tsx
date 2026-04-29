@@ -1,58 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Footer } from '../components/Layout';
-import { LayoutPicker, LayoutOption } from '../components/LayoutPicker';
 import { projectsData, Project } from '../data/projects';
 import '../designs/Option1.css';
 import '../designs/HomeLayouts.css';
 
-type LayoutKey = 'A' | 'B' | 'C' | 'D';
+type LayoutKey = 'A' | 'B' | 'C';
 
-const LAYOUT_STORAGE_KEY = 'home-layout-variant';
 const HERO_IMAGE = '/assets/images/projects/dr-seuss/drseussy.png';
-
-const LAYOUT_OPTIONS: LayoutOption<LayoutKey>[] = [
-    { key: 'A', name: 'Editorial' },
-    { key: 'B', name: 'Cinematic' },
-    { key: 'C', name: 'Theatrical' },
-    { key: 'D', name: 'Minimal' },
-];
-
-const HeroEditorial: React.FC = () => (
-    <header className="home-hero">
-        <div>
-            <span className="home-hero__eyebrow">Portfolio · 2026</span>
-            <h1 className="home-hero__title">
-                Performance<br /><em>Costume.</em>
-            </h1>
-        </div>
-        <div className="home-hero__image">
-            <img src={HERO_IMAGE} alt="Performance costume hero" />
-        </div>
-    </header>
-);
 
 const HeroCinematic: React.FC = () => (
     <header className="home-hero" style={{ backgroundImage: `url('${HERO_IMAGE}')` }}>
         <div className="home-hero__inner">
-            <span className="home-hero__eyebrow">Portfolio / 2026</span>
             <h1 className="home-hero__title">
                 Performance <em>Costume</em>
             </h1>
         </div>
-    </header>
-);
-
-const HeroTheatrical: React.FC = () => (
-    <header className="home-hero">
-        <div className="home-hero__plate">
-            <img src={HERO_IMAGE} alt="" aria-hidden="true" />
-        </div>
-        <h1 className="home-hero__title">
-            <span className="sr-only">Performance Costume</span>
-            <span className="home-hero__line home-hero__line--offset-l" aria-hidden="true">Performance</span>
-            <span className="home-hero__line italic home-hero__line--offset-r" aria-hidden="true">Costume</span>
-        </h1>
     </header>
 );
 
@@ -71,27 +34,6 @@ const HeroMinimal: React.FC<{ projects: Project[] }> = ({ projects }) => (
             ))}
         </div>
     </header>
-);
-
-const FeaturedEditorial: React.FC<{ projects: Project[] }> = ({ projects }) => (
-    <section className="home-featured">
-        <h2 className="home-featured__heading">Featured Projects</h2>
-        <ul className="home-featured__list">
-            {projects.map((p, i) => (
-                <li key={p.id}>
-                    <Link to={`/projects/${p.id}`} className="home-featured__row">
-                        <span className="home-featured__num">0{i + 1}</span>
-                        <h3 className="home-featured__title">{p.title}</h3>
-                        <span className="home-featured__date">{p.date}</span>
-                        <div className="home-featured__preview">
-                            <img src={p.thumbnailUrl} alt="" />
-                        </div>
-                    </Link>
-                </li>
-            ))}
-        </ul>
-        <Link to="/projects" className="home-featured__view-all">View All Projects</Link>
-    </section>
 );
 
 const FeaturedCinematic: React.FC<{ projects: Project[] }> = ({ projects }) => (
@@ -118,24 +60,6 @@ const FeaturedCinematic: React.FC<{ projects: Project[] }> = ({ projects }) => (
     </section>
 );
 
-const FeaturedTheatrical: React.FC<{ projects: Project[] }> = ({ projects }) => (
-    <section className="home-featured">
-        <h2 className="home-featured__heading">Featured Projects</h2>
-        <div className="home-featured__mosaic">
-            {projects.map(p => (
-                <Link key={p.id} to={`/projects/${p.id}`} className="home-featured__tile">
-                    <img src={p.thumbnailUrl} alt={p.title} />
-                    <div className="home-featured__tile-overlay">
-                        <h3 className="home-featured__tile-title">{p.title}</h3>
-                        <span className="home-featured__tile-date">{p.date}</span>
-                    </div>
-                </Link>
-            ))}
-        </div>
-        <Link to="/projects" className="home-featured__view-all"><span>View All Projects</span></Link>
-    </section>
-);
-
 const FeaturedMinimal: React.FC<{ projects: Project[] }> = ({ projects }) => (
     <section className="home-featured">
         <h2 className="home-featured__heading">Featured Projects</h2>
@@ -150,7 +74,6 @@ const FeaturedMinimal: React.FC<{ projects: Project[] }> = ({ projects }) => (
                         <img src={p.thumbnailUrl} alt={p.title} />
                     </div>
                     <div className="home-featured__row-info">
-                        <div className="home-featured__row-num">— 0{i + 1}</div>
                         <h3 className="home-featured__row-title">{p.title}</h3>
                         <span className="home-featured__row-date">{p.date}</span>
                         <p className="home-featured__row-desc">{p.desc}</p>
@@ -164,32 +87,23 @@ const FeaturedMinimal: React.FC<{ projects: Project[] }> = ({ projects }) => (
 
 const renderHero = (layout: LayoutKey, projects: Project[]) => {
     switch (layout) {
-        case 'A': return <HeroEditorial />;
-        case 'B': return <HeroCinematic />;
-        case 'C': return <HeroTheatrical />;
-        case 'D': return <HeroMinimal projects={projects} />;
+        case 'A': return <HeroCinematic />;
+        case 'B': return <HeroMinimal projects={projects} />;
+        case 'C': return <HeroCinematic />;
     }
 };
 
 const renderFeatured = (layout: LayoutKey, projects: Project[]) => {
     switch (layout) {
-        case 'A': return <FeaturedEditorial projects={projects} />;
-        case 'B': return <FeaturedCinematic projects={projects} />;
-        case 'C': return <FeaturedTheatrical projects={projects} />;
-        case 'D': return <FeaturedMinimal projects={projects} />;
+        case 'A': return <FeaturedCinematic projects={projects} />;
+        case 'B': return <FeaturedMinimal projects={projects} />;
+        case 'C': return <FeaturedMinimal projects={projects} />;
     }
 };
 
 export const Home: React.FC = () => {
     const featuredProjects = projectsData.filter(p => p.featured);
-    const [layout, setLayout] = useState<LayoutKey>(() => {
-        const stored = localStorage.getItem(LAYOUT_STORAGE_KEY);
-        return (stored === 'A' || stored === 'B' || stored === 'C' || stored === 'D') ? stored : 'A';
-    });
-
-    useEffect(() => {
-        localStorage.setItem(LAYOUT_STORAGE_KEY, layout);
-    }, [layout]);
+    const layout: LayoutKey = 'C';
 
     const [cookieConsent, setCookieConsent] = useState<string | null>(localStorage.getItem('cookieConsent'));
 
@@ -278,8 +192,6 @@ export const Home: React.FC = () => {
             </section>
 
             <Footer />
-
-            <LayoutPicker options={LAYOUT_OPTIONS} active={layout} onChange={setLayout} />
         </div>
     );
 };

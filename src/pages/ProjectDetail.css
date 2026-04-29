@@ -37,10 +37,10 @@
 .project-detail-title {
     font-family: 'Playfair Display', serif;
     font-weight: 400;
-    font-size: 3rem;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
     line-height: 1.1;
     text-align: center;
-    margin: 0 0 4rem;
+    margin: 0;
 }
 
 .project-detail-top-grid {
@@ -107,6 +107,16 @@
 .project-detail-cta:disabled {
     opacity: 0.45;
     cursor: not-allowed;
+}
+
+.project-detail-cta-note {
+    display: block;
+    font-style: italic;
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    text-transform: lowercase;
+    opacity: 0.7;
+    margin-top: 0.25rem;
 }
 
 .project-detail-hero {
@@ -209,6 +219,18 @@
 
 .project-detail-row.layout-4-col {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.project-detail-row.layout-left-stack {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 0;
+}
+
+.project-detail-row.layout-left-stack > :nth-child(2) {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    height: 100%;
+    object-fit: cover;
 }
 
 .project-detail-credits {

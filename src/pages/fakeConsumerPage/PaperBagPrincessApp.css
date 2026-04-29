@@ -8,9 +8,8 @@
   box-sizing: border-box;
 }
 
-body {
+.PaperBagApp {
   overflow-x: hidden;
-  background: #ffffff;
 }
 
 .PaperBagApp {
@@ -59,7 +58,7 @@ body {
 /* Visit portfolio link */
 .visit-portfolio-wrap {
   text-align: center;
-  padding: 0 40px;
+  padding: 0 16px;
   margin-bottom: 40px;
   position: relative;
   z-index: 20;
@@ -67,17 +66,20 @@ body {
 
 .visit-portfolio {
   display: inline-block;
-  padding: 14px 38px;
-  border: 1px solid #111111;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: clamp(12px, 3vw, 20px) clamp(16px, 6vw, 56px);
+  border: 2px solid #111111;
   font-family: 'Inter', sans-serif;
-  font-weight: 300;
-  font-size: 0.7rem;
+  font-weight: 500;
+  font-size: clamp(0.65rem, 2.4vw, 1rem);
   color: #111111;
-  letter-spacing: 3px;
+  letter-spacing: clamp(0.5px, 0.4vw, 3px);
   text-transform: uppercase;
   text-decoration: none;
-  background: transparent;
+  background: #ffffff;
   transition: background 0.3s ease, color 0.3s ease;
+  word-break: break-word;
 }
 
 .visit-portfolio:hover {
@@ -506,12 +508,31 @@ body {
   margin-bottom: 25px;
 }
 
-.small-print {
-  font-size: 0.6rem;
-  color: #bbbbbb;
-  max-width: 650px;
+.footer p.small-print {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1rem, 1.3vw, 1.4rem);
+  color: #4a4a4a;
+  max-width: 800px;
   margin: 0 auto;
-  line-height: 1.6;
+  line-height: 1.5;
+  letter-spacing: normal;
+}
+
+.footer p.not-a-real-shop {
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #dddddd;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: clamp(0.85rem, 1vw, 1.1rem);
+  letter-spacing: 0.01em;
+  color: #1a1a1a;
+  max-width: 650px;
+  line-height: 1.5;
 }
 
 .manifesto {

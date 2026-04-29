@@ -100,7 +100,7 @@
 .opt1-links {
     display: flex;
     gap: 2rem;
-    font-size: 0.9rem;
+    font-size: 1.05rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     flex-wrap: wrap;
@@ -109,11 +109,12 @@
 .opt1-links a {
     color: #2B2B2B;
     text-decoration: none;
-    transition: opacity 0.2s;
+    transition: color 0.2s ease, text-shadow 0.2s ease;
 }
 
 .opt1-links a:hover {
-    opacity: 0.6;
+    color: #d4af37;
+    text-shadow: 0 0 12px rgba(212, 175, 55, 0.5);
 }
 
 .theme-toggle {

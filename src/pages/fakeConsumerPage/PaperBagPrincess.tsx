@@ -97,9 +97,11 @@ function PaperBagPrincess() {
       </div>
 
       <footer className="footer">
-        <p>© Paper Couture 2026</p>
         <p className="small-print">
           *All prices are subject to existential interpretation. Savings may vary based on perspective. Limited availability strictly enforced by market whim.
+        </p>
+        <p className="not-a-real-shop">
+          P.S.This isn’t a real shop — it’s a concept piece for the Paper Couture project. Nothing here actually for sale.
         </p>
       </footer>
     </div>

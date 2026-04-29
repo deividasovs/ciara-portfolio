@@ -15,6 +15,11 @@
     color: #FDFDFC;
 }
 
+.option1-container.projects-black .opt1-links a:hover {
+    color: #d4af37;
+    text-shadow: 0 0 12px rgba(212, 175, 55, 0.5);
+}
+
 .option1-container.projects-black .opt1-footer {
     background-color: #0A0A0A;
     color: #FDFDFC;
@@ -218,6 +223,7 @@
     font-size: 0.9rem;
     line-height: 1.55;
     color: #C9C6C0;
+    text-align: left;
 }
 
 @media (max-width: 1024px) {
