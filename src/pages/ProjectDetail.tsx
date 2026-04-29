@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Navbar, Footer } from '../components/Layout';
+import { DesignBookModal } from '../components/DesignBookModal';
 import { projectsData, ProjectMedia, ProjectRow, ProjectImage } from '../data/projects';
 import './ProjectDetail.css';
 
@@ -130,6 +131,7 @@ const Row: React.FC<{ row: ProjectRow; title: string }> = ({ row, title }) => {
 export const ProjectDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const project = projectsData.find(p => p.id === id);
+    const [designBookOpen, setDesignBookOpen] = useState(false);
 
     if (!project) {
         return (
@@ -165,14 +167,13 @@ export const ProjectDetail: React.FC = () => {
                                 </Link>
                             )}
                             {project.designBookUrl ? (
-                                <a
-                                    href={project.designBookUrl}
-                                    target="_blank"
-                                    rel="noreferrer noopener"
+                                <button
+                                    type="button"
                                     className="project-detail-cta"
+                                    onClick={() => setDesignBookOpen(true)}
                                 >
                                     Open Design Book
-                                </a>
+                                </button>
                             ) : (
                                 <button
                                     type="button"
@@ -206,6 +207,13 @@ export const ProjectDetail: React.FC = () => {
             </main>
 
             <Footer />
+
+            {designBookOpen && project.designBookUrl && (
+                <DesignBookModal
+                    pdfUrl={project.designBookUrl}
+                    onClose={() => setDesignBookOpen(false)}
+                />
+            )}
         </div>
     );
 };

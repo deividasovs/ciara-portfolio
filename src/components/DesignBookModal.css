@@ -1,0 +1,161 @@
+.design-book-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.92);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    box-sizing: border-box;
+    animation: design-book-fade-in 0.2s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+@keyframes design-book-fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.design-book-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 4;
+    padding: 0;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.design-book-close:hover {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+}
+
+.design-book-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.design-book-spinner {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-top-color: rgba(255, 255, 255, 0.85);
+    animation: design-book-spin 0.9s linear infinite;
+}
+
+@keyframes design-book-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.design-book-loading-text {
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+}
+
+.design-book-shell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.75rem, 2vw, 2rem);
+}
+
+.design-book-frame {
+    position: relative;
+    flex: none;
+}
+
+.design-book-flipbook {
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+}
+
+.design-book-leaf {
+    background: #050505;
+    overflow: hidden;
+}
+
+.design-book-leaf img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+}
+
+.design-book-arrow {
+    flex: none;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: background 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+}
+
+.design-book-arrow:hover:not(:disabled) {
+    background: #fff;
+    color: #000;
+}
+
+.design-book-arrow:disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+}
+
+.design-book-counter {
+    position: absolute;
+    bottom: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .design-book-modal {
+        padding: 0.75rem;
+    }
+
+    .design-book-arrow {
+        width: 40px;
+        height: 40px;
+    }
+
+    .design-book-shell {
+        gap: 0.5rem;
+    }
+}

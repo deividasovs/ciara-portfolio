@@ -83,7 +83,8 @@ export const projectsData: Project[] = [
             }
         ],
         credits: 'Photo credit: TBC',
-        theme: 'dark'
+        theme: 'dark',
+        designBookUrl: '/assets/images/projects/Coco/Coco Design Book Digital.pdf'
     },
     {
         id: 'spaceship-earth',
