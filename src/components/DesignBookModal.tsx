@@ -20,16 +20,6 @@ interface View {
     right: Half | null;
 }
 
-interface FlipState {
-    dir: 'next' | 'prev';
-    fromView: number;
-    toView: number;
-    halfSrc: string;
-    halfSide: HalfSide;
-}
-
-const FLIP_MS = 1100;
-
 function buildViews(pages: string[]): View[] {
     if (pages.length === 0) return [];
     if (pages.length === 1) {
@@ -66,15 +56,11 @@ export const DesignBookModal: React.FC<DesignBookModalProps> = ({ pages, open, o
     const views = useMemo(() => buildViews(pages), [pages]);
     const totalViews = views.length;
 
-    const [leftIndex, setLeftIndex] = useState(0);
-    const [rightIndex, setRightIndex] = useState(0);
-    const [flip, setFlip] = useState<FlipState | null>(null);
+    const [viewIndex, setViewIndex] = useState(0);
 
     useEffect(() => {
         if (!open) {
-            setLeftIndex(0);
-            setRightIndex(0);
-            setFlip(null);
+            setViewIndex(0);
         }
     }, [open]);
 
@@ -87,46 +73,20 @@ export const DesignBookModal: React.FC<DesignBookModalProps> = ({ pages, open, o
         };
     }, [open]);
 
-    const visualIndex = flip ? flip.toView : leftIndex;
-
-    const flipRef = useRef(flip);
-    flipRef.current = flip;
-    const indicesRef = useRef({ left: leftIndex, right: rightIndex });
-    indicesRef.current = { left: leftIndex, right: rightIndex };
+    const indexRef = useRef(viewIndex);
+    indexRef.current = viewIndex;
 
     const goNext = useCallback(() => {
-        const { left, right } = indicesRef.current;
-        const cur = Math.max(left, right);
+        const cur = indexRef.current;
         if (cur >= totalViews - 1) return;
-        const oldView = views[cur];
-        if (!oldView.right) return;
-        setFlip({
-            dir: 'next',
-            fromView: cur,
-            toView: cur + 1,
-            halfSrc: oldView.right.src,
-            halfSide: oldView.right.side,
-        });
-        setLeftIndex(cur + 1);
-        setRightIndex(cur + 1);
-    }, [totalViews, views]);
+        setViewIndex(cur + 1);
+    }, [totalViews]);
 
     const goPrev = useCallback(() => {
-        const { left, right } = indicesRef.current;
-        const cur = Math.min(left, right);
+        const cur = indexRef.current;
         if (cur <= 0) return;
-        const oldView = views[cur];
-        if (!oldView.left) return;
-        setFlip({
-            dir: 'prev',
-            fromView: cur,
-            toView: cur - 1,
-            halfSrc: oldView.left.src,
-            halfSide: oldView.left.side,
-        });
-        setLeftIndex(cur - 1);
-        setRightIndex(cur - 1);
-    }, [views]);
+        setViewIndex(cur - 1);
+    }, []);
 
     useEffect(() => {
         if (!open) return;
@@ -145,23 +105,19 @@ export const DesignBookModal: React.FC<DesignBookModalProps> = ({ pages, open, o
 
     useEffect(() => {
         if (!open) return;
-        const targets = [visualIndex - 1, visualIndex, visualIndex + 1, visualIndex + 2];
+        const targets = [viewIndex - 1, viewIndex, viewIndex + 1, viewIndex + 2];
         targets.forEach(i => {
             if (i < 0 || i >= pages.length) return;
             const img = new Image();
             img.src = pages[i];
         });
-    }, [open, visualIndex, pages]);
+    }, [open, viewIndex, pages]);
 
     if (!open) return null;
 
-    const onFlipEnd = (e: React.AnimationEvent) => {
-        if (e.target !== e.currentTarget) return;
-        setFlip(null);
-    };
-
-    const leftView = views[leftIndex];
-    const rightView = views[rightIndex];
+    const view = views[viewIndex];
+    const isSinglePage = !view?.left || !view?.right;
+    const stageClassName = `design-book-stage${isSinglePage ? ' design-book-stage--single' : ''}`;
 
     return (
         <div
@@ -183,41 +139,24 @@ export const DesignBookModal: React.FC<DesignBookModalProps> = ({ pages, open, o
                 </svg>
             </button>
 
-            <div className="design-book-stage" onClick={e => e.stopPropagation()}>
-                <div
-                    className="design-book-half design-book-half--left"
-                    style={halfBackgroundStyle(leftView?.left ?? null)}
-                />
-                <div
-                    className="design-book-half design-book-half--right"
-                    style={halfBackgroundStyle(rightView?.right ?? null)}
-                />
+            <div className={stageClassName} onClick={e => e.stopPropagation()}>
+                <div className="design-book-spread">
+                    {view?.left && (
+                        <div
+                            className="design-book-half design-book-half--left"
+                            style={halfBackgroundStyle(view.left)}
+                        />
+                    )}
+                    {view?.right && (
+                        <div
+                            className="design-book-half design-book-half--right"
+                            style={halfBackgroundStyle(view.right)}
+                        />
+                    )}
+                    {!isSinglePage && <div className="design-book-gutter" aria-hidden="true" />}
+                </div>
 
-                {flip && (
-                    <div
-                        key={`${flip.fromView}-${flip.toView}-${flip.dir}`}
-                        className={`design-book-flip design-book-flip--${flip.dir}`}
-                        style={{
-                            animationDuration: `${FLIP_MS}ms`,
-                            ['--flip-ms' as any]: `${FLIP_MS}ms`,
-                        }}
-                        onAnimationEnd={onFlipEnd}
-                    >
-                        <div className="design-book-flip-lift">
-                            <div
-                                className="design-book-flip-face design-book-flip-front"
-                                style={halfBackgroundStyle({ src: flip.halfSrc, side: flip.halfSide })}
-                            >
-                                <span className="design-book-flip-shade design-book-flip-shade--front" />
-                            </div>
-                            <div className="design-book-flip-face design-book-flip-back">
-                                <span className="design-book-flip-shade design-book-flip-shade--back" />
-                            </div>
-                        </div>
-                    </div>
-                )}
-
-                {visualIndex > 0 && (
+                {viewIndex > 0 && (
                     <button
                         type="button"
                         className="design-book-arrow design-book-arrow--prev"
@@ -229,7 +168,7 @@ export const DesignBookModal: React.FC<DesignBookModalProps> = ({ pages, open, o
                         </svg>
                     </button>
                 )}
-                {visualIndex < totalViews - 1 && (
+                {viewIndex < totalViews - 1 && (
                     <button
                         type="button"
                         className="design-book-arrow design-book-arrow--next"
@@ -244,7 +183,7 @@ export const DesignBookModal: React.FC<DesignBookModalProps> = ({ pages, open, o
             </div>
 
             <div className="design-book-counter" onClick={e => e.stopPropagation()}>
-                {visualIndex + 1} / {totalViews}
+                {viewIndex + 1} / {totalViews}
             </div>
         </div>
     );

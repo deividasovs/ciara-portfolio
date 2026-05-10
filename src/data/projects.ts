@@ -42,6 +42,10 @@ const cocoDesignBookPages: string[] = Array.from({ length: 41 }, (_, i) =>
     `/assets/images/projects/Coco/designbook/page-${String(i + 1).padStart(3, '0')}.jpg`
 );
 
+const paperbagPrincessDesignBookPages: string[] = Array.from({ length: 41 }, (_, i) =>
+    `/assets/images/projects/paperbag-princess/designbook/page-${String(i + 1).padStart(3, '0')}.jpg`
+);
+
 export const projectsData: Project[] = [
     {
         id: 'the-paperbag-princess',
@@ -50,7 +54,7 @@ export const projectsData: Project[] = [
         longDesc: "Princess Elizabeth had all the dresses a storybook royal could dream of. But when a dragon scorches her castle, steals her prince, and leaves her with nothing but ashes and a paper bag, she doesn't crumble — she rises. In her shredded dignity and a makeshift outfit, she faces fire, tricks a monster, and saves the prince. But when he mocks her for how she looks, Elizabeth sees the truth: the fairytale isn’t real — but she is. She tears off the paper bag and becomes something new — a princess of her own making. Bold, raw, and reassembled, her final look is a declaration: no prince, no crown, no rules. Just power, paper, and pride.",
         date: '2026',
         featured: true,
-        thumbnailUrl: '/assets/images/projects/paperbag-princess/princess-back.png',
+        thumbnailUrl: '/assets/images/projects/paperbag-princess/featured-hautemesstilted.jpg',
         topHorizontalImage: '/assets/images/projects/paperbag-princess/prince.png',
         carousel: [
         
@@ -62,11 +66,17 @@ export const projectsData: Project[] = [
         ],
         images: [
             {
+                layout: '1-col',
+                heading: 'Paper Couture performance line-up',
+                images: [
+                    '/assets/images/projects/paperbag-princess/paperbaglineup.PNG'
+                ]
+            },
+            {
                 layout: 'left-stack',
                 images: [
                     '/assets/images/projects/paperbag-princess/prince.png',
-                    '/assets/images/projects/paperbag-princess/princess-back.png',
-                    '/assets/images/projects/paperbag-princess/Final Line-Up.png'
+                    '/assets/images/projects/paperbag-princess/princess-back.png'
                 ]
             }
         ],
@@ -74,7 +84,7 @@ export const projectsData: Project[] = [
         theme: 'light',
         link: '/interactive/paperbagprincess',
         linkLabel: 'Step Inside the Shop',
-        designBookComingSoon: true
+        designBookPages: paperbagPrincessDesignBookPages
     },
     {
         id: 'Coco',
@@ -83,7 +93,7 @@ export const projectsData: Project[] = [
         longDesc: 'Exploring the vibrant culture of Mexico and Dia de los Muertos through the lens of Pixar\'s Coco. This project is a celebration of life, death, and the importance of family and rememberance. Looking into both traditional Mexican dress and parade culture, bringing in elemnets of lantern puppetry to bring the alebrijes inspired spirit guides to life on stage.',
         date: '2026',
         featured: true,
-        thumbnailUrl: '/assets/images/projects/Coco/pepitafinal.png',
+        thumbnailUrl: '/assets/images/projects/Coco/featured-Coco.jpg',
         carousel: [
             { kind: 'video', src: '/assets/images/projects/Coco/Pepita.mov' },
             { kind: 'image', src: '/assets/images/projects/Coco/lauradance.jpg', alt: 'Pepita illustration' },
@@ -92,6 +102,13 @@ export const projectsData: Project[] = [
             { kind: 'image', src: '/assets/images/projects/Coco/lauralit.jpg', alt: 'Performance dance' }
         ],
         images: [
+            {
+                layout: '1-col',
+                heading: 'Coco performance line-up',
+                images: [
+                    '/assets/images/projects/Coco/cocolineup.JPEG'
+                ]
+            },
             {
                 layout: '2-col',
                 images: [
@@ -111,7 +128,7 @@ export const projectsData: Project[] = [
         longDesc: 'This project envisions a sustainable music festival set 100 years from now. Inspired by bioluminescent organisms, I imagined a world where genetically modified plants provide natural lighting and clean air. From this idea, I designed characters that coexist with humans, with costumes reflecting bioluminescence and sustainable values. My final design was inspired by coral and made using discarded tent fabric, highlighting reuse and eco-conscious design in future performance.',
         date: '2025',
         featured: true,
-        thumbnailUrl: '/assets/images/projects/spaceship-earth/coral-illustration.PNG',
+        thumbnailUrl: '/assets/images/projects/spaceship-earth/featured-Coral.PNG',
         topHorizontalImage: '/assets/images/projects/spaceship-earth/coral-collage.png',
         carousel: [
             { kind: 'image', src: '/assets/images/projects/spaceship-earth/coralunposterized1.JPG', alt: 'Coral costume 1' },
@@ -145,7 +162,7 @@ export const projectsData: Project[] = [
         longDesc: "A redesign project of Macbeth by William Shakespeare, this brief challenged me to reinterpret the play in a randomly assigned historical period, using orange waxed cotton paired with donated Harris Tweed. I reimagined Macbeth as a Macaroni man — a flamboyant, extravagantly dressed gentleman of the 1770s. The exaggerated silhouette, bold colour, and rich textures reflect his ambition, insecurity, and descent into excess, using 18th-century dandyism to mirror his psychological unraveling. I drafted and adapted the garment from an original historical pattern, refining it to modern proportions while maintaining period authenticity.",
         date: '2025',
         featured: false,
-        thumbnailUrl: '/assets/images/projects/Macbeth/macbethillustration-back.png',
+        thumbnailUrl: '/assets/images/projects/Macbeth/featured-Macbeth.jpeg',
         topHorizontalImage: '/assets/images/projects/Macbeth/Deivobsessed.png',
         carousel: [
             { kind: 'image', src: '/assets/images/projects/Macbeth/Deivobsessed.png', alt: 'Macbeth costume on stairs' },
@@ -173,7 +190,7 @@ export const projectsData: Project[] = [
         longDesc: "Designed for the children's French opera L'Ènfant et les Sortilèges, this costume draws inspiration from vibrant and bold aesthetic of the French circus. Its colourful design is intended to captivate and engage young audiences. Additionally, it features integrated lighting along the bottom, adding an extra layer of magic and visual interest.",
         date: '2024',
         featured: false,
-        thumbnailUrl: '/assets/images/projects/circus/smile.JPG',
+        thumbnailUrl: '/assets/images/projects/circus/featured-Circus.PNG',
         topHorizontalImage: '/assets/images/projects/circus/circus-ecashow.png',
         carousel: [
             { kind: 'image', src: '/assets/images/projects/circus/circus-ecashow2.png', alt: 'Circus ECA show 2' },

@@ -100,7 +100,7 @@
 .opt1-links {
     display: flex;
     gap: 2rem;
-    font-size: 1.05rem;
+    font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     flex-wrap: wrap;
